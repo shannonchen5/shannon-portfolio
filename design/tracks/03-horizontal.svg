@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 280" width="960" height="560" role="img" aria-labelledby="title desc">
+  <title id="title">Horizontal Sweep — plum three-lane track</title>
+  <desc id="desc">Vector track design for Shannon Chen portfolio. Three parallel lanes with rounded caps. Colors: mustard, lavender, plum, forest green on warm white.</desc>
+  <rect width="100%" height="100%" fill="#FFFDFA"/>
+  <g id="track-horizontal" data-track="track-horizontal">
+    <path id="track-horizontal-lane-1" d="M -20 120 L 500 120" fill="none" stroke="#7B4A68" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/>
+    <path id="track-horizontal-lane-2" d="M -20 140 L 500 140" fill="none" stroke="#7B4A68" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/>
+    <path id="track-horizontal-lane-3" d="M -20 160 L 500 160" fill="none" stroke="#7B4A68" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+</svg>

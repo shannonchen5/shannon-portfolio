@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="1000" viewBox="0 0 1000 1000" role="img" aria-label="Placeholder media">
+  <rect width="1000" height="1000" fill="#FBF8F2"/>
+  <rect x="50" y="50" width="900" height="900" rx="32" fill="#E8DFCF"/>
+  <circle cx="500" cy="500" r="180" fill="#F8DFD0" stroke="#D4561C" stroke-width="10"/>
+  <text x="90" y="140" font-family="system-ui,sans-serif" font-size="36" fill="#6B6257">[Square media]</text>
+</svg>

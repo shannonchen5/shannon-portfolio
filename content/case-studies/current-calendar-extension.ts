@@ -1,0 +1,167 @@
+import type { CaseStudy } from "./_schema";
+
+const study: CaseStudy = {
+  slug: "current-calendar-extension",
+  title: "Turning Google Calendar into a place for goals, not just meetings",
+  category: "digital",
+  summary:
+    "A 10-week product design capstone, built as one of 16 fellows selected for the Product Space fellowship",
+  role: "Product Marketer + Vibecoder",
+  duration: "10 weeks",
+  team: "Three-person team (product manager, product designer, product marketer + vibecoder)",
+  tools: ["Figma", "Cursor", "GitHub", "Google Cloud APIs"],
+  cover: {
+    src: "/media/placeholders/cover-digital-b.svg",
+    alt: "Current Chrome extension for Google Calendar case study cover",
+    aspectRatio: "16 / 10",
+  },
+  featured: true,
+  stats: [
+    { value: "47", label: "Survey responses" },
+    { value: "12", label: "Interviews" },
+    { value: "$109M", label: "Modeled SOM" },
+    { value: "5/5", label: "Goal tracking rating in testing" },
+  ],
+  sections: [
+    {
+      id: "overview",
+      title: "Overview",
+      blocks: [
+        {
+          type: "richText",
+          content:
+            "Google Calendar has over 500 million global active users, but ask any of them where their to-do list lives and the answer is rarely in Google Calendar. It's in a bullet journal, a notes app, or a sticky note on a monitor.\n\nI run into this problem every day: long-term goals feel too big to plan for, and my paper to-do list stays perpetually disorganized. That friction is what pulled me into this project as the Product Marketer + Vibecoder on a three-person team, working alongside a product manager and product designer over a 10-week capstone.",
+        },
+        {
+          type: "callout",
+          content:
+            "Selected as one of 16 fellows for the Product Space fellowship.",
+        },
+      ],
+    },
+    {
+      id: "problem",
+      title: "The Problem",
+      blocks: [
+        {
+          type: "richText",
+          content:
+            "Google Calendar handles events well, but it has no real answer for tasks or long-term goals. For Google, that's not a small gap. I modeled the opportunity at roughly $109M in serviceable obtainable market, based on student market share, which reframed this from a nice-to-have feature request into a credible monetization path Google is currently leaving on the table.",
+        },
+      ],
+    },
+    {
+      id: "discovery",
+      title: "Discovery",
+      blocks: [
+        {
+          type: "richText",
+          content:
+            "Before designing anything, I needed to know whether the fragmentation I felt was universal or just my own habits. We ran 47 survey responses and 12 interviews to find out. 70% of respondents used Google Calendar as their primary planning tool but relied on separate apps for tasks. 58% used sticky notes or whiteboards for spontaneous to-dos. 48% rarely scheduled long-term goals at all. The most telling number: 80% of respondents completed less than 80% of what they actually scheduled. One theme ran through nearly every interview: people separate \"events\" (classes, meetings) from \"tasks\" (homework, applications) in how they think, but Google Calendar only gives them a home for events.",
+        },
+        {
+          type: "stats",
+          items: [
+            {
+              value: "70%",
+              label: "Used Calendar as primary planner, but separate apps for tasks",
+            },
+            {
+              value: "80%",
+              label: "Completed less than 80% of what they scheduled",
+            },
+          ],
+        },
+        {
+          type: "richText",
+          content:
+            "To understand the market landscape, I led a competitive analysis of Notion Calendar, Todoist, Jira, and Microsoft Outlook. Notion Calendar came closest to solving task-event integration, but only if Notion was already someone's recording system. This would be a real switching cost for students already spread across Canvas, Google Calendar, and sticky notes. Kanban-based planning tools existed too, but came with high subscription costs. The analysis confirmed the opportunity wasn't a better standalone product. It was removing the switching cost entirely by building inside the calendar people already had open all day.",
+        },
+      ],
+    },
+    {
+      id: "design",
+      title: "From Flows to a Design That Survived Contact with Real Users",
+      blocks: [
+        {
+          type: "richText",
+          content:
+            "With the two gaps defined, we decided on two main flows. First one being a task sidebar with a collapsible accordion sorted by due date, which is connected to an expanded view of a to do, in progress, and completed kanban board. The second one being a goal-tracking flow that lets users set recurring \"sessions\" toward a long-term goal directly on the calendar. After mid-fidelity designs in Figma, we tested these features through structured user testing (5 sessions) and regular mentor check-ins.\n\nUser testing revealed important oversight with our goal-tracking flow. Testing showed that a bare time block for a goal session didn't feel meaningful on its own. One tester put it bluntly: \"a 1-hour 'internship applications' block didn't feel compelling,\" and the progress meter felt hollow if it didn't reflect actual work completed. That sent the goal-tracking UI back into iteration, allowing us to rebuild long-term goal sessions with subtask checklists tied directly to the progress meter, so completing real work is what moves the needle, not just logging time.",
+        },
+        {
+          type: "image",
+          src: "/media/placeholders/media-wide.svg",
+          alt: "[Add Current extension UI screenshots or flows here]",
+          aspectRatio: "16 / 9",
+        },
+        {
+          type: "callout",
+          content:
+            "\"A 1-hour 'internship applications' block didn't feel compelling\" — user testing pushed us to tie progress to real subtasks, not just time logged.",
+        },
+        {
+          type: "richText",
+          content:
+            "We also walked away from three directions before landing here. Early on, we considered a full \"adaptive scheduling agent\" with AI-suggested timing, burnout detection, and success-probability scoring. However, it was too much scope for a 10-week timeline and risked shipping something gimmicky instead of solving the structural problem we'd actually validated. We considered a standalone app instead of a Google Calendar extension, which would have given us more design freedom, but it reintroduced the exact switching-cost problem our research had identified. And we looked at fully automating task rescheduling to reduce user effort, but both mentor and user feedback were clear: people wanted suggested times they could adjust, not a system making the decision for them.",
+        },
+      ],
+    },
+    {
+      id: "build",
+      title: "Building It: From Figma to a Working Extension",
+      blocks: [
+        {
+          type: "richText",
+          content:
+            "Once the designs were validated, I was in charge of making the prototypes real. I pulled our Figma MCP components directly into Cursor and vibecoded the Chrome extension through consistent coaching and tweaking of the AI agent. The Figma MCPs were wired up to Google Calendar through Google Cloud APIs and I managed version control through GitHub.\n\nBecause the task sidebar and the goal-tracking flow were built out separately as distinct features, merging them into one working extension was difficult. I had to track down conflicts where both features touched the same calendar views, reconciling duplicated logic, and getting the extension into a state where it could actually be packaged, shared, and downloaded as a file rather than just running locally in a dev environment. I took the time to progress the working code to something installable through the real Chrome extension process.",
+        },
+      ],
+    },
+    {
+      id: "solution",
+      title: "The Final Design",
+      blocks: [
+        {
+          type: "richText",
+          content:
+            "Meet Current. The Chrome extension that turns long-term goals and daily tasks into structured, measurable progress inside your calendar. Current solves both gaps we identified: tasks living outside events, and long-term goals having no home, inside the one tool users already opened daily. The original AI-agent concept was scoped down to a focused MVP: goal-to-calendar time blocking and a task sidebar with kanban functionality.",
+        },
+        {
+          type: "quote",
+          text: "A current doesn't just push you, it carries you. It's natural, it's powerful, and it's invisible until you look back and see how far you've moved.",
+        },
+      ],
+    },
+    {
+      id: "results",
+      title: "Impact",
+      blocks: [
+        {
+          type: "stats",
+          items: [
+            { value: "5/5", label: "Long-term goal tracking rating in user testing" },
+            { value: "$109M", label: "Modeled serviceable obtainable market" },
+          ],
+        },
+        {
+          type: "richText",
+          content:
+            "Without a live launch, we didn't have adoption or retention numbers to point to, so we leaned on what we could validate: the long-term goal tracking feature earned a 5 out of 5 rating in user testing. On the business side, the $109M serviceable obtainable market model gave the concept real weight beyond a class project. It's the difference between \"here's a feature idea\" and \"here's a monetization path with a market-sized number attached to it.\"",
+        },
+      ],
+    },
+    {
+      id: "reflection",
+      title: "Reflection",
+      blocks: [
+        {
+          type: "richText",
+          content:
+            "Looking ahead, the next step is deploying our extension to the Chrome Web Store. We are continuing to edit the functionality of the two user flows to make sure it is ready for licensing approval. Once the license is obtained, we plan on marketing it on the real Chrome Web Store.",
+        },
+      ],
+    },
+  ],
+};
+
+export default study;

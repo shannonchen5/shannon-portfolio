@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1000" viewBox="0 0 1600 1000" role="img" aria-label="Kitchens for Good case study cover">
+  <rect width="1600" height="1000" fill="#FFFDFA"/>
+  <rect x="80" y="80" width="1440" height="840" rx="40" fill="#FBE7D3"/>
+  <path d="M200 720 C 500 420, 900 820, 1400 360" fill="none" stroke="#F2A93B" stroke-width="28" stroke-linecap="round"/>
+  <circle cx="1180" cy="420" r="48" fill="#7B4A68"/>
+  <text x="120" y="200" font-family="system-ui,sans-serif" font-size="52" font-weight="700" fill="#7B4A68">Kitchens for Good</text>
+  <text x="120" y="270" font-family="system-ui,sans-serif" font-size="28" fill="#6E5A6E">Website redesign · UX research &amp; design</text>
+</svg>

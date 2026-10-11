@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 280" width="960" height="560" role="img" aria-labelledby="title desc">
+  <title id="title">Oval Loop around the two — mustard oval encircling lavender + plum tracks with forest weave at their crossing</title>
+  <desc id="desc">Vector track design for Shannon Chen portfolio. Three parallel lanes with rounded caps. Colors: mustard, lavender, plum, forest green on warm white.</desc>
+  <rect width="100%" height="100%" fill="#FFFDFA"/>
+  <g id="track-vertical" data-track="track-vertical">
+    <path id="track-vertical-lane-1" d="M 260 -20 L 260 300" fill="none" stroke="#D5CBE0" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/>
+    <path id="track-vertical-lane-2" d="M 240 -20 L 240 300" fill="none" stroke="#D5CBE0" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/>
+    <path id="track-vertical-lane-3" d="M 220 -20 L 220 300" fill="none" stroke="#D5CBE0" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+  <g id="track-horizontal" data-track="track-horizontal">
+    <path id="track-horizontal-lane-1" d="M -20 120 L 500 120" fill="none" stroke="#7B4A68" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/>
+    <path id="track-horizontal-lane-2" d="M -20 140 L 500 140" fill="none" stroke="#7B4A68" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/>
+    <path id="track-horizontal-lane-3" d="M -20 160 L 500 160" fill="none" stroke="#7B4A68" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+  <g id="interlace" aria-hidden="true">
+    <rect x="210" y="110" width="20" height="20" fill="#2E3B2B"/>
+    <rect x="250" y="110" width="20" height="20" fill="#2E3B2B"/>
+    <rect x="230" y="130" width="20" height="20" fill="#2E3B2B"/>
+    <rect x="210" y="150" width="20" height="20" fill="#2E3B2B"/>
+    <rect x="250" y="150" width="20" height="20" fill="#2E3B2B"/>
+  </g>
+  <g id="oval-loop" data-track="oval-loop">
+    <path id="oval-loop-lane-1" d="M 120 36 L 360 36 A 104.001 104.001 0 0 1 359.90241086403427 243.99976190759634 L 120 244 A 104.001 104.001 0 0 1 120.0975891359657 36.00023809240366" fill="none" stroke="#F2A93B" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/>
+    <path id="oval-loop-lane-2" d="M 120 56 L 360 56 A 84.001 84.001 0 0 1 360 224 L 120 224 A 84.001 84.001 0 0 1 120 56" fill="none" stroke="#F2A93B" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/>
+    <path id="oval-loop-lane-3" d="M 120 76 L 360 76 A 64.001 64.001 0 0 1 360.09758913596573 204.00023809240366 L 120 204 A 64.001 64.001 0 0 1 119.9024108640343 75.99976190759634" fill="none" stroke="#F2A93B" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+</svg>

@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1000" viewBox="0 0 1600 1000" role="img" aria-label="Current calendar extension case study cover">
+  <rect width="1600" height="1000" fill="#FFFDFA"/>
+  <rect x="80" y="80" width="1440" height="840" rx="40" fill="#EDE6F3"/>
+  <circle cx="520" cy="480" r="160" fill="#FBE7D3"/>
+  <circle cx="780" cy="480" r="160" fill="#F2A93B" opacity="0.9"/>
+  <circle cx="1040" cy="480" r="160" fill="#7B4A68" opacity="0.85"/>
+  <text x="120" y="200" font-family="system-ui,sans-serif" font-size="52" font-weight="700" fill="#7B4A68">Current</text>
+  <text x="120" y="270" font-family="system-ui,sans-serif" font-size="28" fill="#6E5A6E">Google Calendar Chrome extension · Product Space</text>
+</svg>

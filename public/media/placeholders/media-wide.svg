@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-label="Placeholder media">
+  <rect width="1600" height="900" fill="#FBF8F2"/>
+  <rect x="60" y="60" width="1480" height="780" rx="32" fill="#E8DFCF"/>
+  <text x="120" y="160" font-family="system-ui,sans-serif" font-size="42" fill="#6B6257">[Wide media placeholder]</text>
+  <rect x="420" y="280" width="760" height="420" rx="24" fill="#F8DFD0" stroke="#D4561C" stroke-width="8"/>
+</svg>

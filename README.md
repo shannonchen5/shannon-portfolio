@@ -1,36 +1,120 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Shannon Chen — Portfolio
 
-## Getting Started
+Running-themed UX/product design portfolio built with Next.js (App Router), TypeScript, Tailwind CSS, and Motion.
 
-First, run the development server:
+## Getting started
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000).
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```bash
+npm run build   # production build
+npm run start   # serve production build
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Deploy on Vercel by importing this repo (no special config required).
 
-## Learn More
+## Design tokens
 
-To learn more about Next.js, take a look at the following resources:
+Colors, type, radii, and shadows live in `app/globals.css` as CSS variables and Tailwind `@theme` tokens. Change them once to restyle the site.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## How to add a new case study
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+1. Add images/videos under `public/media/your-project/`.
+2. Copy the starter below into `content/case-studies/your-slug.ts`.
+3. Import and register it in `content/case-studies/index.ts`.
+4. That’s it — `/work/your-slug`, category indexes, and the timeline checkpoints update automatically from `sections[]`.
 
-## Deploy on Vercel
+### Starter file
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+```ts
+import type { CaseStudy } from "./_schema";
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+const study: CaseStudy = {
+  slug: "your-slug",
+  title: "[Project title]",
+  category: "digital", // or "physical"
+  summary: "[Your one-line summary here.]",
+  role: "[Your role]",
+  duration: "[Timeline / duration]",
+  team: "[Team composition]",
+  tools: ["[Tool 1]", "[Tool 2]"],
+  cover: {
+    src: "/media/your-project/cover.jpg",
+    alt: "[Cover image alt text]",
+    aspectRatio: "16 / 10",
+  },
+  featured: true,
+  stats: [
+    { value: "[Stat]", label: "[Label]" },
+  ],
+  sections: [
+    {
+      id: "overview",
+      title: "Overview",
+      blocks: [
+        { type: "richText", content: "[Your copy here.]" },
+      ],
+    },
+    {
+      id: "research",
+      title: "Research",
+      blocks: [
+        { type: "richText", content: "[Your copy here.]" },
+      ],
+    },
+    {
+      id: "design",
+      title: "Design",
+      blocks: [
+        {
+          type: "image",
+          src: "/media/your-project/screen.jpg",
+          alt: "[Alt text]",
+          aspectRatio: "16 / 9",
+        },
+      ],
+    },
+    {
+      id: "results",
+      title: "Results",
+      blocks: [
+        { type: "richText", content: "[Your copy here.]" },
+      ],
+    },
+  ],
+};
+
+export default study;
+```
+
+Register it:
+
+```ts
+// content/case-studies/index.ts
+import yourStudy from "./your-slug";
+
+const caseStudies: CaseStudy[] = [
+  // ...existing
+  yourStudy,
+];
+```
+
+### Supported block types
+
+`richText` · `image` · `imageGallery` · `video` · `twoColumn` · `quote` · `stats` · `callout` · `comparison` · `custom`
+
+## Project structure
+
+- `app/` — routes (Home, Digital, Physical, Work, About, Contact)
+- `components/` — UI, layout, hero tracks, case study template
+- `content/` — typed site + case study data
+- `public/media/` — images and screen recordings
+
+## Placeholder policy
+
+Copy, stats, and claims use obvious placeholders like `[Your copy here]` until you replace them with real content.
