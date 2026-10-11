@@ -3,8 +3,15 @@
 import { useReducedMotion } from "motion/react";
 import { STrackOval } from "@/components/home/STrackOval";
 import { Button } from "@/components/ui/Button";
+import { site as siteDefaults } from "@/content/site";
 
-export function HeroSection() {
+type HeroSectionProps = {
+  intro?: string;
+};
+
+export function HeroSection({
+  intro = siteDefaults.hero.intro,
+}: HeroSectionProps) {
   const reduced = useReducedMotion();
 
   return (
@@ -24,8 +31,7 @@ export function HeroSection() {
         </h1>
 
         <p className="mt-8 max-w-xl text-body text-text-muted sm:mt-10">
-          [Your intro line here.] UC San Diego — Cognitive Science, Design and
-          Interaction.
+          {intro}
         </p>
 
         <div className="mt-8 flex flex-wrap gap-3">

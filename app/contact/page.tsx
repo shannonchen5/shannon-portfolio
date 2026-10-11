@@ -18,7 +18,6 @@ export default function ContactPage() {
           eyebrow="Contact"
           title="Let's Connect"
           description="[Your copy here — how you like to be reached and what kinds of opportunities interest you.]"
-          trackColor="mustard"
         />
 
         <div className="mt-10 flex flex-wrap gap-3">

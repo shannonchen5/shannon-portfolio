@@ -1,12 +1,12 @@
 import type { CaseStudy, Category } from "./_schema";
-import kitchensForGood from "./kitchens-for-good";
-import currentCalendar from "./current-calendar-extension";
-import autumnMoon from "./autumn-moon-festival";
+import kitchensForGood from "./kitchens-for-good.json";
+import currentCalendar from "./current-calendar-extension.json";
+import autumnMoon from "./autumn-moon-festival.json";
 
 const caseStudies: CaseStudy[] = [
-  kitchensForGood,
-  currentCalendar,
-  autumnMoon,
+  kitchensForGood as CaseStudy,
+  currentCalendar as CaseStudy,
+  autumnMoon as CaseStudy,
 ];
 
 export function getAllCaseStudies(): CaseStudy[] {

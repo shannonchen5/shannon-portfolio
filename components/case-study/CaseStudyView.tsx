@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import type { CaseStudy } from "@/content/case-studies/_schema";
 import { BlockRenderer } from "./blocks/BlockRenderer";
+import { CaseStudyBrand } from "./CaseStudyBrand";
 import { ProgressTimeline } from "./ProgressTimeline";
 import { Button } from "@/components/ui/Button";
 
@@ -13,9 +14,17 @@ type CaseStudyViewProps = {
 export function CaseStudyView({ study, next }: CaseStudyViewProps) {
   return (
     <article>
+      {study.brand ? (
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `document.documentElement.setAttribute("data-brand",${JSON.stringify(study.brand)});`,
+          }}
+        />
+      ) : null}
+      <CaseStudyBrand brand={study.brand} />
       <header className="mx-auto max-w-6xl px-5 pb-10 pt-12 sm:px-8 sm:pt-16">
         <p className="text-eyebrow text-plum">{study.category} product</p>
-        <h1 className="mt-3 text-h1 text-text">{study.title}</h1>
+        <h1 className="mt-3 text-h1 text-plum">{study.title}</h1>
         <p className="mt-4 max-w-2xl text-body text-text-muted">{study.summary}</p>
 
         <dl className="mt-10 grid gap-6 border-y border-border py-8 sm:grid-cols-2 lg:grid-cols-4">
@@ -73,12 +82,15 @@ export function CaseStudyView({ study, next }: CaseStudyViewProps) {
           ))}
 
           {next ? (
-            <footer className="mt-8 rounded-3xl border border-border bg-surface px-6 py-10 sm:px-10">
+            <footer
+              data-brand={next.brand}
+              className="mt-8 rounded-3xl border border-border bg-surface px-6 py-10 sm:px-10"
+            >
               <p className="text-eyebrow text-text-muted">Next case study</p>
               <h2 className="mt-3 text-h2">
                 <Link
                   href={`/work/${next.slug}`}
-                  className="link-highlight link-highlight-lg text-text"
+                  className="link-highlight link-highlight-lg text-plum"
                 >
                   {next.title}
                 </Link>

@@ -1,0 +1,72 @@
+fragment SiteParts on Site {
+  __typename
+  name
+  title
+  description
+  email
+  socials {
+    __typename
+    label
+    href
+  }
+  nav {
+    __typename
+    label
+    href
+  }
+  about {
+    __typename
+    headline
+    body
+    extended
+  }
+  hero {
+    __typename
+    intro
+  }
+}
+
+fragment CaseStudyParts on CaseStudy {
+  __typename
+  slug
+  title
+  category
+  summary
+  role
+  duration
+  team
+  tools
+  cover {
+    __typename
+    src
+    alt
+    aspectRatio
+  }
+  featured
+  brand
+  stats {
+    __typename
+    value
+    label
+  }
+  sections {
+    __typename
+    id
+    title
+    blocks {
+      __typename
+      type
+      content
+      text
+      attribution
+      src
+      alt
+      aspectRatio
+      items {
+        __typename
+        value
+        label
+      }
+    }
+  }
+}

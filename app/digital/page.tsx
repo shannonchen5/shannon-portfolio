@@ -21,7 +21,6 @@ export default function DigitalPage() {
           eyebrow="Work"
           title="Digital Products"
           description="[Your copy here — intro to digital product work.]"
-          trackColor="mustard"
         />
       </FadeIn>
 

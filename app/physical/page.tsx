@@ -21,7 +21,6 @@ export default function PhysicalPage() {
           eyebrow="Work"
           title="Physical Products"
           description="[Your copy here — intro to physical product work.]"
-          trackColor="plum"
         />
       </FadeIn>
 

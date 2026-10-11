@@ -112,7 +112,7 @@ export function BlockRenderer({ block }: { block: Block }) {
 
     case "callout":
       return (
-        <aside className="rounded-2xl border border-border bg-accent-tint/60 px-6 py-5 text-body text-text">
+        <aside className="case-callout rounded-2xl border border-border bg-accent-tint/60 px-6 py-5 text-body text-text">
           {block.content}
         </aside>
       );

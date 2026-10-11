@@ -21,6 +21,10 @@ const HeroSection = dynamic(
   },
 );
 
-export function HeroTracksLazy() {
-  return <HeroSection />;
+type HeroTracksLazyProps = {
+  intro?: string;
+};
+
+export function HeroTracksLazy({ intro }: HeroTracksLazyProps) {
+  return <HeroSection intro={intro} />;
 }

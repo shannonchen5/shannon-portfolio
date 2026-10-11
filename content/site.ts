@@ -1,24 +1,5 @@
-export const site = {
-  name: "Shannon Chen",
-  title: "Shannon Chen — Product Designer",
-  description:
-    "UX and product design portfolio themed around running. Digital and physical product case studies.",
-  email: "hello@example.com",
-  socials: [
-    { label: "LinkedIn", href: "https://linkedin.com" },
-    { label: "Email", href: "mailto:hello@example.com" },
-  ],
-  nav: [
-    { label: "Home", href: "/" },
-    { label: "Digital", href: "/digital" },
-    { label: "Physical", href: "/physical" },
-    { label: "About", href: "/about" },
-    { label: "Contact", href: "/contact" },
-  ],
-  about: {
-    headline: "About",
-    body: "I'm a student at UC San Diego studying Cognitive Science with a specialization in Design and Interaction.",
-    extended:
-      "[Your copy here — longer about bio, interests, and running theme connection.]",
-  },
-} as const;
+import siteJson from "./site.json";
+
+export type SiteContent = typeof siteJson;
+
+export const site: SiteContent = siteJson;

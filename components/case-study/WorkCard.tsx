@@ -3,7 +3,6 @@
 import Link from "next/link";
 import { motion, useReducedMotion } from "motion/react";
 import type { CaseStudy } from "@/content/case-studies/_schema";
-import { TrackCorner } from "@/components/track/TrackCorner";
 import { ParallaxMedia } from "@/components/ui/ParallaxMedia";
 import { easeOut } from "@/lib/motion";
 
@@ -18,25 +17,19 @@ export function WorkCard({ study, index = 0 }: WorkCardProps) {
 
   return (
     <motion.article
+      data-brand={study.brand}
       initial={reduced ? false : { opacity: 0, y: 18 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-8% 0px" }}
       transition={{ duration: 0.4, delay: index * 0.06, ease: easeOut }}
       className="group relative grid items-center gap-8 border-b border-border py-10 last:border-b-0 md:grid-cols-[1.15fr_0.85fr] md:gap-12 md:py-14"
     >
-      <div
-        aria-hidden
-        className="pointer-events-none absolute -right-1 top-6 opacity-0 transition-opacity duration-300 group-hover:opacity-70"
-      >
-        <TrackCorner ghost className="h-12 w-20" />
-      </div>
-
       <div>
-        <p className="text-eyebrow text-text-muted">{study.category}</p>
+        <p className="text-eyebrow text-plum">{study.category}</p>
         <h3 className="mt-4 text-h2">
           <Link
             href={`/work/${study.slug}`}
-            className="link-highlight link-highlight-lg text-text focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent"
+            className="link-highlight link-highlight-lg text-plum focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent"
           >
             {study.title}
           </Link>
@@ -52,7 +45,7 @@ export function WorkCard({ study, index = 0 }: WorkCardProps) {
         <p className="mt-6">
           <Link
             href={`/work/${study.slug}`}
-            className="link-draw text-sm font-semibold text-text"
+            className="link-draw text-sm font-semibold text-plum"
           >
             View case study
           </Link>

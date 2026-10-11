@@ -4,23 +4,86 @@
   --bg: #fffdfa;
   --surface: #fff9f3;
   --border: #eadfce;
-  --text: #7b4a68;
-  /* ≥4.5:1 on bg, surface, and peach panels (WCAG AA normal text) */
-  --text-muted: #6e5a6e;
+  /* Body copy — near-black (not plum); ≥4.5:1 on bg / surface */
+  --text: #1a1a1a;
+  --text-muted: #4a4a4a;
   --accent: #f2a93b;
   --accent-hover: #e09828;
   --accent-tint: #fbe7d3;
   /* ≥4.5:1 on mustard accent + accent-hover */
-  --text-on-accent: #4a3548;
+  --text-on-accent: #1a1a1a;
   --lavender: #d5cbe0;
   --lavender-light: #ede6f3;
   --plum: #7b4a68;
   --forest: #2e3b2b;
   --peach: #fbe7d3;
+  --olive: #9dbc61;
   --shadow-warm: 0 4px 24px rgba(46, 59, 43, 0.07);
   --radius-xl: 16px;
   --radius-2xl: 24px;
   --font-sans: var(--font-plus-jakarta);
+}
+
+/*
+ * Case study brands remap surfaces + accent/heading colors only.
+ * --text / --text-muted stay site-wide so body copy stays consistent.
+ * Works on <html> (full page) or nested nodes (e.g. next-study preview).
+ */
+[data-brand="kitchens-for-good"] {
+  /* Page --bg stays site-wide; brands only remap accents / surfaces */
+  --surface: #efe8dc;
+  --forest: #153b17; /* Black Forest */
+  --plum: #153b17; /* headings */
+  /* Accent */
+  --accent: #cb6034; /* Spicy Paprika */
+  --accent-hover: #a84e2a;
+  --accent-tint: #ddcbb2; /* Pale Oak */
+  /* ≥4.5:1 on Spicy Paprika */
+  --text-on-accent: #100f0e; /* Carbon Black */
+  --olive: #9dbc61; /* Muted Olive */
+  --lavender: #9db9d6; /* Powder Blue */
+  --lavender-light: #d5e3f0;
+  /* Neutral */
+  --border: #ddcbb2; /* Pale Oak */
+  --peach: #ddcbb2;
+  --shadow-warm: 0 4px 24px rgba(21, 59, 23, 0.1);
+}
+
+[data-brand="current"] {
+  --surface: #ffffff;
+  --border: #dadce0;
+  --forest: #202124;
+  /* Current primary blue (shared with Calendar blue) */
+  --accent: #1a73e8;
+  --accent-hover: #1557b0;
+  --accent-tint: #e8f0fe;
+  --plum: #1a73e8; /* headings */
+  /* ≥4.5:1 on Current blue */
+  --text-on-accent: #ffffff;
+  /* Calendar secondary accents */
+  --olive: #34a853; /* Calendar green */
+  --lavender: #aecbfa;
+  --lavender-light: #e8f0fe;
+  --peach: #fef7e0; /* Calendar yellow tint */
+  --shadow-warm: 0 4px 24px rgba(26, 115, 232, 0.12);
+}
+
+[data-brand="autumn-moon"] {
+  --surface: #faf3ea;
+  --border: #e2cbb0;
+  --forest: #0d0d0d; /* Black */
+  --plum: #c45b52; /* Soft festival red — headings */
+  --accent: #c45b52;
+  --accent-hover: #a34842;
+  --accent-tint: #f0d4c4; /* warm secondary wash */
+  /* ≥4.5:1 on soft red */
+  --text-on-accent: #f5e8d8;
+  /* Secondary palette samples (soft festival tones) */
+  --olive: #8a9a6a; /* sage/cream secondary */
+  --lavender: #6b7fa8; /* blue secondary */
+  --lavender-light: #e8dff0;
+  --peach: #f0c89a; /* gold/orange secondary */
+  --shadow-warm: 0 4px 24px rgba(13, 13, 13, 0.1);
 }
 
 @theme inline {
@@ -38,6 +101,7 @@
   --color-plum: var(--plum);
   --color-forest: var(--forest);
   --color-peach: var(--peach);
+  --color-olive: var(--olive);
   --font-sans: var(--font-plus-jakarta);
   --shadow-warm: var(--shadow-warm);
   --radius-xl: var(--radius-xl);
@@ -66,6 +130,38 @@
   ::selection {
     background-color: var(--lavender-light);
     color: var(--text);
+  }
+
+  html[data-brand="kitchens-for-good"] ::selection {
+    background-color: color-mix(in srgb, var(--olive) 45%, white);
+    color: var(--forest);
+  }
+
+  [data-brand="kitchens-for-good"] .case-callout {
+    border-left-width: 4px;
+    border-left-color: var(--olive);
+  }
+
+  html[data-brand="current"] ::selection {
+    background-color: var(--accent-tint);
+    color: var(--accent);
+  }
+
+  [data-brand="current"] .case-callout {
+    border-left-width: 4px;
+    border-left-color: var(--accent);
+    background-color: var(--accent-tint);
+  }
+
+  html[data-brand="autumn-moon"] ::selection {
+    background-color: color-mix(in srgb, var(--accent) 22%, white);
+    color: var(--forest);
+  }
+
+  [data-brand="autumn-moon"] .case-callout {
+    border-left-width: 4px;
+    border-left-color: var(--accent);
+    background-color: var(--accent-tint);
   }
 
   :focus-visible {

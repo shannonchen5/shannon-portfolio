@@ -9,14 +9,14 @@ npm install
 npm run dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000).
+Open [http://localhost:3000](http://localhost:3000). For click-to-edit copy, open [http://localhost:3000/admin](http://localhost:3000/admin). See [docs/tina-editing.md](docs/tina-editing.md).
 
 ```bash
-npm run build   # production build
+npm run build   # production build (Tina + Next)
 npm run start   # serve production build
 ```
 
-Deploy on Vercel by importing this repo (no special config required).
+Deploy on Vercel by importing this repo. For production `/admin` + GitHub saves, add Tina Cloud env vars from `.env.example`.
 
 ## Design tokens
 
@@ -25,82 +25,47 @@ Colors, type, radii, and shadows live in `app/globals.css` as CSS variables and 
 ## How to add a new case study
 
 1. Add images/videos under `public/media/your-project/`.
-2. Copy the starter below into `content/case-studies/your-slug.ts`.
+2. Add `content/case-studies/your-slug.json` (or create via `/admin` → Case Studies).
 3. Import and register it in `content/case-studies/index.ts`.
 4. That’s it — `/work/your-slug`, category indexes, and the timeline checkpoints update automatically from `sections[]`.
 
-### Starter file
+### Starter file (`content/case-studies/your-slug.json`)
 
-```ts
-import type { CaseStudy } from "./_schema";
-
-const study: CaseStudy = {
-  slug: "your-slug",
-  title: "[Project title]",
-  category: "digital", // or "physical"
-  summary: "[Your one-line summary here.]",
-  role: "[Your role]",
-  duration: "[Timeline / duration]",
-  team: "[Team composition]",
-  tools: ["[Tool 1]", "[Tool 2]"],
-  cover: {
-    src: "/media/your-project/cover.jpg",
-    alt: "[Cover image alt text]",
-    aspectRatio: "16 / 10",
+```json
+{
+  "slug": "your-slug",
+  "title": "[Project title]",
+  "category": "digital",
+  "summary": "[Your one-line summary here.]",
+  "role": "[Your role]",
+  "duration": "[Timeline / duration]",
+  "team": "[Team composition]",
+  "tools": ["[Tool 1]", "[Tool 2]"],
+  "cover": {
+    "src": "/media/your-project/cover.jpg",
+    "alt": "[Cover image alt text]",
+    "aspectRatio": "16 / 10"
   },
-  featured: true,
-  stats: [
-    { value: "[Stat]", label: "[Label]" },
-  ],
-  sections: [
+  "featured": true,
+  "stats": [{ "value": "[Stat]", "label": "[Label]" }],
+  "sections": [
     {
-      id: "overview",
-      title: "Overview",
-      blocks: [
-        { type: "richText", content: "[Your copy here.]" },
-      ],
-    },
-    {
-      id: "research",
-      title: "Research",
-      blocks: [
-        { type: "richText", content: "[Your copy here.]" },
-      ],
-    },
-    {
-      id: "design",
-      title: "Design",
-      blocks: [
-        {
-          type: "image",
-          src: "/media/your-project/screen.jpg",
-          alt: "[Alt text]",
-          aspectRatio: "16 / 9",
-        },
-      ],
-    },
-    {
-      id: "results",
-      title: "Results",
-      blocks: [
-        { type: "richText", content: "[Your copy here.]" },
-      ],
-    },
-  ],
-};
-
-export default study;
+      "id": "overview",
+      "title": "Overview",
+      "blocks": [{ "type": "richText", "content": "[Your copy here.]" }]
+    }
+  ]
+}
 ```
 
-Register it:
+Register it in `content/case-studies/index.ts`:
 
 ```ts
-// content/case-studies/index.ts
-import yourStudy from "./your-slug";
+import yourStudy from "./your-slug.json";
 
 const caseStudies: CaseStudy[] = [
   // ...existing
-  yourStudy,
+  yourStudy as CaseStudy,
 ];
 ```
 

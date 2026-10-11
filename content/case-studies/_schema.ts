@@ -56,6 +56,12 @@ export type CaseStudySection = {
   blocks: Block[];
 };
 
+/** Optional per-study brand token set applied on the case study page. */
+export type CaseStudyBrand =
+  | "kitchens-for-good"
+  | "current"
+  | "autumn-moon";
+
 export type CaseStudy = {
   slug: string;
   title: string;
@@ -67,6 +73,8 @@ export type CaseStudy = {
   tools: string[];
   cover: MediaImage;
   featured: boolean;
+  /** When set, remaps site CSS tokens to this project's brand guidelines. */
+  brand?: CaseStudyBrand;
   stats?: StatItem[];
   sections: CaseStudySection[];
 };
