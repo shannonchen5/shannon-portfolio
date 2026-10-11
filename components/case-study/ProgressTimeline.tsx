@@ -51,9 +51,12 @@ export function ProgressTimeline({ sections, children }: ProgressTimelineProps) 
         const root = document.getElementById(section.id);
         return root?.querySelector("h2") ?? root;
       });
-      const arrivals = headings.map((heading) =>
-        heading instanceof HTMLElement ? headingArrival(heading, topLine) : 0,
-      );
+      const arrivals = headings.map((heading) => {
+        if (!(heading instanceof HTMLElement)) return 0;
+        const margin =
+          Number.parseFloat(getComputedStyle(heading).scrollMarginTop) || 0;
+        return headingArrival(heading, Math.max(topLine, margin));
+      });
       const scrollY = window.scrollY;
 
       let arrived = 0;
@@ -101,8 +104,9 @@ export function ProgressTimeline({ sections, children }: ProgressTimelineProps) 
 
   const scrollToSection = (id: string) => {
     const el = document.getElementById(id);
-    if (!el) return;
-    el.scrollIntoView({
+    const heading = el?.querySelector("h2") ?? el;
+    if (!heading) return;
+    heading.scrollIntoView({
       behavior: reduced ? "auto" : "smooth",
       block: "start",
     });

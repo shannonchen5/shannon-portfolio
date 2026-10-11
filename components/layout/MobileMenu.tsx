@@ -25,7 +25,7 @@ export function MobileMenu() {
     <div className="md:hidden">
       <button
         type="button"
-        className="inline-flex min-h-11 min-w-11 items-center justify-center rounded-full border border-border bg-surface text-text"
+        className="inline-flex min-h-11 min-w-11 items-center justify-center rounded-full border border-white/30 bg-white/15 text-white"
         aria-expanded={open}
         aria-controls={menuId}
         aria-label={open ? "Close menu" : "Open menu"}

@@ -15,6 +15,11 @@
     "alt": "Kitchens for Good website redesign case study cover",
     "aspectRatio": "16 / 10"
   },
+  "heroVideo": {
+    "mp4": "/media/kitchens-for-good/hero.mp4",
+    "alt": "Screen recording of the redesigned Kitchens for Good website",
+    "aspectRatio": "16 / 9"
+  },
   "featured": true,
   "brand": "kitchens-for-good",
   "stats": [

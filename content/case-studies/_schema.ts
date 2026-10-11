@@ -14,6 +14,15 @@ export type StatItem = {
   label: string;
 };
 
+/** Screen recording shown beside the case study title. */
+export type HeroVideo = {
+  mp4: string;
+  webm?: string;
+  poster?: string;
+  alt: string;
+  aspectRatio?: string;
+};
+
 export type Block =
   | { type: "richText"; content: string }
   | { type: "image"; src: string; alt: string; aspectRatio?: string; blurDataURL?: string }
@@ -72,6 +81,12 @@ export type CaseStudy = {
   team: string;
   tools: string[];
   cover: MediaImage;
+  /**
+   * Hero screen recording. Drop the file in `public` at `mp4`
+   * (for Kitchens for Good: `public/media/kitchens-for-good/hero.mp4`).
+   * Until that file exists, the hero shows `cover` instead.
+   */
+  heroVideo?: HeroVideo;
   featured: boolean;
   /** When set, remaps site CSS tokens to this project's brand guidelines. */
   brand?: CaseStudyBrand;

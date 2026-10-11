@@ -1,7 +1,10 @@
+import fs from "node:fs";
+import path from "node:path";
 import Image from "next/image";
 import Link from "next/link";
-import type { CaseStudy } from "@/content/case-studies/_schema";
+import type { CaseStudy, HeroVideo } from "@/content/case-studies/_schema";
 import { BlockRenderer } from "./blocks/BlockRenderer";
+import { VideoPlayer } from "./blocks/VideoPlayer";
 import { CaseStudyBrand } from "./CaseStudyBrand";
 import { ProgressTimeline } from "./ProgressTimeline";
 import { Button } from "@/components/ui/Button";
@@ -12,6 +15,13 @@ type CaseStudyViewProps = {
 };
 
 export function CaseStudyView({ study, next }: CaseStudyViewProps) {
+  const overview =
+    study.sections.find((section) => section.id === "overview") ??
+    study.sections[0];
+  const following = overview
+    ? study.sections.filter((section) => section.id !== overview.id)
+    : [];
+
   return (
     <article>
       {study.brand ? (
@@ -22,53 +32,56 @@ export function CaseStudyView({ study, next }: CaseStudyViewProps) {
         />
       ) : null}
       <CaseStudyBrand brand={study.brand} />
-      <header className="mx-auto w-full max-w-[var(--page-max)] px-[var(--page-gutter)] pb-10 pt-12 sm:pt-16">
-        <h1 className="text-h1 text-plum">{study.title}</h1>
-        <p className="mt-4 max-w-2xl text-body text-text-muted">{study.summary}</p>
-
-        <dl className="mt-10 grid gap-6 border-y border-border py-8 sm:grid-cols-2 lg:grid-cols-4">
+      <header className="sticky top-16 z-0 mx-auto flex w-full max-w-[var(--page-max)] flex-col justify-start px-[var(--page-gutter)] pb-8 pt-6 sm:pt-8 lg:min-h-[calc(100svh-4rem)] lg:pb-10 lg:pt-8">
+        <div className="grid w-full items-center gap-8 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.15fr)] lg:gap-x-16 xl:gap-x-20">
+          <div className="@container min-w-0">
+            <h1 className="link-highlight link-highlight-lg text-case-hero text-plum">
+              {study.title}
+            </h1>
+          </div>
+          <HeroMedia study={study} />
+        </div>
+        <dl className="mt-8 grid gap-6 border-b border-border py-6 sm:grid-cols-2 lg:grid-cols-4">
           <Meta label="Role" value={study.role} />
           <Meta label="Timeline" value={study.duration} />
           <Meta label="Team" value={study.team} />
           <Meta label="Tools" value={study.tools.join(", ")} />
         </dl>
-
-        <div
-          className="media-frame relative mt-10 w-full"
-          style={{ aspectRatio: study.cover.aspectRatio ?? "16 / 10" }}
-        >
-          <Image
-            src={study.cover.src}
-            alt={study.cover.alt}
-            fill
-            priority
-            className="object-cover"
-            sizes="(max-width: 768px) 100vw, 1120px"
-            unoptimized={study.cover.src.endsWith(".svg")}
-          />
-        </div>
-
-        {study.stats?.length ? (
-          <dl className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-            {study.stats.map((stat) => (
-              <div key={`${stat.label}-${stat.value}`}>
-                <dt className="text-eyebrow text-text-muted">{stat.label}</dt>
-                <dd className="mt-2 text-h2 text-plum">{stat.value}</dd>
-              </div>
-            ))}
-          </dl>
-        ) : null}
       </header>
 
+      {/* Opaque sheet scrolls up over the stuck hero; the timeline pins under the nav. */}
+      <div className="relative z-10 bg-bg">
       <ProgressTimeline sections={study.sections}>
         <div className="mx-auto w-full max-w-[var(--page-max)] px-[var(--page-gutter)] pb-24">
-          {study.sections.map((section) => (
+          {overview ? (
+            <section
+              id={overview.id}
+              className="border-b border-border pb-16 pt-10 sm:pb-20 sm:pt-12"
+            >
+              <h2 className="scroll-mt-[12rem] text-h2 text-plum md:scroll-mt-[11rem]">
+                {overview.title}
+              </h2>
+
+              <div className="mt-10 space-y-10">
+                {overview.blocks.map((block, index) => (
+                  <BlockRenderer
+                    key={`${overview.id}-${block.type}-${index}`}
+                    block={block}
+                  />
+                ))}
+              </div>
+            </section>
+          ) : null}
+
+          {following.map((section) => (
             <section
               key={section.id}
               id={section.id}
-              className="scroll-mt-36 border-b border-border py-16 last:border-b-0 sm:py-20"
+              className="border-b border-border py-16 last:border-b-0 sm:py-20"
             >
-              <h2 className="text-h2 text-plum">{section.title}</h2>
+              <h2 className="scroll-mt-[12rem] text-h2 text-plum md:scroll-mt-[11rem]">
+                {section.title}
+              </h2>
               <div className="mt-10 space-y-10">
                 {section.blocks.map((block, index) => (
                   <BlockRenderer
@@ -110,8 +123,53 @@ export function CaseStudyView({ study, next }: CaseStudyViewProps) {
           </p>
         </div>
       </ProgressTimeline>
+      </div>
     </article>
   );
+}
+
+function HeroMedia({ study }: { study: CaseStudy }) {
+  const video = resolveHeroVideo(study.heroVideo);
+
+  if (video) {
+    return (
+      <VideoPlayer
+        mp4={video.mp4}
+        webm={video.webm}
+        poster={video.poster || study.cover.src}
+        alt={video.alt}
+        aspectRatio={video.aspectRatio ?? "16 / 9"}
+        fit="contain"
+        className="min-w-0"
+      />
+    );
+  }
+
+  return (
+    <div
+      className="media-frame relative min-w-0 w-full"
+      style={{ aspectRatio: study.cover.aspectRatio ?? "16 / 10" }}
+    >
+      <Image
+        src={study.cover.src}
+        alt={study.cover.alt}
+        fill
+        priority
+        className="object-cover"
+        sizes="(max-width: 1024px) 100vw, 50vw"
+        unoptimized={study.cover.src.endsWith(".svg")}
+      />
+    </div>
+  );
+}
+
+/** Play the hero recording only after the file is actually in `public/`. */
+function resolveHeroVideo(video: HeroVideo | undefined): HeroVideo | undefined {
+  const src = video?.mp4;
+  if (!src?.startsWith("/media/") || src.includes("..")) return undefined;
+  const filePath = path.join(process.cwd(), "public", src.replace(/^\/+/, ""));
+  if (!fs.existsSync(filePath)) return undefined;
+  return video;
 }
 
 function Meta({ label, value }: { label: string; value: string }) {

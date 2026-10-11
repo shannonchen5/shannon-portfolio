@@ -16,6 +16,11 @@
     "alt": "San Diego Autumn Moon Festival website case study cover",
     "aspectRatio": "16 / 10"
   },
+  "heroVideo": {
+    "mp4": "/media/autumn-moon-festival/hero.mp4",
+    "alt": "Screen recording of the Autumn Moon Festival website",
+    "aspectRatio": "16 / 9"
+  },
   "featured": true,
   "brand": "autumn-moon",
   "stats": [

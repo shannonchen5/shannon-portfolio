@@ -9,6 +9,7 @@ type VideoPlayerProps = {
   poster: string;
   alt: string;
   aspectRatio?: string;
+  fit?: "cover" | "contain";
   className?: string;
 };
 
@@ -18,6 +19,7 @@ export function VideoPlayer({
   poster,
   alt,
   aspectRatio = "16 / 9",
+  fit = "cover",
   className,
 }: VideoPlayerProps) {
   const ref = useRef<HTMLVideoElement>(null);
@@ -38,11 +40,14 @@ export function VideoPlayer({
   useEffect(() => {
     const el = ref.current;
     if (!el) return;
-    if (inView) {
-      void el.play().catch(() => undefined);
-    } else {
+    const reduceMotion = window.matchMedia(
+      "(prefers-reduced-motion: reduce)",
+    ).matches;
+    if (reduceMotion || !inView) {
       el.pause();
+      return;
     }
+    void el.play().catch(() => undefined);
   }, [inView]);
 
   return (
@@ -52,7 +57,10 @@ export function VideoPlayer({
     >
       <video
         ref={ref}
-        className="h-full w-full object-cover"
+        className={cn(
+          "h-full w-full",
+          fit === "contain" ? "object-contain" : "object-cover",
+        )}
         muted
         loop
         playsInline

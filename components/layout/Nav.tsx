@@ -32,10 +32,8 @@ export function Nav() {
   return (
     <header
       className={cn(
-        "sticky top-0 z-50 border-b transition-[background-color,border-color,backdrop-filter] duration-300",
-        scrolled
-          ? "border-border bg-[color-mix(in_srgb,var(--bg)_92%,transparent)] backdrop-blur-md"
-          : "border-transparent bg-bg",
+        "sticky top-0 z-50 border-b border-white/15 bg-[var(--nav)] text-white transition-[background-color,border-color] duration-300",
+        scrolled && "shadow-[0_4px_24px_rgba(123,74,104,0.28)]",
       )}
     >
       <nav
@@ -44,7 +42,7 @@ export function Nav() {
       >
         <Link
           href="/"
-          className="link-draw text-sm font-semibold tracking-tight text-text"
+          className="link-draw text-sm font-semibold tracking-tight text-white"
         >
           {site.name}
         </Link>
@@ -60,8 +58,8 @@ export function Nav() {
                 <Link
                   href={item.href}
                   className={cn(
-                    "link-draw text-sm font-medium",
-                    active ? "text-plum" : "text-text-muted hover:text-text",
+                    "link-draw text-sm font-medium text-white/80 hover:text-white",
+                    active && "text-white",
                   )}
                   aria-current={active ? "page" : undefined}
                 >
