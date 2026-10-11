@@ -21,6 +21,9 @@
   --shadow-warm: 0 4px 24px rgba(46, 59, 43, 0.07);
   --radius-xl: 16px;
   --radius-2xl: 24px;
+  /* Shared page margin: content stays inside this at every viewport */
+  --page-max: 100rem;
+  --page-gutter: 1.25rem;
   --font-sans: var(--font-plus-jakarta);
 }
 
@@ -106,13 +109,26 @@
   --shadow-warm: var(--shadow-warm);
   --radius-xl: var(--radius-xl);
   --radius-2xl: var(--radius-2xl);
-  /* Default 6xl is 72rem; widen so side gutters aren't so large on desktop */
-  --max-width-6xl: 100rem;
+}
+
+@media (min-width: 40rem) {
+  :root {
+    --page-gutter: 2rem;
+  }
 }
 
 @layer base {
   html {
     scroll-behavior: smooth;
+  }
+
+  /*
+   * Clip only the viewport's horizontal overflow (the S-track may enter the
+   * gutter). overflow-y stays visible so sticky case studies keep working.
+   */
+  html,
+  body {
+    overflow-x: clip;
   }
 
   @media (prefers-reduced-motion: reduce) {
@@ -192,7 +208,8 @@
   }
 
   .text-hero {
-    font-size: clamp(2.75rem, 11vw, 8.5rem);
+    /* Sized so "Shannon Chen's" stays inside the page gutter; the S-track may still spill left. */
+    font-size: clamp(2rem, 9vw, 8.5rem);
     font-weight: 700;
     letter-spacing: -0.035em;
     line-height: 0.95;

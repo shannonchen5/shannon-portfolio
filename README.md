@@ -9,14 +9,14 @@ npm install
 npm run dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000). For click-to-edit copy, open [http://localhost:3000/admin](http://localhost:3000/admin). See [docs/tina-editing.md](docs/tina-editing.md).
+Open [http://localhost:3000](http://localhost:3000).
 
 ```bash
-npm run build   # production build (Tina + Next)
+npm run build   # production build
 npm run start   # serve production build
 ```
 
-Deploy on Vercel by importing this repo. For production `/admin` + GitHub saves, add Tina Cloud env vars from `.env.example`.
+Deploy on Vercel by importing this repo.
 
 ## Design tokens
 
@@ -25,7 +25,7 @@ Colors, type, radii, and shadows live in `app/globals.css` as CSS variables and 
 ## How to add a new case study
 
 1. Add images/videos under `public/media/your-project/`.
-2. Add `content/case-studies/your-slug.json` (or create via `/admin` → Case Studies).
+2. Add `content/case-studies/your-slug.json`.
 3. Import and register it in `content/case-studies/index.ts`.
 4. That’s it — `/work/your-slug`, category indexes, and the timeline checkpoints update automatically from `sections[]`.
 

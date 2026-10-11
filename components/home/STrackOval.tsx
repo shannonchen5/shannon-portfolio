@@ -25,6 +25,7 @@ export function STrackOval({ runners = true }: STrackOvalProps) {
   const uid = useId().replace(/:/g, "");
   const [inView, setInView] = useState(true);
   const [showRunners, setShowRunners] = useState(!!reduced);
+  const [lap, setLap] = useState(0);
   const rootRef = useRef<HTMLSpanElement>(null);
 
   const lanes = useMemo(
@@ -61,7 +62,7 @@ export function STrackOval({ runners = true }: STrackOvalProps) {
     top: "50%",
     width: "1.7em",
     height: "1.7em",
-    transform: "translate(-50%, -50%) rotate(-28deg)",
+    transform: "translate(calc(-50% + 0.42em), -50%) rotate(-28deg)",
     transformOrigin: "center center",
   };
 
@@ -90,29 +91,56 @@ export function STrackOval({ runners = true }: STrackOvalProps) {
       <span className="z-20" style={frameStyle}>
         <svg
           viewBox={OVAL_LOOP.viewBox}
-          className="h-full w-full overflow-visible"
+          className="pointer-events-none h-full w-full overflow-visible"
         >
           <defs>
             <clipPath id={frontClip}>
               <rect x="0" y="132" width="480" height="148" />
             </clipPath>
           </defs>
-          <g clipPath={`url(#${frontClip})`} pointerEvents="none">
+          <g clipPath={`url(#${frontClip})`}>
             <OvalLanes paths={lanes} draw={!reduced} paused={!inView} />
           </g>
-          {runners && showRunners
-            ? lanes.map((d, i) => (
-                <LaneRunner
-                  key={i}
-                  pathD={d}
-                  label={`Runner in lane ${i + 1} — press to run a lap`}
-                  color={TRACK_COLORS.plum}
-                  speed={2.6 + i * 0.25}
-                  paused={!inView || !!reduced}
-                  size={15}
-                />
-              ))
-            : null}
+          {runners && showRunners ? (
+            <path
+              d={lanes[1] ?? lanes[0]}
+              fill="none"
+              stroke="transparent"
+              strokeWidth={46}
+              className="cursor-pointer"
+              style={{
+                pointerEvents: reduced ? "none" : "stroke",
+                outline: "none",
+              }}
+              role="button"
+              tabIndex={reduced ? -1 : 0}
+              aria-label="Run a lap around the track"
+              onMouseDown={(event) => event.preventDefault()}
+              onClick={() => {
+                if (reduced) return;
+                setLap((n) => n + 1);
+              }}
+              onKeyDown={(event) => {
+                if (reduced) return;
+                if (event.key === "Enter" || event.key === " ") {
+                  event.preventDefault();
+                  setLap((n) => n + 1);
+                }
+              }}
+            />
+          ) : null}
+          {runners && showRunners ? (
+            <LaneRunner
+              pathD={lanes[1] ?? lanes[0]}
+              label="Runner on the track"
+              color="#1a1a1a"
+              speed={2.8}
+              paused={!inView || !!reduced}
+              size={78}
+              lapSignal={lap}
+              interactive={false}
+            />
+          ) : null}
         </svg>
       </span>
     </span>

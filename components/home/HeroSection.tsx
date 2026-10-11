@@ -15,14 +15,14 @@ export function HeroSection({
   return (
     <header
       id="hero"
-      className="relative isolate overflow-visible pb-16 pt-16 sm:pb-24 sm:pt-20"
+      className="relative isolate overflow-x-clip pb-16 pt-16 sm:pb-24 sm:pt-20"
     >
-      {/* Same left inset as nav / case studies; track may spill into the gutter */}
-      <div className="relative mx-auto max-w-6xl px-5 sm:px-8">
-        {/* w-fit + right-0 keeps the portrait aligned to the "s" in "Chen's" */}
-        <div className="relative w-fit max-w-full">
-          {/* Portrait behind type — arch top, soft matching bottom radii */}
-          <div className="pointer-events-none absolute bottom-0 right-0 z-0 w-[min(52%,16.5rem)] sm:w-[19rem] md:w-[20rem]">
+      {/* Hero group is centered; type, copy, and buttons stay left-aligned inside it. */}
+      <div className="relative mx-auto w-full max-w-[var(--page-max)] px-[var(--page-gutter)]">
+        {/* w-fit + mx-auto centers the block; right-0 keeps the portrait on the "s" */}
+        <div className="relative mx-auto w-fit max-w-full">
+          {/* Portrait stays inside the shell; right edge tracks the headline */}
+          <div className="pointer-events-none absolute bottom-0 right-0 z-0 w-[min(46%,20rem)] max-w-full">
             <div
               className="relative aspect-[3/4] w-full overflow-hidden bg-surface shadow-[var(--shadow-warm)]"
               style={{
@@ -41,7 +41,7 @@ export function HeroSection({
             </div>
           </div>
 
-          <h1 className="relative z-10 text-hero overflow-visible text-plum">
+          <h1 className="relative z-10 max-w-full text-hero text-plum">
             <span className="relative block overflow-visible whitespace-nowrap">
               <STrackOval />
               hannon Chen&apos;s
@@ -51,7 +51,7 @@ export function HeroSection({
             </span>
           </h1>
 
-          <div className="relative z-10 mt-8 max-w-sm sm:mt-10 sm:max-w-md">
+          <div className="relative z-10 mt-8 max-w-full sm:mt-10 sm:max-w-md">
             <p className="text-body text-text-muted">{intro}</p>
 
             <div className="mt-8 flex flex-wrap gap-3">

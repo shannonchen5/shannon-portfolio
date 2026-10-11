@@ -21,14 +21,9 @@ export function HomePageContent({ featured }: HomePageContentProps) {
           <HeroTracksLazy intro={site.hero.intro} />
 
           <div id="work" className="relative scroll-mt-16">
-            <div className="border-t border-border bg-bg py-10">
-              <div className="mx-auto max-w-6xl px-5 sm:px-8">
-                <h2 className="text-h2 text-plum">Case Studies</h2>
-              </div>
-            </div>
-            <StickyCaseStack studies={featured} />
+            <StickyCaseStack studies={featured} title="Case Studies" />
             <div className="relative z-[20] border-t border-border bg-bg py-12">
-              <div className="mx-auto flex max-w-6xl flex-wrap gap-8 px-5 sm:px-8">
+              <div className="mx-auto flex w-full max-w-[var(--page-max)] flex-wrap gap-8 px-[var(--page-gutter)]">
                 <Link
                   href="/digital"
                   className="link-highlight text-base font-semibold text-text"

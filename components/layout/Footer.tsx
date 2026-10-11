@@ -21,7 +21,7 @@ export function Footer() {
         />
       </div>
 
-      <div className="relative mx-auto flex max-w-6xl flex-col gap-8 px-5 py-12 sm:px-8 md:flex-row md:items-end md:justify-between">
+      <div className="relative mx-auto flex w-full max-w-[var(--page-max)] flex-col gap-8 px-[var(--page-gutter)] py-12 md:flex-row md:items-end md:justify-between">
         <div>
           <p className="text-lg font-semibold tracking-tight text-text">
             {site.name}

@@ -15,7 +15,9 @@ export function Section({
 }: SectionProps) {
   return (
     <Tag id={id} className={cn("section-space", className)}>
-      <div className="mx-auto w-full max-w-6xl px-5 sm:px-8">{children}</div>
+      <div className="mx-auto w-full max-w-[var(--page-max)] px-[var(--page-gutter)]">
+        {children}
+      </div>
     </Tag>
   );
 }

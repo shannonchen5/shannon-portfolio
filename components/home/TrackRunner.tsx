@@ -5,10 +5,9 @@ import {
   useAnimationFrame,
   useMotionValue,
   useReducedMotion,
-  useTransform,
 } from "motion/react";
 import { useCallback, useEffect, useRef, useState } from "react";
-import { RunnerSprite } from "./RunnerSprite";
+import { RunnerGlyph, poseFromHeading, type RunnerView } from "./RunnerSprite";
 
 export type TrackRunnerProps = {
   id: string;
@@ -24,17 +23,12 @@ export type TrackRunnerProps = {
 
 type Point = { x: number; y: number };
 
-function samplePath(
-  path: SVGPathElement,
-  t: number,
-): { point: Point; angle: number } {
+function samplePath(path: SVGPathElement, t: number): { point: Point; angle: number } {
   const length = path.getTotalLength();
   const distance = ((t % 1) + 1) % 1 * length;
   const point = path.getPointAtLength(distance);
-  const delta = 1;
-  const ahead = path.getPointAtLength(Math.min(length, distance + delta));
-  const angle =
-    (Math.atan2(ahead.y - point.y, ahead.x - point.x) * 180) / Math.PI;
+  const ahead = path.getPointAtLength((distance + 6) % length);
+  const angle = Math.atan2(ahead.y - point.y, ahead.x - point.x);
   return { point: { x: point.x, y: point.y }, angle };
 }
 
@@ -53,15 +47,14 @@ export function TrackRunner({
   const [running, setRunning] = useState(false);
   const [celebrating, setCelebrating] = useState(false);
   const progress = useMotionValue(0);
-  const idlePhase = useMotionValue(0);
   const lapStart = useRef<number | null>(null);
-
+  const runningRef = useRef(false);
   const x = useMotionValue(0);
   const y = useMotionValue(0);
-  const rotate = useMotionValue(0);
-  const scaleY = useTransform(idlePhase, (p) =>
-    running || reduced ? 1 : 1 + Math.sin(p) * 0.04,
-  );
+
+  const [view, setView] = useState<RunnerView>("side");
+  const [frame, setFrame] = useState<0 | 1>(0);
+  const [lean, setLean] = useState(0);
 
   const updatePose = useCallback(
     (t: number) => {
@@ -70,9 +63,20 @@ export function TrackRunner({
       const { point, angle } = samplePath(path, t);
       x.set(point.x);
       y.set(point.y);
-      rotate.set(angle);
+      const pose = poseFromHeading(angle);
+      const length = path.getTotalLength();
+      const distance = ((t % 1) + 1) % 1 * length;
+      const nextFrame: 0 | 1 =
+        runningRef.current && t > 0 && t < 1
+          ? ((Math.floor(distance / 22) % 2) as 0 | 1)
+          : 0;
+      setView((current) => (current === pose.view ? current : pose.view));
+      setFrame((current) => (current === nextFrame ? current : nextFrame));
+      setLean((current) =>
+        Math.abs(current - pose.lean) < 0.35 ? current : pose.lean,
+      );
     },
-    [rotate, x, y],
+    [x, y],
   );
 
   useEffect(() => {
@@ -82,10 +86,7 @@ export function TrackRunner({
   useAnimationFrame((time) => {
     if (paused || reduced) return;
 
-    if (!running) {
-      idlePhase.set(time / 280);
-      return;
-    }
+    if (!running) return;
 
     if (lapStart.current === null) {
       lapStart.current = time;
@@ -97,6 +98,7 @@ export function TrackRunner({
     updatePose(t);
 
     if (t >= 1) {
+      runningRef.current = false;
       setRunning(false);
       lapStart.current = null;
       progress.set(0);
@@ -107,9 +109,10 @@ export function TrackRunner({
   });
 
   const startLap = () => {
-    if (running || reduced) return;
+    if (runningRef.current || reduced) return;
     setCelebrating(false);
     lapStart.current = null;
+    runningRef.current = true;
     setRunning(true);
   };
 
@@ -154,16 +157,16 @@ export function TrackRunner({
             opacity="0.9"
           />
 
-          <motion.g
-            style={{
-              x,
-              y,
-              rotate: reduced ? 0 : rotate,
-              scaleY: reduced ? 1 : scaleY,
-            }}
-          >
-            <g transform="translate(-20, -40)">
-              <RunnerSprite color={color} />
+          <motion.g style={{ x, y }}>
+            <g
+              transform={`rotate(${reduced ? 0 : lean}) scale(${28 / 72})`}
+              aria-hidden
+            >
+              <RunnerGlyph
+                color="#1a1a1a"
+                view={reduced ? "side" : view}
+                frame={frame}
+              />
             </g>
           </motion.g>
         </svg>

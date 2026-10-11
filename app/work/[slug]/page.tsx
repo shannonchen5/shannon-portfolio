@@ -5,7 +5,7 @@ import {
   getCaseStudyBySlug,
   getNextCaseStudy,
 } from "@/content/case-studies";
-import { CaseStudyClient } from "./CaseStudyClient";
+import { CaseStudyView } from "@/components/case-study/CaseStudyView";
 
 type PageProps = {
   params: Promise<{ slug: string }>;
@@ -29,16 +29,8 @@ export async function generateMetadata({
 
 export default async function CaseStudyPage({ params }: PageProps) {
   const { slug } = await params;
-  const fallbackStudy = getCaseStudyBySlug(slug);
-  if (!fallbackStudy) notFound();
+  const study = getCaseStudyBySlug(slug);
+  if (!study) notFound();
 
-  const next = getNextCaseStudy(slug);
-
-  return (
-    <CaseStudyClient
-      slug={slug}
-      fallbackStudy={fallbackStudy}
-      next={next}
-    />
-  );
+  return <CaseStudyView study={study} next={getNextCaseStudy(slug)} />;
 }

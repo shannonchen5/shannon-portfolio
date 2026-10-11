@@ -59,7 +59,7 @@ export function MobileMenu() {
           <motion.div
             id={menuId}
             key={pathname}
-            className="fixed inset-x-0 top-16 bottom-0 z-40 bg-bg px-5 py-8"
+            className="fixed inset-x-0 top-16 bottom-0 z-40 bg-bg px-[var(--page-gutter)] py-8"
             initial={reduced ? false : { opacity: 0, y: -8 }}
             animate={{ opacity: 1, y: 0 }}
             exit={reduced ? undefined : { opacity: 0, y: -8 }}

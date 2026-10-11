@@ -5,8 +5,6 @@ import {
   useMotionValue,
   useMotionValueEvent,
   useReducedMotion,
-  useScroll,
-  useSpring,
   useTransform,
   type MotionValue,
 } from "motion/react";
@@ -20,44 +18,84 @@ type ProgressTimelineProps = {
   children: React.ReactNode;
 };
 
-function checkpointFromProgress(value: number, count: number) {
-  if (count <= 0) return { idx: 0, x: 0.5 };
-  const idx = Math.min(count - 1, Math.max(0, Math.floor(value * count)));
-  // Center of equal-width column i → (i + 0.5) / n  (matches CSS grid arches)
-  return { idx, x: (idx + 0.5) / count };
+function checkpointCenter(index: number, count: number) {
+  if (count <= 0) return 0.5;
+  return (index + 0.5) / count;
+}
+
+/** Scroll position where a heading's top meets the top of the page. */
+function headingArrival(heading: HTMLElement, topLine: number) {
+  return heading.getBoundingClientRect().top + window.scrollY - topLine;
 }
 
 export function ProgressTimeline({ sections, children }: ProgressTimelineProps) {
   const containerRef = useRef<HTMLDivElement>(null);
+  const barRef = useRef<HTMLDivElement>(null);
   const reduced = useReducedMotion();
   const [activeIndex, setActiveIndex] = useState(0);
-
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ["start start", "end end"],
-  });
-
-  const checkpointTarget = useMotionValue(0);
-  const runnerX = useSpring(checkpointTarget, {
-    stiffness: reduced ? 500 : 140,
-    damping: reduced ? 40 : 22,
-    mass: 0.6,
-  });
+  const runnerX = useMotionValue(checkpointCenter(0, sections.length));
 
   useEffect(() => {
-    const { idx, x } = checkpointFromProgress(
-      scrollYProgress.get(),
-      sections.length,
-    );
-    setActiveIndex(idx);
-    checkpointTarget.set(x);
-  }, [sections.length, scrollYProgress, checkpointTarget]);
+    const count = sections.length;
+    if (count === 0) return;
 
-  useMotionValueEvent(scrollYProgress, "change", (value) => {
-    const { idx, x } = checkpointFromProgress(value, sections.length);
-    setActiveIndex(idx);
-    checkpointTarget.set(x);
-  });
+    let frame = 0;
+
+    const update = () => {
+      frame = 0;
+      const bar = barRef.current;
+      const stickyTop = bar ? Number.parseFloat(getComputedStyle(bar).top) : 0;
+      const topLine =
+        bar && Number.isFinite(stickyTop) ? stickyTop + bar.offsetHeight : 0;
+      const headings = sections.map((section) => {
+        const root = document.getElementById(section.id);
+        return root?.querySelector("h2") ?? root;
+      });
+      const arrivals = headings.map((heading) =>
+        heading instanceof HTMLElement ? headingArrival(heading, topLine) : 0,
+      );
+      const scrollY = window.scrollY;
+
+      let arrived = 0;
+      while (arrived < count - 1 && scrollY >= arrivals[arrived + 1]) {
+        arrived += 1;
+      }
+
+      const atFirst = scrollY <= arrivals[0];
+      const atLast = scrollY >= arrivals[count - 1];
+      let nextIndex = arrived;
+      let x = checkpointCenter(arrived, count);
+
+      if (atFirst) {
+        nextIndex = 0;
+        x = checkpointCenter(0, count);
+      } else if (!atLast && !reduced) {
+        const segmentStart = Math.max(arrivals[arrived], 0);
+        const span = arrivals[arrived + 1] - segmentStart;
+        const t = span > 0 ? (scrollY - segmentStart) / span : 1;
+        const from = checkpointCenter(arrived, count);
+        const to = checkpointCenter(arrived + 1, count);
+        x = from + (to - from) * Math.min(1, Math.max(0, t));
+      }
+
+      setActiveIndex((current) => (current === nextIndex ? current : nextIndex));
+      runnerX.set(x);
+    };
+
+    const onScroll = () => {
+      if (frame) return;
+      frame = window.requestAnimationFrame(update);
+    };
+
+    update();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onScroll);
+    return () => {
+      window.cancelAnimationFrame(frame);
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onScroll);
+    };
+  }, [reduced, runnerX, sections]);
 
   const labels = useMemo(() => sections.map((s) => s.title), [sections]);
 
@@ -72,8 +110,11 @@ export function ProgressTimeline({ sections, children }: ProgressTimelineProps) 
 
   return (
     <div ref={containerRef} className="relative">
-      <div className="sticky top-16 z-30 border-b border-border bg-[color-mix(in_srgb,var(--bg)_94%,transparent)] backdrop-blur-md">
-        <div className="mx-auto max-w-6xl px-5 py-3 sm:px-8">
+      <div
+        ref={barRef}
+        className="sticky top-16 z-30 border-b border-border bg-[color-mix(in_srgb,var(--bg)_94%,transparent)] backdrop-blur-md"
+      >
+        <div className="mx-auto w-full max-w-[var(--page-max)] px-[var(--page-gutter)] py-3">
           <div className="relative h-[4.25rem]">
             {/* Race track — runner runs along this, under the arches */}
             <div className="absolute inset-x-0 top-[2.35rem] h-[3px] rounded-full bg-[#1a1a1a]/35" />
@@ -205,6 +246,9 @@ function CheckpointArch({
   );
 }
 
+/** Same stride spacing as the oval: one leg swap about every 15px of travel. */
+const STRIDE_PX = 15;
+
 function RunnerOnTrack({
   x,
   reduced,
@@ -213,17 +257,51 @@ function RunnerOnTrack({
   reduced: boolean;
 }) {
   const left = useTransform(x, (v) => `${v * 100}%`);
-  const bobY = useTransform(x, (v) => Math.sin(v * Math.PI * 12) * 1.5);
+  const [frame, setFrame] = useState<0 | 1>(0);
+  const rootRef = useRef<HTMLSpanElement>(null);
+  const traveled = useRef(0);
+  const lastX = useRef<number | null>(null);
+  const settleTimer = useRef<number | null>(null);
+
+  useMotionValueEvent(x, "change", (value) => {
+    if (reduced) return;
+    const width = rootRef.current?.offsetParent
+      ? (rootRef.current.offsetParent as HTMLElement).clientWidth
+      : 0;
+    if (lastX.current === null || width <= 0) {
+      lastX.current = value;
+      return;
+    }
+
+    traveled.current += Math.abs(value - lastX.current) * width;
+    lastX.current = value;
+    const next = (Math.floor(traveled.current / STRIDE_PX) % 2) as 0 | 1;
+    setFrame((current) => (current === next ? current : next));
+
+    if (settleTimer.current !== null) window.clearTimeout(settleTimer.current);
+    settleTimer.current = window.setTimeout(() => setFrame(0), 90);
+  });
+
+  useEffect(() => {
+    return () => {
+      if (settleTimer.current !== null) window.clearTimeout(settleTimer.current);
+    };
+  }, []);
 
   return (
     <motion.span
-      className="pointer-events-none absolute top-[1.15rem] z-10"
-      style={{ left, y: reduced ? 0 : bobY }}
+      ref={rootRef}
+      className="pointer-events-none absolute z-10"
+      style={{ left, top: "calc(2.35rem + 2px)" }}
       aria-hidden
     >
-      {/* -translate-x-1/2 centers the sprite on the column midpoint */}
-      <span className="relative block -translate-x-1/2 drop-shadow-sm">
-        <RunnerSprite color="#1a1a1a" className="mx-auto h-7 w-5" />
+      <span className="block -translate-x-1/2 -translate-y-full">
+        <RunnerSprite
+          color="#1a1a1a"
+          view="side"
+          frame={reduced ? 0 : frame}
+          className="h-8 w-8"
+        />
       </span>
     </motion.span>
   );

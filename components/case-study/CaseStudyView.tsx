@@ -22,7 +22,7 @@ export function CaseStudyView({ study, next }: CaseStudyViewProps) {
         />
       ) : null}
       <CaseStudyBrand brand={study.brand} />
-      <header className="mx-auto max-w-6xl px-5 pb-10 pt-12 sm:px-8 sm:pt-16">
+      <header className="mx-auto w-full max-w-[var(--page-max)] px-[var(--page-gutter)] pb-10 pt-12 sm:pt-16">
         <h1 className="text-h1 text-plum">{study.title}</h1>
         <p className="mt-4 max-w-2xl text-body text-text-muted">{study.summary}</p>
 
@@ -61,7 +61,7 @@ export function CaseStudyView({ study, next }: CaseStudyViewProps) {
       </header>
 
       <ProgressTimeline sections={study.sections}>
-        <div className="mx-auto max-w-6xl px-5 pb-24 sm:px-8">
+        <div className="mx-auto w-full max-w-[var(--page-max)] px-[var(--page-gutter)] pb-24">
           {study.sections.map((section) => (
             <section
               key={section.id}

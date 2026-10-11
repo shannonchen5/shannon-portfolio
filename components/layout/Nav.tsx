@@ -39,7 +39,7 @@ export function Nav() {
       )}
     >
       <nav
-        className="mx-auto flex h-16 max-w-6xl items-center justify-between px-5 sm:px-8"
+        className="mx-auto flex h-16 w-full max-w-[var(--page-max)] items-center justify-between px-[var(--page-gutter)]"
         aria-label="Primary"
       >
         <Link
