@@ -1,0 +1,116 @@
+@import "tailwindcss";
+
+:root {
+  --bg: #f6f1e7;
+  --surface: #fbf8f2;
+  --border: #e8dfcf;
+  --text: #1f1b16;
+  --text-muted: #6b6257;
+  --accent: #d4561c;
+  --accent-hover: #b84514;
+  --accent-tint: #f8dfd0;
+  --shadow-warm: 0 4px 24px rgba(31, 27, 22, 0.06);
+  --radius-xl: 16px;
+  --radius-2xl: 24px;
+  --font-sans: var(--font-plus-jakarta);
+}
+
+@theme inline {
+  --color-bg: var(--bg);
+  --color-surface: var(--surface);
+  --color-border: var(--border);
+  --color-text: var(--text);
+  --color-text-muted: var(--text-muted);
+  --color-accent: var(--accent);
+  --color-accent-hover: var(--accent-hover);
+  --color-accent-tint: var(--accent-tint);
+  --font-sans: var(--font-plus-jakarta);
+  --shadow-warm: var(--shadow-warm);
+  --radius-xl: var(--radius-xl);
+  --radius-2xl: var(--radius-2xl);
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+  }
+
+  body {
+    background-color: var(--bg);
+    color: var(--text);
+    font-family: var(--font-sans), system-ui, sans-serif;
+    font-size: 1.0625rem;
+    line-height: 1.6;
+  }
+
+  ::selection {
+    background-color: var(--accent-tint);
+    color: var(--text);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+  }
+}
+
+@layer utilities {
+  .text-display {
+    font-size: clamp(2.5rem, 5vw + 1rem, 4.5rem);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    line-height: 1.1;
+  }
+
+  .text-h1 {
+    font-size: clamp(2rem, 3vw + 1rem, 3.25rem);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    line-height: 1.1;
+  }
+
+  .text-h2 {
+    font-size: clamp(1.75rem, 2vw + 0.75rem, 2.75rem);
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    line-height: 1.15;
+  }
+
+  .text-h3 {
+    font-size: clamp(1.25rem, 1vw + 0.75rem, 1.5rem);
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    line-height: 1.25;
+  }
+
+  .text-body {
+    font-size: clamp(1rem, 0.2vw + 0.95rem, 1.125rem);
+    font-weight: 400;
+    line-height: 1.6;
+    max-width: 65ch;
+  }
+
+  .text-eyebrow {
+    font-size: 0.75rem;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .section-space {
+    padding-block: clamp(4rem, 8vw, 10rem);
+  }
+
+  .media-frame {
+    overflow: hidden;
+    border-radius: var(--radius-2xl);
+    border: 1px solid var(--border);
+    background-color: var(--surface);
+  }
+}
