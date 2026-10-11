@@ -106,6 +106,8 @@
   --shadow-warm: var(--shadow-warm);
   --radius-xl: var(--radius-xl);
   --radius-2xl: var(--radius-2xl);
+  /* Default 6xl is 72rem; widen so side gutters aren't so large on desktop */
+  --max-width-6xl: 100rem;
 }
 
 @layer base {

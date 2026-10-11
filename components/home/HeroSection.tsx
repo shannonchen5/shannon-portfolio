@@ -15,11 +15,13 @@ export function HeroSection({
   return (
     <header
       id="hero"
-      className="relative isolate overflow-visible px-5 pb-16 pt-16 sm:px-8 sm:pb-24 sm:pt-20"
+      className="relative isolate overflow-visible pb-16 pt-16 sm:pb-24 sm:pt-20"
     >
-      <div className="relative mx-auto max-w-6xl">
+      {/* Same left inset as nav / case studies; track may spill into the gutter */}
+      <div className="relative mx-auto max-w-6xl px-5 sm:px-8">
+        {/* w-fit + right-0 keeps the portrait aligned to the "s" in "Chen's" */}
         <div className="relative w-fit max-w-full">
-          {/* Portrait behind type — arch top, soft matching bottom radii, right-aligned with the "s" in "Chen's" */}
+          {/* Portrait behind type — arch top, soft matching bottom radii */}
           <div className="pointer-events-none absolute bottom-0 right-0 z-0 w-[min(52%,16.5rem)] sm:w-[19rem] md:w-[20rem]">
             <div
               className="relative aspect-[3/4] w-full overflow-hidden bg-surface shadow-[var(--shadow-warm)]"
@@ -49,7 +51,7 @@ export function HeroSection({
             </span>
           </h1>
 
-          <div className="relative z-10 mt-8 max-w-[min(100%,26rem)] pr-[min(54%,17.5rem)] sm:mt-10 sm:max-w-[min(48%,30rem)] sm:pr-0 md:max-w-[min(46%,34rem)]">
+          <div className="relative z-10 mt-8 max-w-sm sm:mt-10 sm:max-w-md">
             <p className="text-body text-text-muted">{intro}</p>
 
             <div className="mt-8 flex flex-wrap gap-3">
