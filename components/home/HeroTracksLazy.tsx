@@ -8,11 +8,11 @@ const HeroSection = dynamic(
     ssr: false,
     loading: () => (
       <header className="px-5 pb-16 pt-10 sm:px-8 sm:pb-24 sm:pt-14">
-        <div className="mx-auto max-w-[1100px]">
+        <div className="mx-auto max-w-6xl">
           <h1 className="text-hero text-plum">
             <span className="block whitespace-nowrap">Shannon Chen&apos;s</span>
             <span className="mt-[0.08em] block whitespace-nowrap">
-              Design Portfolio
+              Portfolio
             </span>
           </h1>
         </div>

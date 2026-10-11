@@ -17,5 +17,5 @@
   <circle cx="1180" cy="480" r="200" fill="url(#moonGlow)"/>
   <circle cx="1180" cy="480" r="150" fill="#F5E8D8" opacity="0.15"/>
   <text x="120" y="220" font-family="system-ui,sans-serif" font-size="48" font-weight="700" fill="#C45B52">Autumn Moon Festival</text>
-  <text x="120" y="290" font-family="system-ui,sans-serif" font-size="26" fill="#6E5A6E">Educational festival site ù User research</text>
+  <text x="120" y="290" font-family="system-ui,sans-serif" font-size="26" fill="#6E5A6E">Educational festival site &#183; User research</text>
 </svg>

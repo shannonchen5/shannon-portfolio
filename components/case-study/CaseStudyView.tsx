@@ -23,8 +23,7 @@ export function CaseStudyView({ study, next }: CaseStudyViewProps) {
       ) : null}
       <CaseStudyBrand brand={study.brand} />
       <header className="mx-auto max-w-6xl px-5 pb-10 pt-12 sm:px-8 sm:pt-16">
-        <p className="text-eyebrow text-plum">{study.category} product</p>
-        <h1 className="mt-3 text-h1 text-plum">{study.title}</h1>
+        <h1 className="text-h1 text-plum">{study.title}</h1>
         <p className="mt-4 max-w-2xl text-body text-text-muted">{study.summary}</p>
 
         <dl className="mt-10 grid gap-6 border-y border-border py-8 sm:grid-cols-2 lg:grid-cols-4">

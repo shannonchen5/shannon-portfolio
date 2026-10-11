@@ -23,10 +23,7 @@ export function HomePageContent({ featured }: HomePageContentProps) {
           <div id="work" className="relative scroll-mt-16">
             <div className="border-t border-border bg-bg px-5 py-10 sm:px-8">
               <div className="mx-auto max-w-6xl">
-                <p className="text-eyebrow text-text-muted">Selected work</p>
-                <h2 className="mt-3 text-h2 text-plum">
-                  <span className="text-mark">Case Studies</span>
-                </h2>
+                <h2 className="text-h2 text-plum">Case Studies</h2>
               </div>
             </div>
             <StickyCaseStack studies={featured} />
