@@ -1,27 +1,10 @@
 import Link from "next/link";
-import { Track } from "@/components/track/Track";
 import { site } from "@/content/site";
-import { FOOTER_SWEEP } from "@/lib/track-geometry";
 
 export function Footer() {
   return (
-    <footer className="relative overflow-hidden border-t border-border bg-surface">
-      <div
-        aria-hidden
-        className="pointer-events-none absolute inset-x-0 bottom-0 h-24 opacity-80"
-      >
-        <Track
-          segments={FOOTER_SWEEP.segments}
-          viewBox={FOOTER_SWEEP.viewBox}
-          color="#F2A93B"
-          opacity={0.55}
-          laneWidth={2.5}
-          laneGap={2.5}
-          className="h-full w-full"
-        />
-      </div>
-
-      <div className="relative mx-auto flex w-full max-w-[var(--page-max)] flex-col gap-8 px-[var(--page-gutter)] py-12 md:flex-row md:items-end md:justify-between">
+    <footer className="border-t border-border bg-surface">
+      <div className="mx-auto flex w-full max-w-[var(--page-max)] flex-col gap-8 px-[var(--page-gutter)] py-12 md:flex-row md:items-end md:justify-between">
         <div>
           <p className="text-lg font-semibold tracking-tight text-text">
             {site.name}

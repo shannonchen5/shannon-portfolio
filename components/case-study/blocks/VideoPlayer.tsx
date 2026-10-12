@@ -10,6 +10,7 @@ type VideoPlayerProps = {
   alt: string;
   aspectRatio?: string;
   fit?: "cover" | "contain";
+  objectPosition?: string;
   /** When false, the video has no border or background. Corners stay at 12px. */
   framed?: boolean;
   className?: string;
@@ -22,6 +23,7 @@ export function VideoPlayer({
   alt,
   aspectRatio = "16 / 9",
   fit = "cover",
+  objectPosition,
   framed = true,
   className,
 }: VideoPlayerProps) {
@@ -65,9 +67,10 @@ export function VideoPlayer({
       <video
         ref={ref}
         className={cn(
-          "h-full w-full border-0 outline-none",
+          "h-full w-full border-0 bg-bg outline-none",
           fit === "contain" ? "object-contain" : "object-cover",
         )}
+        style={objectPosition ? { objectPosition } : undefined}
         muted
         loop
         playsInline

@@ -68,9 +68,10 @@ export function MobileMenu() {
             <ul className="flex flex-col gap-2">
               {site.nav.map((item) => {
                 const active =
-                  item.href === "/"
-                    ? pathname === "/"
-                    : pathname.startsWith(item.href);
+                  item.href === "/#work"
+                    ? pathname === "/" || pathname.startsWith("/work")
+                    : pathname === item.href ||
+                      pathname.startsWith(`${item.href}/`);
                 return (
                   <li key={item.href}>
                     <Link

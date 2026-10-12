@@ -8,7 +8,7 @@ import {
   useTransform,
   type MotionValue,
 } from "motion/react";
-import { useEffect, useId, useMemo, useRef, useState } from "react";
+import { useEffect, useId, useLayoutEffect, useMemo, useRef, useState } from "react";
 import type { CaseStudySection } from "@/content/case-studies/_schema";
 import { RunnerSprite } from "@/components/home/RunnerSprite";
 import { cn } from "@/lib/cn";
@@ -35,6 +35,34 @@ export function ProgressTimeline({ sections, children }: ProgressTimelineProps) 
   const [activeIndex, setActiveIndex] = useState(0);
   const [showBar, setShowBar] = useState(false);
   const runnerX = useMotionValue(checkpointCenter(0, sections.length));
+  const userScrolled = useRef(false);
+  const holdUntil = useRef(0);
+
+  useLayoutEffect(() => {
+    if (window.location.hash) return;
+    const previous = history.scrollRestoration;
+    history.scrollRestoration = "manual";
+    window.scrollTo(0, 0);
+    holdUntil.current = performance.now() + 500;
+    return () => {
+      history.scrollRestoration = previous;
+    };
+  }, []);
+
+  useEffect(() => {
+    if (window.location.hash) return;
+    const mark = () => {
+      userScrolled.current = true;
+    };
+    window.addEventListener("wheel", mark, { passive: true });
+    window.addEventListener("touchmove", mark, { passive: true });
+    window.addEventListener("keydown", mark);
+    return () => {
+      window.removeEventListener("wheel", mark);
+      window.removeEventListener("touchmove", mark);
+      window.removeEventListener("keydown", mark);
+    };
+  }, []);
 
   useEffect(() => {
     const count = sections.length;
@@ -59,16 +87,20 @@ export function ProgressTimeline({ sections, children }: ProgressTimelineProps) 
         return headingArrival(heading, Math.max(topLine, margin));
       });
       const scrollY = window.scrollY;
-      const scrolling = scrollY > 0;
-      setShowBar((current) => (current === scrolling ? current : scrolling));
+      const hash = window.location.hash !== "";
+      const holding = !hash && !userScrolled.current && performance.now() < holdUntil.current;
+      if (holding && scrollY !== 0) window.scrollTo(0, 0);
+      const y = holding ? 0 : scrollY;
+      const show = !holding && y > 0;
+      setShowBar((current) => (current === show ? current : show));
 
       let arrived = 0;
-      while (arrived < count - 1 && scrollY >= arrivals[arrived + 1]) {
+      while (arrived < count - 1 && y >= arrivals[arrived + 1]) {
         arrived += 1;
       }
 
-      const atFirst = scrollY <= arrivals[0];
-      const atLast = scrollY >= arrivals[count - 1];
+      const atFirst = y <= arrivals[0];
+      const atLast = y >= arrivals[count - 1];
       let nextIndex = arrived;
       let x = checkpointCenter(arrived, count);
 
@@ -78,7 +110,7 @@ export function ProgressTimeline({ sections, children }: ProgressTimelineProps) 
       } else if (!atLast && !reduced) {
         const segmentStart = Math.max(arrivals[arrived], 0);
         const span = arrivals[arrived + 1] - segmentStart;
-        const t = span > 0 ? (scrollY - segmentStart) / span : 1;
+        const t = span > 0 ? (y - segmentStart) / span : 1;
         const from = checkpointCenter(arrived, count);
         const to = checkpointCenter(arrived + 1, count);
         x = from + (to - from) * Math.min(1, Math.max(0, t));
@@ -106,6 +138,7 @@ export function ProgressTimeline({ sections, children }: ProgressTimelineProps) 
   const labels = useMemo(() => sections.map((s) => s.title), [sections]);
 
   const scrollToSection = (id: string) => {
+    userScrolled.current = true;
     const el = document.getElementById(id);
     const heading = el?.querySelector("h2") ?? el;
     if (!heading) return;
@@ -121,8 +154,10 @@ export function ProgressTimeline({ sections, children }: ProgressTimelineProps) 
         ref={barRef}
         inert={showBar ? undefined : true}
         className={cn(
-          "sticky top-16 z-30 border-b border-border bg-[color-mix(in_srgb,var(--bg)_94%,transparent)] backdrop-blur-md transition-opacity duration-200 motion-reduce:transition-none",
-          showBar ? "opacity-100" : "pointer-events-none opacity-0",
+          "sticky top-16 z-30 border-b border-border bg-[color-mix(in_srgb,var(--bg)_94%,transparent)] backdrop-blur-md transition-[opacity,transform] duration-200 motion-reduce:transition-none",
+          showBar
+            ? "translate-y-0 opacity-100"
+            : "pointer-events-none translate-y-full opacity-0",
         )}
       >
         <div className="mx-auto w-full max-w-[var(--page-max)] px-[var(--page-gutter)] py-3">

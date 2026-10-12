@@ -5,7 +5,7 @@
   "summary": "A 10-week UX design and research project",
   "role": "UX Designer",
   "duration": "10 weeks",
-  "team": "Student-led team with co-designer, visual design, and web development",
+  "team": "1 project manager, 1 marketer, 1 visual designer, 2 ux designers, 1 web developer, 2 client contacts",
   "tools": [
     "Figma",
     "WordPress"
@@ -21,6 +21,7 @@
     "alt": "Screen recording of the redesigned Kitchens for Good website",
     "aspectRatio": "1300 / 800"
   },
+  "liveUrl": "https://www.kitchensforgood.org",
   "featured": true,
   "brand": "kitchens-for-good",
   "stats": [
@@ -47,8 +48,16 @@
       "title": "Overview",
       "blocks": [
         {
-          "type": "richText",
-          "content": "Kitchens for Good runs state-certified culinary and entrepreneurship apprenticeships that help people facing barriers to employment build lasting careers. Over the past decade, the organization scaled from a small local program into a $10 million nonprofit with a multi-program model, but its digital presence never caught up.\n\nWhen KFG's leadership began looking for a design partner to close that gap, I joined as the UX designer on a small student-led team, drawn to the project because it wasn't a cosmetic refresh. It was a chance to fix something that was actively costing the organization applicants and donations."
+          "type": "twoColumn",
+          "align": "start",
+          "text": "Kitchens for Good runs state-certified culinary and entrepreneurship apprenticeships that help people facing barriers to employment build lasting careers. Over the past decade, the organization scaled from a small local program into a $10 million nonprofit with a multi-program model, but its digital presence never caught up.\n\nWhen KFG's leadership began looking for a design partner to close that gap, I joined as the UX designer on a small student-led team, drawn to the project because it wasn't a cosmetic refresh. It was a chance to fix something that was actively costing the organization applicants and donations.",
+          "media": {
+            "kind": "video",
+            "mp4": "/media/kitchens-for-good/overview.mp4",
+            "poster": "/media/kitchens-for-good/overview-poster.jpg",
+            "alt": "Screen recording of the Kitchens for Good site, with the heading Be Part of Our Crew",
+            "aspectRatio": "1300 / 800"
+          }
         }
       ]
     },
@@ -58,22 +67,14 @@
       "blocks": [
         {
           "type": "twoColumn",
-          "text": "KFG's website and branding hadn't kept pace with the organization's growth. The visual identity felt fragmented and inconsistent across pages.",
-          "media": {
-            "kind": "image",
-            "src": "/media/kitchens-for-good/problem.png",
-            "alt": "Kitchens for Good color palette: Blood Orange, Banana Yellow, Kale Green, and Alkaline Blue",
-            "aspectRatio": "1368 / 1000"
-          }
-        },
-        {
-          "type": "twoColumn",
-          "text": "For a $10M nonprofit competing for donor trust and apprentice applicants, that gap wasn't just cosmetic. It was a credibility and conversion problem. I needed to know exactly where the roadblocks were happening and for whom.",
+          "align": "start",
+          "text": "KFG's website and branding hadn't kept pace with the organization's growth. The visual identity felt fragmented and inconsistent across pages.\n\nFor a $10M nonprofit competing for donor trust and apprentice applicants, that gap wasn't just cosmetic. It was a credibility and conversion problem. I needed to know exactly where the roadblocks were happening and for whom.",
           "media": {
             "kind": "image",
             "src": "/media/kitchens-for-good/problem-2.png",
             "alt": "Kitchens for Good brand elements, including siracha, grill marks, soy sauce drops, gumballs, and alkaline water",
-            "aspectRatio": "1354 / 988"
+            "aspectRatio": "1354 / 988",
+            "matchTextHeight": true
           }
         }
       ]
@@ -84,18 +85,8 @@
       "blocks": [
         {
           "type": "twoColumn",
-          "text": "I ran 20 task-based interviews and collected 19 survey responses to evaluate navigation friction, brand perception, and mission clarity across KFG's key user groups. Several participants mistook KFG for a restaurant or a boba shop. Others described the visual brand as too juvenile for an organization operating at this scale. And \"The Shop,\" a parent item bundling retail products, class registrations, and donations together, was a recurring source of confusion, since it forced three unrelated user intents into one unlabeled bucket.\n\nThose findings pointed to two problems: the brand didn't communicate credibility, and the site's structure didn't match users' intuition.",
-          "media": {
-            "kind": "video",
-            "mp4": "/media/kitchens-for-good/discovery.mp4",
-            "poster": "/media/kitchens-for-good/discovery-poster.jpg",
-            "alt": "Screen recording from Kitchens for Good discovery research",
-            "aspectRatio": "2608 / 1440"
-          }
-        },
-        {
-          "type": "stats",
-          "items": [
+          "align": "start",
+          "stats": [
             {
               "value": "20",
               "label": "Task-based interviews"
@@ -104,11 +95,15 @@
               "value": "19",
               "label": "Survey responses"
             }
-          ]
-        },
-        {
-          "type": "callout",
-          "content": "Participants mistook KFG for a restaurant or boba shop and called the brand too juvenile for a $10M organization."
+          ],
+          "text": "I ran 20 task-based interviews and collected 19 survey responses to evaluate navigation friction, brand perception, and mission clarity across KFG's key user groups. Several participants mistook KFG for a restaurant or a boba shop. Others described the visual brand as too juvenile for an organization operating at this scale. And \"The Shop,\" a parent item bundling retail products, class registrations, and donations together, was a recurring source of confusion, since it forced three unrelated user intents into one unlabeled bucket.\n\nThose findings pointed to two problems: the brand didn't communicate credibility, and the site's structure didn't match users' intuition.",
+          "media": {
+            "kind": "video",
+            "mp4": "/media/kitchens-for-good/discovery-2.mp4",
+            "poster": "/media/kitchens-for-good/discovery-2-poster.jpg",
+            "alt": "Screen recording from Kitchens for Good discovery research",
+            "aspectRatio": "1300 / 800"
+          }
         },
         {
           "type": "richText",
@@ -122,6 +117,7 @@
       "blocks": [
         {
           "type": "twoColumn",
+          "align": "start",
           "text": "Before any wireframes existed, my co-designer and I tested multiple versions of the new sitemap directly with stakeholders, most critically KFG's CEO. Through several rounds of feedback, we landed on a structure that cut down the number of navbar selections and cleanly separated pathways for two very different first-time visitors: prospective program applicants and donors who had never been to the site before.",
           "media": {
             "kind": "video",
@@ -133,13 +129,14 @@
         },
         {
           "type": "twoColumn",
+          "align": "start",
           "text": "With the sitemap approved, we moved into mid-fidelity wireframes in Figma. This stage forced us to decide what content actually earned space on a page versus what was cluttering it. I designed the Social Enterprise and Support Us sections myself, 18 pages in total. Then we moved into high-fidelity design, where I applied the visual design team's new style guide and caught color contrast issues in the original guide, correcting them for accessibility.",
           "media": {
             "kind": "video",
             "mp4": "/media/kitchens-for-good/delivery-2.mp4",
             "poster": "/media/kitchens-for-good/delivery-2-poster.jpg",
             "alt": "Screen recording of Kitchens for Good wireframes and high-fidelity pages",
-            "aspectRatio": "16 / 9"
+            "aspectRatio": "2560 / 1440"
           }
         },
         {
@@ -153,8 +150,9 @@
       "title": "Impact",
       "blocks": [
         {
-          "type": "stats",
-          "items": [
+          "type": "twoColumn",
+          "align": "start",
+          "stats": [
             {
               "value": "8%",
               "label": "Increase in donations"
@@ -163,10 +161,7 @@
               "value": "5%",
               "label": "Increase in program applications"
             }
-          ]
-        },
-        {
-          "type": "twoColumn",
+          ],
           "text": "The redesign improved discoverability of KFG's core programs and contributed to an 8% increase in donations and a 5% increase in program applications. For an organization whose growth depends directly on donor confidence and apprentice enrollment, those numbers translate to real operating capacity, not just better-looking pages.",
           "media": {
             "kind": "video",
@@ -184,8 +179,16 @@
       "title": "Reflection",
       "blocks": [
         {
-          "type": "richText",
-          "content": "The biggest lesson from this project the importance of documentation. Once the engagement ended and KFG took over the site directly, small edits on their end, like swapping a photo or updating header text, introduced bugs, and padding disappeared in places. Part of the issue was that our team only ever had access to a staging environment, not the live site, which made it harder to anticipate what would break once KFG had editing control.\n\nIf I ran this project again, I'd build out clearer documentation, so the organization could maintain the site confidently without a designer or developer on call."
+          "type": "twoColumn",
+          "align": "start",
+          "text": "The biggest lesson from this project the importance of documentation. Once the engagement ended and KFG took over the site directly, small edits on their end, like swapping a photo or updating header text, introduced bugs, and padding disappeared in places. Part of the issue was that our team only ever had access to a staging environment, not the live site, which made it harder to anticipate what would break once KFG had editing control.\n\nIf I ran this project again, I'd build out clearer documentation, so the organization could maintain the site confidently without a designer or developer on call.",
+          "media": {
+            "kind": "video",
+            "mp4": "/media/kitchens-for-good/KFG%20Reflection.mp4",
+            "poster": "/media/kitchens-for-good/reflection-poster.jpg",
+            "alt": "Screen recording of the Kitchens for Good site, showing two chefs in a kitchen under the heading Businesses That Power Our Mission",
+            "aspectRatio": "1300 / 800"
+          }
         }
       ]
     }

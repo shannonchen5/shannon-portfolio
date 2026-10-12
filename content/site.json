@@ -15,20 +15,16 @@
   ],
   "nav": [
     {
-      "label": "Home",
-      "href": "/"
-    },
-    {
-      "label": "Digital",
-      "href": "/digital"
-    },
-    {
-      "label": "Physical",
-      "href": "/physical"
-    },
-    {
       "label": "About",
       "href": "/about"
+    },
+    {
+      "label": "Case Studies",
+      "href": "/#work"
+    },
+    {
+      "label": "Physical Design",
+      "href": "/physical"
     },
     {
       "label": "Contact",

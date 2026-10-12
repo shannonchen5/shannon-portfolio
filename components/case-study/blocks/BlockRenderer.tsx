@@ -1,11 +1,12 @@
+import type { ReactNode } from "react";
 import Image from "next/image";
-import type { Block } from "@/content/case-studies/_schema";
+import type { Block, StatItem } from "@/content/case-studies/_schema";
 import { LightboxImage } from "@/components/ui/LightboxImage";
 import { VideoPlayer } from "./VideoPlayer";
 
 function Paragraphs({ content }: { content: string }) {
   return (
-    <div className="space-y-4">
+    <div className="flex flex-col gap-4">
       {content.split("\n\n").map((para) => (
         <p key={para.slice(0, 24)} className="text-body text-text-muted">
           {para}
@@ -15,7 +16,39 @@ function Paragraphs({ content }: { content: string }) {
   );
 }
 
-export function BlockRenderer({ block }: { block: Block }) {
+function StatsList({
+  items,
+  columns,
+}: {
+  items: StatItem[];
+  columns: "page" | "column";
+}) {
+  return (
+    <dl
+      className={
+        columns === "page"
+          ? "grid gap-6 sm:grid-cols-2 lg:grid-cols-4"
+          : "grid grid-cols-2 gap-x-8 gap-y-6"
+      }
+    >
+      {items.map((item) => (
+        <div key={`${item.label}-${item.value}`}>
+          <dt className="text-eyebrow text-text-muted">{item.label}</dt>
+          <dd className="mt-2 text-h2 text-plum">{item.value}</dd>
+        </div>
+      ))}
+    </dl>
+  );
+}
+
+export function BlockRenderer({
+  block,
+  heading,
+}: {
+  block: Block;
+  /** Rendered in the text column so media can center against the whole section. */
+  heading?: ReactNode;
+}) {
   switch (block.type) {
     case "richText":
       return (
@@ -62,22 +95,60 @@ export function BlockRenderer({ block }: { block: Block }) {
 
     case "twoColumn":
       return (
-        <div className="grid items-center gap-8 lg:grid-cols-2 lg:gap-12 xl:gap-16">
-          <Paragraphs content={block.text} />
-          {block.media.kind === "image" ? (
+        <div
+          className={`grid gap-8 lg:grid-cols-2 lg:gap-12 xl:gap-16 ${
+            block.align === "start" ? "items-start" : "items-center"
+          }`}
+        >
+          <div>
+            {heading}
+            {block.stats?.length ? (
+              <div className={heading ? "mt-10" : undefined}>
+                <StatsList items={block.stats} columns="column" />
+              </div>
+            ) : null}
             <div
-              className="media-round relative w-full"
-              style={{ aspectRatio: block.media.aspectRatio ?? "4 / 3" }}
+              className={
+                block.stats?.length
+                  ? "mt-4"
+                  : heading
+                    ? block.align === "start" && block.media.kind !== "image"
+                      ? "mt-10"
+                      : "mt-6"
+                    : undefined
+              }
             >
-              <Image
-                src={block.media.src}
-                alt={block.media.alt}
-                fill
-                className="object-contain"
-                sizes="(max-width: 1024px) 100vw, 640px"
-                unoptimized={block.media.src.endsWith(".svg")}
-              />
+              <Paragraphs content={block.text} />
             </div>
+          </div>
+          {block.media.kind === "image" ? (
+            block.media.matchTextHeight ? (
+              <div className="w-full lg:h-0 lg:min-h-full">
+                <Image
+                  src={block.media.src}
+                  alt={block.media.alt}
+                  width={Number((block.media.aspectRatio ?? "4 / 3").split("/")[0]) || 4}
+                  height={Number((block.media.aspectRatio ?? "4 / 3").split("/")[1]) || 3}
+                  className="media-round h-auto w-full object-contain object-left-top lg:h-full lg:w-auto lg:max-w-full"
+                  sizes="(max-width: 1024px) 100vw, 640px"
+                  unoptimized={block.media.src.endsWith(".svg")}
+                />
+              </div>
+            ) : (
+              <div
+                className="media-round relative w-full"
+                style={{ aspectRatio: block.media.aspectRatio ?? "4 / 3" }}
+              >
+                <Image
+                  src={block.media.src}
+                  alt={block.media.alt}
+                  fill
+                  className="object-contain"
+                  sizes="(max-width: 1024px) 100vw, 640px"
+                  unoptimized={block.media.src.endsWith(".svg")}
+                />
+              </div>
+            )
           ) : (
             <VideoPlayer
               mp4={block.media.mp4}
@@ -85,7 +156,8 @@ export function BlockRenderer({ block }: { block: Block }) {
               poster={block.media.poster}
               alt={block.media.alt}
               aspectRatio={block.media.aspectRatio}
-              fit="contain"
+              fit={block.media.fit ?? "contain"}
+              objectPosition={block.media.objectPosition}
               framed={false}
             />
           )}
@@ -105,16 +177,7 @@ export function BlockRenderer({ block }: { block: Block }) {
       );
 
     case "stats":
-      return (
-        <dl className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-          {block.items.map((item) => (
-            <div key={`${item.label}-${item.value}`}>
-              <dt className="text-eyebrow text-text-muted">{item.label}</dt>
-              <dd className="mt-2 text-h2 text-plum">{item.value}</dd>
-            </div>
-          ))}
-        </dl>
-      );
+      return <StatsList items={block.items} columns="page" />;
 
     case "callout":
       return (

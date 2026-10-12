@@ -38,8 +38,24 @@ export type Block =
   | {
       type: "twoColumn";
       text: string;
+      /** Shown above the paragraph, in the text column. */
+      stats?: StatItem[];
+      /**
+       * Vertically center the media against the heading, stats, and text
+       * as one section column.
+       */
+      centerMedia?: boolean;
+      /** Top-align media with the text column. The first block also takes the section heading. */
+      align?: "start" | "center";
       media:
-        | { kind: "image"; src: string; alt: string; aspectRatio?: string }
+        | {
+            kind: "image";
+            src: string;
+            alt: string;
+            aspectRatio?: string;
+            /** Match the height of the text column instead of the image's own aspect box. */
+            matchTextHeight?: boolean;
+          }
         | {
             kind: "video";
             mp4: string;
@@ -49,6 +65,9 @@ export type Block =
             aspectRatio?: string;
             /** False shows the recording edge to edge, with no border or radius. */
             framed?: boolean;
+            fit?: "cover" | "contain";
+            /** Crops letterboxing when `fit` is `cover`. */
+            objectPosition?: string;
           };
     }
   | { type: "quote"; text: string; attribution?: string }
@@ -89,6 +108,8 @@ export type CaseStudy = {
    * Until that file exists, the hero shows `cover` instead.
    */
   heroVideo?: HeroVideo;
+  /** External site shown as a pill under the hero media. */
+  liveUrl?: string;
   featured: boolean;
   /** When set, remaps site CSS tokens to this project's brand guidelines. */
   brand?: CaseStudyBrand;

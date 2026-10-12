@@ -6,6 +6,7 @@ import type { CaseStudy, HeroVideo } from "@/content/case-studies/_schema";
 import { BlockRenderer } from "./blocks/BlockRenderer";
 import { VideoPlayer } from "./blocks/VideoPlayer";
 import { CaseStudyBrand } from "./CaseStudyBrand";
+import { FlowMediaSection } from "./FlowMediaSection";
 import { ProgressTimeline } from "./ProgressTimeline";
 import { Button } from "@/components/ui/Button";
 
@@ -32,7 +33,7 @@ export function CaseStudyView({ study, next }: CaseStudyViewProps) {
         />
       ) : null}
       <CaseStudyBrand brand={study.brand} />
-      <header className="sticky top-16 z-0 mx-auto flex w-full max-w-[var(--page-max)] flex-col justify-start px-[var(--page-gutter)] pb-8 pt-6 sm:pt-8 lg:min-h-[calc(100svh-4rem)] lg:pb-10 lg:pt-8">
+      <header className="sticky top-16 z-0 mx-auto flex w-full max-w-[var(--page-max)] flex-col justify-start px-[var(--page-gutter)] pb-8 pt-6 sm:pt-8 min-h-[calc(100dvh-4rem)] lg:pb-10 lg:pt-8">
         <div className="grid w-full items-center gap-10 lg:grid-cols-[minmax(0,1.2fr)_minmax(0,1fr)] lg:gap-x-16 xl:gap-x-20">
           <div className="@container min-w-0">
             <h1
@@ -48,53 +49,118 @@ export function CaseStudyView({ study, next }: CaseStudyViewProps) {
               <Meta label="Tools" value={study.tools.join(", ")} />
             </dl>
           </div>
-          <HeroMedia study={study} />
+          <div className="flex w-full min-w-0 flex-col items-center">
+            <div className="w-full">
+              <HeroMedia study={study} />
+            </div>
+            {study.liveUrl ? (
+              <Button href={study.liveUrl} external className="mt-6">
+                See the live website
+              </Button>
+            ) : null}
+          </div>
         </div>
       </header>
 
       {/* Opaque sheet scrolls up over the stuck hero; the timeline pins under the nav. */}
       <div className="relative z-10 bg-bg">
-      <ProgressTimeline sections={study.sections}>
+      <ProgressTimeline key={study.slug} sections={study.sections}>
         <div className="mx-auto w-full max-w-[var(--page-max)] px-[var(--page-gutter)] pb-24">
           {overview ? (
             <section
               id={overview.id}
               className="border-b border-border pb-16 pt-10 sm:pb-20 sm:pt-12"
             >
-              <h2 className="scroll-mt-[12rem] text-h2 text-plum md:scroll-mt-[11rem]">
-                {overview.title}
-              </h2>
-
-              <div className="mt-10 space-y-10">
-                {overview.blocks.map((block, index) => (
-                  <BlockRenderer
-                    key={`${overview.id}-${block.type}-${index}`}
-                    block={block}
-                  />
-                ))}
-              </div>
+              {overview.blocks[0]?.type === "twoColumn" &&
+              overview.blocks[0].align === "start" ? (
+                <BlockRenderer
+                  block={overview.blocks[0]}
+                  heading={
+                    <h2 className="scroll-mt-[12rem] text-h2 text-plum md:scroll-mt-[11rem]">
+                      {overview.title}
+                    </h2>
+                  }
+                />
+              ) : (
+                <>
+                  <h2 className="scroll-mt-[12rem] text-h2 text-plum md:scroll-mt-[11rem]">
+                    {overview.title}
+                  </h2>
+                  <div className="mt-10 space-y-10">
+                    {overview.blocks.map((block, index) => (
+                      <BlockRenderer
+                        key={`${overview.id}-${block.type}-${index}`}
+                        block={block}
+                      />
+                    ))}
+                  </div>
+                </>
+              )}
             </section>
           ) : null}
 
-          {following.map((section) => (
-            <section
-              key={section.id}
-              id={section.id}
-              className="border-b border-border py-16 last:border-b-0 sm:py-20"
-            >
+          {following.map((section) => {
+            const only =
+              section.blocks.length === 1 ? section.blocks[0] : undefined;
+            const centerMedia =
+              only?.type === "twoColumn" && only.centerMedia === true;
+            const first = section.blocks[0];
+            const flowParagraphs =
+              section.blocks.length > 1 &&
+              section.blocks.every(
+                (block) => block.type === "twoColumn" || block.type === "richText",
+              );
+            const headingWithFirst =
+              !flowParagraphs &&
+              !centerMedia &&
+              first?.type === "twoColumn" &&
+              first.align === "start";
+            const heading = (
               <h2 className="scroll-mt-[12rem] text-h2 text-plum md:scroll-mt-[11rem]">
                 {section.title}
               </h2>
-              <div className="mt-10 space-y-10">
-                {section.blocks.map((block, index) => (
-                  <BlockRenderer
-                    key={`${section.id}-${block.type}-${index}`}
-                    block={block}
-                  />
-                ))}
-              </div>
-            </section>
-          ))}
+            );
+
+            return (
+              <section
+                key={section.id}
+                id={section.id}
+                className="border-b border-border py-16 last:border-b-0 sm:py-20"
+              >
+                {flowParagraphs ? (
+                  <FlowMediaSection title={section.title} blocks={section.blocks} />
+                ) : centerMedia && only ? (
+                  <BlockRenderer block={only} heading={heading} />
+                ) : headingWithFirst ? (
+                  <>
+                    <BlockRenderer block={first} heading={heading} />
+                    {section.blocks.length > 1 ? (
+                      <div className="mt-10 space-y-10">
+                        {section.blocks.slice(1).map((block, index) => (
+                          <BlockRenderer
+                            key={`${section.id}-${block.type}-${index + 1}`}
+                            block={block}
+                          />
+                        ))}
+                      </div>
+                    ) : null}
+                  </>
+                ) : (
+                  <>
+                    {heading}
+                    <div className="mt-10 space-y-10">
+                      {section.blocks.map((block, index) => (
+                        <BlockRenderer
+                          key={`${section.id}-${block.type}-${index}`}
+                          block={block}
+                        />
+                      ))}
+                    </div>
+                  </>
+                )}
+              </section>
+            );
+          })}
 
           {next ? (
             <footer

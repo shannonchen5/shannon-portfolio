@@ -5,6 +5,7 @@ import { useLayoutEffect, useRef, useState } from "react";
 import { useReducedMotion } from "motion/react";
 import type { CaseStudy } from "@/content/case-studies/_schema";
 import { ParallaxMedia } from "@/components/ui/ParallaxMedia";
+import { Button } from "@/components/ui/Button";
 import { cn } from "@/lib/cn";
 
 type StickyCaseStackProps = {
@@ -92,15 +93,9 @@ export function StickyCaseStack({ studies, title }: StickyCaseStackProps) {
                   </Link>
                 </h2>
                 <p className="mt-5 text-body text-text-muted">{study.summary}</p>
-                <p className="mt-8">
-                  <Link
-                    href={`/work/${study.slug}`}
-                    className="link-draw inline-flex items-center gap-3 text-eyebrow tracking-[0.12em] text-plum transition-transform duration-[120ms] ease-out hover:translate-x-1"
-                  >
-                    Read case study
-                    <span aria-hidden>→</span>
-                  </Link>
-                </p>
+                <div className="mt-8">
+                  <Button href={`/work/${study.slug}`}>Read case study</Button>
+                </div>
               </div>
 
               {/* Image on right */}

@@ -1,6 +1,5 @@
 "use client";
 
-import Link from "next/link";
 import { StickyCaseStack } from "@/components/home/StickyCaseStack";
 import { HeroTracksLazy } from "@/components/home/HeroTracksLazy";
 import { SiteCopy } from "@/components/home/SiteCopy";
@@ -22,22 +21,6 @@ export function HomePageContent({ featured }: HomePageContentProps) {
 
           <div id="work" className="relative scroll-mt-16">
             <StickyCaseStack studies={featured} title="Case Studies" />
-            <div className="relative z-[20] border-t border-border bg-bg py-12">
-              <div className="mx-auto flex w-full max-w-[var(--page-max)] flex-wrap gap-8 px-[var(--page-gutter)]">
-                <Link
-                  href="/digital"
-                  className="link-highlight text-base font-semibold text-text"
-                >
-                  All digital work
-                </Link>
-                <Link
-                  href="/physical"
-                  className="link-highlight text-base font-semibold text-text"
-                >
-                  All physical work
-                </Link>
-              </div>
-            </div>
           </div>
 
           <Section className="relative z-[20] border-t border-border bg-surface">
