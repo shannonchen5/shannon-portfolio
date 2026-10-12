@@ -25,10 +25,7 @@ export function HeroSection({
           <div className="pointer-events-none absolute bottom-0 right-0 z-0 w-[min(46%,20rem)] max-w-full">
             <div
               className="relative aspect-[3/4] w-full overflow-hidden bg-surface shadow-[var(--shadow-warm)]"
-              style={{
-                borderRadius:
-                  "50% 50% 12px 12px / 37.5% 37.5% 12px 12px",
-              }}
+              style={{ borderRadius: "var(--radius-arch)" }}
             >
               <Image
                 src="/media/headshot.png"

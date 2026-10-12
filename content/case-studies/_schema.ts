@@ -47,6 +47,8 @@ export type Block =
             poster: string;
             alt: string;
             aspectRatio?: string;
+            /** False shows the recording edge to edge, with no border or radius. */
+            framed?: boolean;
           };
     }
   | { type: "quote"; text: string; attribution?: string }

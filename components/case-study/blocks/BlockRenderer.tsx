@@ -18,7 +18,11 @@ function Paragraphs({ content }: { content: string }) {
 export function BlockRenderer({ block }: { block: Block }) {
   switch (block.type) {
     case "richText":
-      return <Paragraphs content={block.content} />;
+      return (
+        <div className="grid gap-8 lg:grid-cols-2 lg:gap-12 xl:gap-16">
+          <Paragraphs content={block.content} />
+        </div>
+      );
 
     case "image":
       return (
@@ -58,19 +62,19 @@ export function BlockRenderer({ block }: { block: Block }) {
 
     case "twoColumn":
       return (
-        <div className="grid items-center gap-8 md:grid-cols-2">
+        <div className="grid items-center gap-8 lg:grid-cols-2 lg:gap-12 xl:gap-16">
           <Paragraphs content={block.text} />
           {block.media.kind === "image" ? (
             <div
-              className="media-frame relative w-full"
-              style={{ aspectRatio: block.media.aspectRatio ?? "1 / 1" }}
+              className="media-round relative w-full"
+              style={{ aspectRatio: block.media.aspectRatio ?? "4 / 3" }}
             >
               <Image
                 src={block.media.src}
                 alt={block.media.alt}
                 fill
-                className="object-cover"
-                sizes="(max-width: 768px) 100vw, 480px"
+                className="object-contain"
+                sizes="(max-width: 1024px) 100vw, 640px"
                 unoptimized={block.media.src.endsWith(".svg")}
               />
             </div>
@@ -81,6 +85,8 @@ export function BlockRenderer({ block }: { block: Block }) {
               poster={block.media.poster}
               alt={block.media.alt}
               aspectRatio={block.media.aspectRatio}
+              fit="contain"
+              framed={false}
             />
           )}
         </div>

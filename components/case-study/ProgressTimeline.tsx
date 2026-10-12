@@ -33,6 +33,7 @@ export function ProgressTimeline({ sections, children }: ProgressTimelineProps) 
   const barRef = useRef<HTMLDivElement>(null);
   const reduced = useReducedMotion();
   const [activeIndex, setActiveIndex] = useState(0);
+  const [showBar, setShowBar] = useState(false);
   const runnerX = useMotionValue(checkpointCenter(0, sections.length));
 
   useEffect(() => {
@@ -58,6 +59,8 @@ export function ProgressTimeline({ sections, children }: ProgressTimelineProps) 
         return headingArrival(heading, Math.max(topLine, margin));
       });
       const scrollY = window.scrollY;
+      const scrolling = scrollY > 0;
+      setShowBar((current) => (current === scrolling ? current : scrolling));
 
       let arrived = 0;
       while (arrived < count - 1 && scrollY >= arrivals[arrived + 1]) {
@@ -116,7 +119,11 @@ export function ProgressTimeline({ sections, children }: ProgressTimelineProps) 
     <div ref={containerRef} className="relative">
       <div
         ref={barRef}
-        className="sticky top-16 z-30 border-b border-border bg-[color-mix(in_srgb,var(--bg)_94%,transparent)] backdrop-blur-md"
+        inert={showBar ? undefined : true}
+        className={cn(
+          "sticky top-16 z-30 border-b border-border bg-[color-mix(in_srgb,var(--bg)_94%,transparent)] backdrop-blur-md transition-opacity duration-200 motion-reduce:transition-none",
+          showBar ? "opacity-100" : "pointer-events-none opacity-0",
+        )}
       >
         <div className="mx-auto w-full max-w-[var(--page-max)] px-[var(--page-gutter)] py-3">
           <div className="relative h-[4.25rem]">

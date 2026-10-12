@@ -16,9 +16,10 @@
     "aspectRatio": "16 / 10"
   },
   "heroVideo": {
-    "mp4": "/media/kitchens-for-good/hero.mp4",
+    "mp4": "/media/kitchens-for-good/hero-5.mp4",
+    "poster": "/media/kitchens-for-good/hero-5-poster.jpg",
     "alt": "Screen recording of the redesigned Kitchens for Good website",
-    "aspectRatio": "16 / 9"
+    "aspectRatio": "1300 / 800"
   },
   "featured": true,
   "brand": "kitchens-for-good",
@@ -56,8 +57,24 @@
       "title": "The Problem",
       "blocks": [
         {
-          "type": "richText",
-          "content": "KFG's website and branding hadn't kept pace with the organization's growth. The visual identity felt fragmented and inconsistent across pages.\n\nFor a $10M nonprofit competing for donor trust and apprentice applicants, that gap wasn't just cosmetic. It was a credibility and conversion problem. I needed to know exactly where the roadblocks were happening and for whom."
+          "type": "twoColumn",
+          "text": "KFG's website and branding hadn't kept pace with the organization's growth. The visual identity felt fragmented and inconsistent across pages.",
+          "media": {
+            "kind": "image",
+            "src": "/media/kitchens-for-good/problem.png",
+            "alt": "Kitchens for Good color palette: Blood Orange, Banana Yellow, Kale Green, and Alkaline Blue",
+            "aspectRatio": "1368 / 1000"
+          }
+        },
+        {
+          "type": "twoColumn",
+          "text": "For a $10M nonprofit competing for donor trust and apprentice applicants, that gap wasn't just cosmetic. It was a credibility and conversion problem. I needed to know exactly where the roadblocks were happening and for whom.",
+          "media": {
+            "kind": "image",
+            "src": "/media/kitchens-for-good/problem-2.png",
+            "alt": "Kitchens for Good brand elements, including siracha, grill marks, soy sauce drops, gumballs, and alkaline water",
+            "aspectRatio": "1354 / 988"
+          }
         }
       ]
     },
@@ -66,8 +83,15 @@
       "title": "Discovery",
       "blocks": [
         {
-          "type": "richText",
-          "content": "I ran 20 task-based interviews and collected 19 survey responses to evaluate navigation friction, brand perception, and mission clarity across KFG's key user groups. Several participants mistook KFG for a restaurant or a boba shop. Others described the visual brand as too juvenile for an organization operating at this scale. And \"The Shop,\" a parent item bundling retail products, class registrations, and donations together, was a recurring source of confusion, since it forced three unrelated user intents into one unlabeled bucket.\n\nThose findings pointed to two problems: the brand didn't communicate credibility, and the site's structure didn't match users' intuition."
+          "type": "twoColumn",
+          "text": "I ran 20 task-based interviews and collected 19 survey responses to evaluate navigation friction, brand perception, and mission clarity across KFG's key user groups. Several participants mistook KFG for a restaurant or a boba shop. Others described the visual brand as too juvenile for an organization operating at this scale. And \"The Shop,\" a parent item bundling retail products, class registrations, and donations together, was a recurring source of confusion, since it forced three unrelated user intents into one unlabeled bucket.\n\nThose findings pointed to two problems: the brand didn't communicate credibility, and the site's structure didn't match users' intuition.",
+          "media": {
+            "kind": "video",
+            "mp4": "/media/kitchens-for-good/discovery.mp4",
+            "poster": "/media/kitchens-for-good/discovery-poster.jpg",
+            "alt": "Screen recording from Kitchens for Good discovery research",
+            "aspectRatio": "2608 / 1440"
+          }
         },
         {
           "type": "stats",
@@ -97,14 +121,26 @@
       "title": "Delivery",
       "blocks": [
         {
-          "type": "richText",
-          "content": "Before any wireframes existed, my co-designer and I tested multiple versions of the new sitemap directly with stakeholders, most critically KFG's CEO. Through several rounds of feedback, we landed on a structure that cut down the number of navbar selections and cleanly separated pathways for two very different first-time visitors: prospective program applicants and donors who had never been to the site before.\n\nWith the sitemap approved, we moved into mid-fidelity wireframes in Figma. This stage forced us to decide what content actually earned space on a page versus what was cluttering it. I designed the Social Enterprise and Support Us sections myself, 18 pages in total. Then we moved into high-fidelity design, where I applied the visual design team's new style guide and caught color contrast issues in the original guide, correcting them for accessibility."
+          "type": "twoColumn",
+          "text": "Before any wireframes existed, my co-designer and I tested multiple versions of the new sitemap directly with stakeholders, most critically KFG's CEO. Through several rounds of feedback, we landed on a structure that cut down the number of navbar selections and cleanly separated pathways for two very different first-time visitors: prospective program applicants and donors who had never been to the site before.",
+          "media": {
+            "kind": "video",
+            "mp4": "/media/kitchens-for-good/delivery.mp4",
+            "poster": "/media/kitchens-for-good/delivery-poster.jpg",
+            "alt": "Screen recording of the Kitchens for Good sitemap and early page structure",
+            "aspectRatio": "2572 / 1440"
+          }
         },
         {
-          "type": "image",
-          "src": "/media/placeholders/media-wide.svg",
-          "alt": "[Add sitemap, wireframe, or final page screenshots here]",
-          "aspectRatio": "16 / 9"
+          "type": "twoColumn",
+          "text": "With the sitemap approved, we moved into mid-fidelity wireframes in Figma. This stage forced us to decide what content actually earned space on a page versus what was cluttering it. I designed the Social Enterprise and Support Us sections myself, 18 pages in total. Then we moved into high-fidelity design, where I applied the visual design team's new style guide and caught color contrast issues in the original guide, correcting them for accessibility.",
+          "media": {
+            "kind": "video",
+            "mp4": "/media/kitchens-for-good/delivery-2.mp4",
+            "poster": "/media/kitchens-for-good/delivery-2-poster.jpg",
+            "alt": "Screen recording of Kitchens for Good wireframes and high-fidelity pages",
+            "aspectRatio": "16 / 9"
+          }
         },
         {
           "type": "richText",
@@ -130,8 +166,16 @@
           ]
         },
         {
-          "type": "richText",
-          "content": "The redesign improved discoverability of KFG's core programs and contributed to an 8% increase in donations and a 5% increase in program applications. For an organization whose growth depends directly on donor confidence and apprentice enrollment, those numbers translate to real operating capacity, not just better-looking pages."
+          "type": "twoColumn",
+          "text": "The redesign improved discoverability of KFG's core programs and contributed to an 8% increase in donations and a 5% increase in program applications. For an organization whose growth depends directly on donor confidence and apprentice enrollment, those numbers translate to real operating capacity, not just better-looking pages.",
+          "media": {
+            "kind": "video",
+            "mp4": "/media/kitchens-for-good/impact-4.mp4",
+            "poster": "/media/kitchens-for-good/impact-4-poster.jpg",
+            "alt": "Screen recording of the launched Kitchens for Good website",
+            "aspectRatio": "1300 / 800",
+            "framed": false
+          }
         }
       ]
     },

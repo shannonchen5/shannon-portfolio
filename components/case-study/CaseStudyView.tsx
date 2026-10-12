@@ -33,20 +33,23 @@ export function CaseStudyView({ study, next }: CaseStudyViewProps) {
       ) : null}
       <CaseStudyBrand brand={study.brand} />
       <header className="sticky top-16 z-0 mx-auto flex w-full max-w-[var(--page-max)] flex-col justify-start px-[var(--page-gutter)] pb-8 pt-6 sm:pt-8 lg:min-h-[calc(100svh-4rem)] lg:pb-10 lg:pt-8">
-        <div className="grid w-full items-center gap-8 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.15fr)] lg:gap-x-16 xl:gap-x-20">
+        <div className="grid w-full items-center gap-10 lg:grid-cols-[minmax(0,1.2fr)_minmax(0,1fr)] lg:gap-x-16 xl:gap-x-20">
           <div className="@container min-w-0">
-            <h1 className="link-highlight link-highlight-lg text-case-hero text-plum">
+            <h1
+              className="link-highlight link-highlight-lg text-case-hero text-plum"
+              style={{ fontSize: "clamp(2.5rem, 11cqi, 5.25rem)" }}
+            >
               {study.title}
             </h1>
+            <dl className="mt-10 grid grid-cols-2 gap-x-8 gap-y-8 sm:mt-12 sm:gap-x-16 sm:gap-y-10">
+              <Meta label="Role" value={study.role} />
+              <Meta label="Timeline" value={study.duration} />
+              <Meta label="Team" value={study.team} />
+              <Meta label="Tools" value={study.tools.join(", ")} />
+            </dl>
           </div>
           <HeroMedia study={study} />
         </div>
-        <dl className="mt-8 grid gap-6 border-b border-border py-6 sm:grid-cols-2 lg:grid-cols-4">
-          <Meta label="Role" value={study.role} />
-          <Meta label="Timeline" value={study.duration} />
-          <Meta label="Team" value={study.team} />
-          <Meta label="Tools" value={study.tools.join(", ")} />
-        </dl>
       </header>
 
       {/* Opaque sheet scrolls up over the stuck hero; the timeline pins under the nav. */}
@@ -140,6 +143,7 @@ function HeroMedia({ study }: { study: CaseStudy }) {
         alt={video.alt}
         aspectRatio={video.aspectRatio ?? "16 / 9"}
         fit="contain"
+        framed={false}
         className="min-w-0"
       />
     );
@@ -176,7 +180,9 @@ function Meta({ label, value }: { label: string; value: string }) {
   return (
     <div>
       <dt className="text-eyebrow text-text-muted">{label}</dt>
-      <dd className="mt-2 text-sm font-medium text-text">{value}</dd>
+      <dd className="mt-2 text-base font-medium leading-snug text-text">
+        {value}
+      </dd>
     </div>
   );
 }

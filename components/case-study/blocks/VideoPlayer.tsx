@@ -10,6 +10,8 @@ type VideoPlayerProps = {
   alt: string;
   aspectRatio?: string;
   fit?: "cover" | "contain";
+  /** When false, the video has no border or background. Corners stay at 12px. */
+  framed?: boolean;
   className?: string;
 };
 
@@ -20,6 +22,7 @@ export function VideoPlayer({
   alt,
   aspectRatio = "16 / 9",
   fit = "cover",
+  framed = true,
   className,
 }: VideoPlayerProps) {
   const ref = useRef<HTMLVideoElement>(null);
@@ -52,13 +55,17 @@ export function VideoPlayer({
 
   return (
     <div
-      className={cn("media-frame relative w-full overflow-hidden", className)}
+      className={cn(
+        "media-round relative w-full border-0 shadow-none",
+        framed && "bg-surface",
+        className,
+      )}
       style={{ aspectRatio }}
     >
       <video
         ref={ref}
         className={cn(
-          "h-full w-full",
+          "h-full w-full border-0 outline-none",
           fit === "contain" ? "object-contain" : "object-cover",
         )}
         muted

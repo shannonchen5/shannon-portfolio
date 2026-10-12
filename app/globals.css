@@ -23,6 +23,10 @@
   --shadow-warm: 0 4px 24px rgba(46, 59, 43, 0.07);
   --radius-xl: 16px;
   --radius-2xl: 24px;
+  /* Home hero portrait: arched top, 12px on the square bottom corners */
+  --radius-arch: 50% 50% 12px 12px / 37.5% 37.5% 12px 12px;
+  /* That same 12px, on all four corners */
+  --radius-media: 12px;
   /* Shared page margin: content stays inside this at every viewport */
   --page-max: 100rem;
   --page-gutter: 1.25rem;
@@ -39,12 +43,12 @@
   --surface: #efe8dc;
   --forest: #153b17; /* Black Forest */
   --plum: #153b17; /* headings */
-  /* Accent */
-  --accent: #cb6034; /* Spicy Paprika */
-  --accent-hover: #a84e2a;
-  --accent-tint: #ddcbb2; /* Pale Oak */
-  /* ≥4.5:1 on Spicy Paprika */
-  --text-on-accent: #100f0e; /* Carbon Black */
+  /* Highlight + accent: Black Forest */
+  --accent: #153b17;
+  --accent-hover: #1f5224;
+  --accent-tint: #d5e3d4;
+  /* ≥4.5:1 on Black Forest */
+  --text-on-accent: #fffdfa;
   --olive: #9dbc61; /* Muted Olive */
   --lavender: #9db9d6; /* Powder Blue */
   --lavender-light: #d5e3f0;
@@ -153,13 +157,13 @@
   }
 
   html[data-brand="kitchens-for-good"] ::selection {
-    background-color: color-mix(in srgb, var(--olive) 45%, white);
-    color: var(--forest);
+    background-color: color-mix(in srgb, var(--forest) 35%, white);
+    color: var(--text);
   }
 
   [data-brand="kitchens-for-good"] .case-callout {
     border-left-width: 4px;
-    border-left-color: var(--olive);
+    border-left-color: var(--forest);
   }
 
   html[data-brand="current"] ::selection {
@@ -226,7 +230,7 @@
 
   /* Scales with the title column so a long word cannot run into the hero video. */
   .text-case-hero {
-    font-size: clamp(2rem, 7.2cqi, 4.5rem);
+    font-size: clamp(2.5rem, 11cqi, 5.25rem);
     font-weight: 700;
     letter-spacing: -0.03em;
     line-height: 1.05;
@@ -266,9 +270,15 @@
     padding-block: clamp(4rem, 8vw, 10rem);
   }
 
+  /* 12px on every corner — the square corners of the home hero arch. */
+  .media-round {
+    overflow: hidden;
+    border-radius: var(--radius-media);
+  }
+
   .media-frame {
     overflow: hidden;
-    border-radius: var(--radius-2xl);
+    border-radius: var(--radius-media);
     border: 1px solid var(--border);
     background-color: var(--surface);
   }
