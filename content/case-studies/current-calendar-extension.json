@@ -21,7 +21,7 @@
     "mp4": "/media/current/Current%20(Hero).mp4",
     "poster": "/media/current/hero-poster.jpg",
     "alt": "Screen recording of the Current calendar extension",
-    "aspectRatio": "720 / 960"
+    "aspectRatio": "1300 / 800"
   },
   "featured": true,
   "brand": "current",
@@ -116,10 +116,10 @@
         },
         {
           "type": "video",
-          "mp4": "/media/current/Current%20User%20Flows.mp4",
+          "mp4": "/media/current/Current%20User%20Flows(1).mp4",
           "poster": "/media/current/user-flows-poster.jpg",
           "alt": "Screen recording of the Current task sidebar and goal-tracking flows",
-          "aspectRatio": "720 / 960"
+          "aspectRatio": "1300 / 800"
         },
         {
           "type": "callout",
@@ -138,6 +138,13 @@
         {
           "type": "richText",
           "content": "Once the designs were validated, I was in charge of making the prototypes real. I pulled our Figma MCP components directly into Cursor and vibecoded the Chrome extension through consistent coaching and tweaking of the AI agent. The Figma MCPs were wired up to Google Calendar through Google Cloud APIs and I managed version control through GitHub.\n\nBecause the task sidebar and the goal-tracking flow were built out separately as distinct features, merging them into one working extension was difficult. I had to track down conflicts where both features touched the same calendar views, reconciling duplicated logic, and getting the extension into a state where it could actually be packaged, shared, and downloaded as a file rather than just running locally in a dev environment. I took the time to progress the working code to something installable through the real Chrome extension process."
+        },
+        {
+          "type": "video",
+          "mp4": "/media/current/Current%20(Vibecoding).mp4",
+          "poster": "/media/current/vibecoding-poster.jpg",
+          "alt": "Screen recording of building the Current extension",
+          "aspectRatio": "1300 / 800"
         }
       ]
     },
@@ -148,6 +155,13 @@
         {
           "type": "richText",
           "content": "Meet Current. The Chrome extension that turns long-term goals and daily tasks into structured, measurable progress inside your calendar. Current solves both gaps we identified: tasks living outside events, and long-term goals having no home, inside the one tool users already opened daily. The original AI-agent concept was scoped down to a focused MVP: goal-to-calendar time blocking and a task sidebar with kanban functionality."
+        },
+        {
+          "type": "video",
+          "mp4": "/media/current/Current%20(Delivery).mp4",
+          "poster": "/media/current/delivery-poster.jpg",
+          "alt": "Screen recording of the Current extension in Google Calendar",
+          "aspectRatio": "1280 / 720"
         },
         {
           "type": "quote",
