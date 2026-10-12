@@ -22,7 +22,6 @@ export function VideoPlayer({
   poster,
   alt,
   aspectRatio = "16 / 9",
-  fit = "cover",
   objectPosition,
   framed = true,
   className,
@@ -66,10 +65,7 @@ export function VideoPlayer({
     >
       <video
         ref={ref}
-        className={cn(
-          "h-full w-full border-0 bg-bg outline-none",
-          fit === "contain" ? "object-contain" : "object-cover",
-        )}
+        className="h-[calc(100%+2px)] w-full border-0 bg-transparent object-cover object-top outline-none"
         style={objectPosition ? { objectPosition } : undefined}
         muted
         loop

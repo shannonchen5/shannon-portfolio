@@ -5,7 +5,7 @@
   "summary": "A 10-week UX design and research project",
   "role": "UX Designer",
   "duration": "10 weeks",
-  "team": "1 project manager, 1 marketer, 1 visual designer, 2 ux designers, 1 web developer, 2 client contacts",
+  "team": "1 Project Manager, 1 Marketer, 1 Visual Designer, 2 UX Designers, 1 Web Developer, 2 Client Contacts",
   "tools": [
     "Figma",
     "WordPress"
@@ -140,8 +140,16 @@
           }
         },
         {
-          "type": "richText",
-          "content": "From there, my web developer began implementing the high-fidelity designs in WordPress. That platform choice wasn't intuitive. We considered moving to a more modern site builder like Squarespace, but KFG's existing apprentice application forms and databases were built in WordPress, and migrating them carried real risk of losing applicant data mid-transition. Staying on WordPress meant slower, less flexible tooling, but it protected infrastructure the organization depended on to run its core programs, which mattered more. Once my web developer implemented every page, I assisted him in making sure every page was responsive across mobile and tablet, working with viewport-based and rem units."
+          "type": "twoColumn",
+          "align": "start",
+          "text": "From there, my web developer began implementing the high-fidelity designs in WordPress. That platform choice wasn't intuitive. We considered moving to a more modern site builder like Squarespace, but KFG's existing apprentice application forms and databases were built in WordPress, and migrating them carried real risk of losing applicant data mid-transition. Staying on WordPress meant slower, less flexible tooling, but it protected infrastructure the organization depended on to run its core programs, which mattered more. Once my web developer implemented every page, I assisted him in making sure every page was responsive across mobile and tablet, working with viewport-based and rem units.",
+          "media": {
+            "kind": "video",
+            "mp4": "/media/kitchens-for-good/Delivery%20(3).mp4",
+            "poster": "/media/kitchens-for-good/delivery-3-poster.jpg",
+            "alt": "WordPress editor on a Kitchens for Good page, with the heading Since October 2024, we have served 767,000 meals",
+            "aspectRatio": "1726 / 720"
+          }
         }
       ]
     },

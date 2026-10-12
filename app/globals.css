@@ -350,3 +350,13 @@
     padding-inline: 0.1em;
   }
 }
+
+/* Browsers paint a 1px black row on the bottom of a video or image when the
+   frame height lands between pixels. The frame clips that row off. */
+.media-round > video,
+.media-round > img,
+.media-frame img {
+  height: calc(100% + 2px) !important;
+  object-fit: cover !important;
+  object-position: center top;
+}

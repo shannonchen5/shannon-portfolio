@@ -45,7 +45,7 @@ export function ParallaxMedia({
   return (
     <div
       ref={frameRef}
-      className={cn("media-frame relative w-full overflow-hidden", className)}
+      className={cn("media-round relative w-full overflow-hidden border-0", className)}
       style={{ aspectRatio }}
       onMouseMove={onMove}
       onMouseLeave={onLeave}

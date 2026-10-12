@@ -2,7 +2,7 @@ import fs from "node:fs";
 import path from "node:path";
 import Image from "next/image";
 import Link from "next/link";
-import type { CaseStudy, HeroVideo } from "@/content/case-studies/_schema";
+import type { CaseStudy, CaseStudySection, HeroVideo } from "@/content/case-studies/_schema";
 import { BlockRenderer } from "./blocks/BlockRenderer";
 import { VideoPlayer } from "./blocks/VideoPlayer";
 import { CaseStudyBrand } from "./CaseStudyBrand";
@@ -71,96 +71,19 @@ export function CaseStudyView({ study, next }: CaseStudyViewProps) {
               id={overview.id}
               className="border-b border-border pb-16 pt-10 sm:pb-20 sm:pt-12"
             >
-              {overview.blocks[0]?.type === "twoColumn" &&
-              overview.blocks[0].align === "start" ? (
-                <BlockRenderer
-                  block={overview.blocks[0]}
-                  heading={
-                    <h2 className="scroll-mt-[12rem] text-h2 text-plum md:scroll-mt-[11rem]">
-                      {overview.title}
-                    </h2>
-                  }
-                />
-              ) : (
-                <>
-                  <h2 className="scroll-mt-[12rem] text-h2 text-plum md:scroll-mt-[11rem]">
-                    {overview.title}
-                  </h2>
-                  <div className="mt-10 space-y-10">
-                    {overview.blocks.map((block, index) => (
-                      <BlockRenderer
-                        key={`${overview.id}-${block.type}-${index}`}
-                        block={block}
-                      />
-                    ))}
-                  </div>
-                </>
-              )}
+              <SectionBody section={overview} />
             </section>
           ) : null}
 
-          {following.map((section) => {
-            const only =
-              section.blocks.length === 1 ? section.blocks[0] : undefined;
-            const centerMedia =
-              only?.type === "twoColumn" && only.centerMedia === true;
-            const first = section.blocks[0];
-            const flowParagraphs =
-              section.blocks.length > 1 &&
-              section.blocks.every(
-                (block) => block.type === "twoColumn" || block.type === "richText",
-              );
-            const headingWithFirst =
-              !flowParagraphs &&
-              !centerMedia &&
-              first?.type === "twoColumn" &&
-              first.align === "start";
-            const heading = (
-              <h2 className="scroll-mt-[12rem] text-h2 text-plum md:scroll-mt-[11rem]">
-                {section.title}
-              </h2>
-            );
-
-            return (
-              <section
-                key={section.id}
-                id={section.id}
-                className="border-b border-border py-16 last:border-b-0 sm:py-20"
-              >
-                {flowParagraphs ? (
-                  <FlowMediaSection title={section.title} blocks={section.blocks} />
-                ) : centerMedia && only ? (
-                  <BlockRenderer block={only} heading={heading} />
-                ) : headingWithFirst ? (
-                  <>
-                    <BlockRenderer block={first} heading={heading} />
-                    {section.blocks.length > 1 ? (
-                      <div className="mt-10 space-y-10">
-                        {section.blocks.slice(1).map((block, index) => (
-                          <BlockRenderer
-                            key={`${section.id}-${block.type}-${index + 1}`}
-                            block={block}
-                          />
-                        ))}
-                      </div>
-                    ) : null}
-                  </>
-                ) : (
-                  <>
-                    {heading}
-                    <div className="mt-10 space-y-10">
-                      {section.blocks.map((block, index) => (
-                        <BlockRenderer
-                          key={`${section.id}-${block.type}-${index}`}
-                          block={block}
-                        />
-                      ))}
-                    </div>
-                  </>
-                )}
-              </section>
-            );
-          })}
+          {following.map((section) => (
+            <section
+              key={section.id}
+              id={section.id}
+              className="border-b border-border py-16 last:border-b-0 sm:py-20"
+            >
+              <SectionBody section={section} />
+            </section>
+          ))}
 
           {next ? (
             <footer
@@ -195,6 +118,28 @@ export function CaseStudyView({ study, next }: CaseStudyViewProps) {
       </div>
     </article>
   );
+}
+
+function SectionBody({ section }: { section: CaseStudySection }) {
+  const only = section.blocks.length === 1 ? section.blocks[0] : undefined;
+  const pinned =
+    only?.type === "twoColumn" &&
+    (only.align === "start" || only.centerMedia === true);
+
+  if (pinned && only.type === "twoColumn") {
+    return (
+      <BlockRenderer
+        block={only}
+        heading={
+          <h2 className="scroll-mt-[12rem] text-h2 text-plum md:scroll-mt-[11rem]">
+            {section.title}
+          </h2>
+        }
+      />
+    );
+  }
+
+  return <FlowMediaSection title={section.title} blocks={section.blocks} />;
 }
 
 function HeroMedia({ study }: { study: CaseStudy }) {
@@ -237,7 +182,11 @@ function HeroMedia({ study }: { study: CaseStudy }) {
 function resolveHeroVideo(video: HeroVideo | undefined): HeroVideo | undefined {
   const src = video?.mp4;
   if (!src?.startsWith("/media/") || src.includes("..")) return undefined;
-  const filePath = path.join(process.cwd(), "public", src.replace(/^\/+/, ""));
+  const filePath = path.join(
+    process.cwd(),
+    "public",
+    decodeURIComponent(src.replace(/^\/+/, "")),
+  );
   if (!fs.existsSync(filePath)) return undefined;
   return video;
 }

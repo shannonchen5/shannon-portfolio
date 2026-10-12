@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { motion, useReducedMotion } from "motion/react";
 import type { CaseStudy } from "@/content/case-studies/_schema";
-import { ParallaxMedia } from "@/components/ui/ParallaxMedia";
+import { PreviewMedia } from "@/components/case-study/PreviewMedia";
 import { easeOut } from "@/lib/motion";
 
 type WorkCardProps = {
@@ -58,11 +58,7 @@ export function WorkCard({ study, index = 0 }: WorkCardProps) {
         tabIndex={-1}
         aria-hidden
       >
-        <ParallaxMedia
-          src={study.cover.src}
-          alt=""
-          aspectRatio={study.cover.aspectRatio ?? "16 / 10"}
-        />
+        <PreviewMedia study={study} aspectRatio="16 / 10" />
       </Link>
     </motion.article>
   );

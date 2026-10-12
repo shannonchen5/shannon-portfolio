@@ -4,7 +4,7 @@ import Link from "next/link";
 import { useLayoutEffect, useRef, useState } from "react";
 import { useReducedMotion } from "motion/react";
 import type { CaseStudy } from "@/content/case-studies/_schema";
-import { ParallaxMedia } from "@/components/ui/ParallaxMedia";
+import { PreviewMedia } from "@/components/case-study/PreviewMedia";
 import { Button } from "@/components/ui/Button";
 import { cn } from "@/lib/cn";
 
@@ -23,8 +23,11 @@ function CaseStudiesHeading({ title }: { title: string }) {
 
 export function StickyCaseStack({ studies, title }: StickyCaseStackProps) {
   const reduced = useReducedMotion();
+  const headerRef = useRef<HTMLDivElement>(null);
   const lastCardRef = useRef<HTMLElement>(null);
+  const cardRefs = useRef<(HTMLElement | null)[]>([]);
   const [lastCardHeight, setLastCardHeight] = useState<number | null>(null);
+  const [reachedHeader, setReachedHeader] = useState<boolean[]>([]);
 
   useLayoutEffect(() => {
     const card = lastCardRef.current;
@@ -36,6 +39,40 @@ export function StickyCaseStack({ studies, title }: StickyCaseStackProps) {
     const observer = new ResizeObserver(measure);
     observer.observe(card);
     return () => observer.disconnect();
+  }, [reduced, studies]);
+
+  useLayoutEffect(() => {
+    if (reduced) return;
+
+    let frame = 0;
+    const measure = () => {
+      const headerBottom = headerRef.current?.getBoundingClientRect().bottom ?? 0;
+      const next = studies.map((_, index) => {
+        if (index === 0) return false;
+        const top = cardRefs.current[index]?.getBoundingClientRect().top;
+        if (top == null) return false;
+        return top <= headerBottom + 1;
+      });
+      setReachedHeader((prev) =>
+        prev.length === next.length && prev.every((value, index) => value === next[index])
+          ? prev
+          : next,
+      );
+    };
+
+    const onScroll = () => {
+      cancelAnimationFrame(frame);
+      frame = requestAnimationFrame(measure);
+    };
+
+    measure();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onScroll);
+    return () => {
+      cancelAnimationFrame(frame);
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onScroll);
+    };
   }, [reduced, studies]);
 
   if (studies.length === 0) return null;
@@ -53,7 +90,10 @@ export function StickyCaseStack({ studies, title }: StickyCaseStackProps) {
             className="pointer-events-none absolute inset-x-0 top-0 z-40"
             style={{ bottom: lastCardHeight ?? "100svh" }}
           >
-            <div className="pointer-events-auto sticky top-16 flex h-16 items-center border-t border-border bg-bg">
+            <div
+              ref={headerRef}
+              className="pointer-events-auto sticky top-16 flex h-16 items-center border-t border-border bg-bg"
+            >
               <CaseStudiesHeading title={title} />
             </div>
           </div>
@@ -66,11 +106,16 @@ export function StickyCaseStack({ studies, title }: StickyCaseStackProps) {
         return (
           <article
             key={study.slug}
-            ref={isLast ? lastCardRef : undefined}
+            ref={(node) => {
+              cardRefs.current[index] = node;
+              if (isLast) lastCardRef.current = node;
+            }}
             data-brand={study.brand}
             className={cn(
               "sticky top-32 flex min-h-[100svh] items-start bg-bg",
-              index > 0 && "border-t border-border/60",
+              index > 0 &&
+                (reduced || !reachedHeader[index]) &&
+                "border-t border-border/60",
               reduced && "relative top-auto",
             )}
             style={
@@ -111,10 +156,9 @@ export function StickyCaseStack({ studies, title }: StickyCaseStackProps) {
                   tabIndex={-1}
                   aria-hidden
                 >
-                  <ParallaxMedia
-                    src={study.cover.src}
-                    alt=""
-                    aspectRatio={study.cover.aspectRatio ?? "4 / 3"}
+                  <PreviewMedia
+                    study={study}
+                    aspectRatio="4 / 3"
                     className="relative shadow-[var(--shadow-warm)]"
                     sizes="(max-width: 768px) 100vw, 50vw"
                   />
