@@ -158,7 +158,6 @@ export function BlockRenderer({
               aspectRatio={block.media.aspectRatio}
               fit={block.media.fit ?? "contain"}
               objectPosition={block.media.objectPosition}
-              framed={false}
             />
           )}
         </div>

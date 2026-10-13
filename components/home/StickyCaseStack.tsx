@@ -85,7 +85,7 @@ export function StickyCaseStack({ studies, title }: StickyCaseStackProps) {
         </div>
       ) : (
         <>
-          {/* Ends at the top of the last card, so the title unsticks once that card arrives. */}
+          {/* Ends with the last study, so the title holds while that study is seated, then leaves with it. */}
           <div
             className="pointer-events-none absolute inset-x-0 top-0 z-40"
             style={{ bottom: lastCardHeight ?? "100svh" }}
@@ -168,6 +168,8 @@ export function StickyCaseStack({ studies, title }: StickyCaseStackProps) {
           </article>
         );
       })}
+      {/* Keeps the last study seated under the header, then the whole stack can leave. */}
+      {reduced ? null : <div aria-hidden className="h-[36vh]" />}
     </section>
     </div>
   );

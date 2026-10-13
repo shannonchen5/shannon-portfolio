@@ -154,7 +154,6 @@ function HeroMedia({ study }: { study: CaseStudy }) {
         alt={video.alt}
         aspectRatio={video.aspectRatio ?? "16 / 9"}
         fit="contain"
-        framed={false}
         className="min-w-0"
       />
     );

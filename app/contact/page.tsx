@@ -1,9 +1,11 @@
 import type { Metadata } from "next";
+import { ContactForm } from "@/components/contact/ContactForm";
 import { Button } from "@/components/ui/Button";
 import { FadeIn } from "@/components/ui/FadeIn";
 import { PageHeader } from "@/components/ui/PageHeader";
 import { Section } from "@/components/ui/Section";
 import { site } from "@/content/site";
+import { contactDraftHref } from "@/lib/mailto";
 
 export const metadata: Metadata = {
   title: "Contact",
@@ -11,69 +13,33 @@ export const metadata: Metadata = {
 };
 
 export default function ContactPage() {
+  const linkedin = site.socials.find((social) => social.label === "LinkedIn");
+
   return (
     <Section>
-      <FadeIn className="max-w-2xl">
-        <PageHeader
-          eyebrow="Contact"
-          title="Let's Connect"
-          description="[Your copy here — how you like to be reached and what kinds of opportunities interest you.]"
-        />
-
-        <div className="mt-10 flex flex-wrap gap-3">
-          <Button href={`mailto:${site.email}`} external>
-            Email me
-          </Button>
-          {site.socials
-            .filter((s) => s.label !== "Email")
-            .map((social) => (
-              <Button
-                key={social.label}
-                href={social.href}
-                variant="secondary"
-                external
-              >
-                {social.label}
+      <FadeIn>
+        <div className="grid items-start gap-14 lg:grid-cols-2 lg:gap-x-20 xl:gap-x-28">
+          <div className="max-w-md">
+            <PageHeader
+              eyebrow="Contact"
+              title="Get in touch"
+              description="Have a question or want to work together? I’d love to hear from you."
+            />
+            <div className="mt-10 flex flex-col items-start gap-3">
+              <Button href={contactDraftHref(site.email)}>Email</Button>
+              {linkedin ? (
+                <Button href={linkedin.href} variant="secondary" external>
+                  LinkedIn
+                </Button>
+              ) : null}
+              <Button href={site.resume.href} variant="secondary" external>
+                Resume
               </Button>
-            ))}
-        </div>
+            </div>
+          </div>
 
-        <form
-          className="mt-14 space-y-6 rounded-3xl border border-border bg-surface p-6 sm:p-8"
-          action={`mailto:${site.email}`}
-          method="get"
-          encType="text/plain"
-        >
-          <p className="text-sm text-text-muted">
-            Or send a quick note (opens your email client — no backend yet).
-          </p>
-          <div>
-            <label htmlFor="name" className="text-eyebrow text-text-muted">
-              Name
-            </label>
-            <input
-              id="name"
-              name="name"
-              type="text"
-              autoComplete="name"
-              className="mt-2 w-full rounded-2xl border border-border bg-bg px-4 py-3 text-text outline-none transition-colors focus:border-accent"
-              placeholder="[Your name]"
-            />
-          </div>
-          <div>
-            <label htmlFor="message" className="text-eyebrow text-text-muted">
-              Message
-            </label>
-            <textarea
-              id="message"
-              name="body"
-              rows={5}
-              className="mt-2 w-full resize-y rounded-2xl border border-border bg-bg px-4 py-3 text-text outline-none transition-colors focus:border-accent"
-              placeholder="[Your message here]"
-            />
-          </div>
-          <Button type="submit">Open email draft</Button>
-        </form>
+          <ContactForm />
+        </div>
       </FadeIn>
     </Section>
   );

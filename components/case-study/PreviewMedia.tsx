@@ -30,7 +30,6 @@ export function PreviewMedia({
         poster={video.poster || study.cover.src}
         alt=""
         aspectRatio={video.aspectRatio ?? aspectRatio}
-        framed={false}
         className={className}
       />
     );

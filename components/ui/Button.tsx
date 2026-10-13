@@ -40,7 +40,7 @@ export function Button(props: ButtonProps) {
     <>
       <span>{children}</span>
       {showArrow ? (
-        <span aria-hidden className="translate-y-px text-base leading-none">
+        <span aria-hidden className="inline-flex items-center self-center text-base leading-none">
           →
         </span>
       ) : null}
@@ -49,6 +49,13 @@ export function Button(props: ButtonProps) {
 
   if ("href" in props && props.href) {
     const { href, external } = props;
+    if (href.startsWith("mailto:") || href.startsWith("tel:")) {
+      return (
+        <a href={href} className={classes}>
+          {content}
+        </a>
+      );
+    }
     if (external) {
       return (
         <a

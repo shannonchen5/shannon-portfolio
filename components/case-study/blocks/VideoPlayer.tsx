@@ -11,8 +11,6 @@ type VideoPlayerProps = {
   aspectRatio?: string;
   fit?: "cover" | "contain";
   objectPosition?: string;
-  /** When false, the video has no border or background. Corners stay at 12px. */
-  framed?: boolean;
   className?: string;
 };
 
@@ -23,11 +21,11 @@ export function VideoPlayer({
   alt,
   aspectRatio = "16 / 9",
   objectPosition,
-  framed = true,
   className,
 }: VideoPlayerProps) {
   const ref = useRef<HTMLVideoElement>(null);
   const [inView, setInView] = useState(false);
+  const [shown, setShown] = useState(false);
 
   useEffect(() => {
     const el = ref.current;
@@ -54,18 +52,34 @@ export function VideoPlayer({
     void el.play().catch(() => undefined);
   }, [inView]);
 
+  const reveal = (el: HTMLVideoElement) => {
+    if (typeof el.requestVideoFrameCallback === "function") {
+      el.requestVideoFrameCallback(() => setShown(true));
+      return;
+    }
+    setShown(true);
+  };
+
   return (
     <div
       className={cn(
-        "media-round relative w-full border-0 shadow-none",
-        framed && "bg-surface",
+        "media-round relative w-full border-0 bg-transparent shadow-none",
         className,
       )}
-      style={{ aspectRatio }}
+      style={{
+        aspectRatio,
+        backgroundImage: poster ? `url("${encodeURI(poster)}")` : undefined,
+        backgroundRepeat: "no-repeat",
+        backgroundPosition: objectPosition ?? "center top",
+        backgroundSize: "cover",
+      }}
     >
       <video
         ref={ref}
-        className="h-[calc(100%+2px)] w-full border-0 bg-transparent object-cover object-top outline-none"
+        className={cn(
+          "absolute inset-0 h-full w-full border-0 bg-transparent object-cover object-top outline-none",
+          shown ? "opacity-100" : "opacity-0",
+        )}
         style={objectPosition ? { objectPosition } : undefined}
         muted
         loop
@@ -73,6 +87,7 @@ export function VideoPlayer({
         preload="none"
         poster={poster}
         aria-label={alt}
+        onPlaying={(event) => reveal(event.currentTarget)}
       >
         {webm ? <source src={webm} type="video/webm" /> : null}
         <source src={mp4} type="video/mp4" />

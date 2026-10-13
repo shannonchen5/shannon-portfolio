@@ -2,15 +2,18 @@
   "name": "Shannon Chen",
   "title": "Shannon Chen — Product Designer",
   "description": "UX and product design portfolio themed around running. Digital and physical product case studies.",
-  "email": "hello@example.com",
+  "email": "syc007@ucsd.edu",
+  "resume": {
+    "href": "/Shannon-Chen-Resume.pdf"
+  },
   "socials": [
     {
       "label": "LinkedIn",
-      "href": "https://linkedin.com"
+      "href": "https://www.linkedin.com/in/shannon-chen-y"
     },
     {
       "label": "Email",
-      "href": "mailto:hello@example.com"
+      "href": "mailto:syc007@ucsd.edu"
     }
   ],
   "nav": [
@@ -33,8 +36,8 @@
   ],
   "about": {
     "headline": "About",
-    "body": "I'm a student at UC San Diego studying Cognitive Science with a specialization in Design and Interaction.",
-    "extended": "[Your copy here — longer about bio, interests, and running theme connection.]"
+    "body": "Hello! I’m Shannon, a product designer and student at UC San Diego studying Cognitive Science with a specialization in Design and Interaction and a minor in Computer Science. I design digital and physical products that help people overcome barriers and help businesses grow, pairing every design decision with the impact it will have and the metric that proves it.",
+    "extended": "You’ve met little runners throughout my portfolio because running taught me to work harder than my competition, to put in extra time outside of practice, and to slowly chip away at a goal I set for myself months in advance."
   },
   "hero": {
     "intro": "Hello! My name is Shannon and I'm currently studying Human Computer Interaction and Computer Science at UC San Diego. Let me show you around!"

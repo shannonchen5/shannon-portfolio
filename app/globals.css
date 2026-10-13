@@ -274,13 +274,19 @@
   .media-round {
     overflow: hidden;
     border-radius: var(--radius-media);
+    background-color: transparent;
+    border: 0;
+    /* overflow:hidden does not clip a <video> layer in Chrome, which leaves a
+       black row under the frame until the first picture is painted. */
+    clip-path: inset(0 round var(--radius-media));
   }
 
   .media-frame {
     overflow: hidden;
     border-radius: var(--radius-media);
-    border: 1px solid var(--border);
-    background-color: var(--surface);
+    background-color: transparent;
+    border: 0;
+    clip-path: inset(0 round var(--radius-media));
   }
 
   .link-highlight {
@@ -349,14 +355,22 @@
     background-size: 100% 100%;
     padding-inline: 0.1em;
   }
-}
 
-/* Browsers paint a 1px black row on the bottom of a video or image when the
-   frame height lands between pixels. The frame clips that row off. */
-.media-round > video,
-.media-round > img,
-.media-frame img {
-  height: calc(100% + 2px) !important;
-  object-fit: cover !important;
-  object-position: center top;
+  /* Keep each video inside its rounded box. Chrome paints a black row on the
+     video layer and ignores overflow:hidden, so the clip and scale hold it in. */
+  .media-round > video,
+  .media-frame video {
+    position: absolute;
+    inset: 0;
+    display: block;
+    width: 100%;
+    height: 100% !important;
+    max-height: 100%;
+    object-fit: cover;
+    object-position: center top;
+    background-color: transparent;
+    border: 0;
+    transform: scaleY(1.01);
+    transform-origin: top center;
+  }
 }

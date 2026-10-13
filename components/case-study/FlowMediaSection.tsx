@@ -167,7 +167,6 @@ function GroupMedia({
       aspectRatio={media.aspectRatio}
       fit={media.fit ?? "contain"}
       objectPosition={media.objectPosition}
-      framed={false}
     />
   );
 }
