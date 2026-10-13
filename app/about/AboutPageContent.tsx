@@ -3,7 +3,7 @@
 import Image from "next/image";
 import { Button } from "@/components/ui/Button";
 import { FadeIn } from "@/components/ui/FadeIn";
-import { site as siteDefaults } from "@/content/site";
+import { HeroTitle } from "@/components/ui/HeroTitle";
 import { cn } from "@/lib/cn";
 
 const stories = [
@@ -73,25 +73,7 @@ function StoryPhoto({
 export function AboutPageContent() {
   return (
     <>
-      <header className="relative isolate overflow-x-clip pt-16 sm:pt-20">
-        <div className="relative mx-auto w-full max-w-[var(--page-max)] px-[var(--page-gutter)]">
-          <div className="relative mx-auto w-fit max-w-full">
-            <h1 className="relative text-hero text-plum">
-              {/* Same width as the home hero’s first line, so this title shares its left edge. */}
-              <span className="invisible block whitespace-nowrap" aria-hidden>
-                Shannon Chen&apos;s
-              </span>
-              <span className="absolute left-0 top-0 whitespace-nowrap">
-                About Me
-              </span>
-            </h1>
-            {/* Matches the hero intro’s width so the title block lines up on small screens. */}
-            <div aria-hidden className="h-0 max-w-full overflow-hidden sm:max-w-md">
-              <p className="invisible text-body">{siteDefaults.hero.intro}</p>
-            </div>
-          </div>
-        </div>
-      </header>
+      <HeroTitle>About Me</HeroTitle>
 
       <div className="pb-16 pt-14 sm:pb-24">
         <div className="mx-auto w-full max-w-[var(--page-max)] px-[var(--page-gutter)]">
