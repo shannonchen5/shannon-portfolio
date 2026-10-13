@@ -1,10 +1,9 @@
 "use client";
 
 import Image from "next/image";
-import { SiteCopy } from "@/components/home/SiteCopy";
 import { Button } from "@/components/ui/Button";
 import { FadeIn } from "@/components/ui/FadeIn";
-import { PageHeader } from "@/components/ui/PageHeader";
+import { site as siteDefaults } from "@/content/site";
 import { cn } from "@/lib/cn";
 
 const stories = [
@@ -73,46 +72,66 @@ function StoryPhoto({
 
 export function AboutPageContent() {
   return (
-    <SiteCopy>
-      {(site) => (
-        <FadeIn className="mx-auto w-full max-w-4xl text-left">
-          <PageHeader eyebrow="About" title={site.name} />
+    <>
+      <header className="relative isolate overflow-x-clip pt-16 sm:pt-20">
+        <div className="relative mx-auto w-full max-w-[var(--page-max)] px-[var(--page-gutter)]">
+          <div className="relative mx-auto w-fit max-w-full">
+            <h1 className="relative text-hero text-plum">
+              {/* Same width as the home hero’s first line, so this title shares its left edge. */}
+              <span className="invisible block whitespace-nowrap" aria-hidden>
+                Shannon Chen&apos;s
+              </span>
+              <span className="absolute left-0 top-0 whitespace-nowrap">
+                About Me
+              </span>
+            </h1>
+            {/* Matches the hero intro’s width so the title block lines up on small screens. */}
+            <div aria-hidden className="h-0 max-w-full overflow-hidden sm:max-w-md">
+              <p className="invisible text-body">{siteDefaults.hero.intro}</p>
+            </div>
+          </div>
+        </div>
+      </header>
 
-          <div className="mt-14 flex flex-col gap-16 sm:gap-20">
-            {stories.map((story) => (
-              <article
-                key={story.src}
-                className={cn(
-                  "grid items-center gap-6 md:gap-x-6",
-                  story.side === "right"
-                    ? "md:grid-cols-[minmax(0,1fr)_13rem]"
-                    : "md:grid-cols-[13rem_minmax(0,1fr)]",
-                )}
-              >
-                {story.side === "left" ? (
-                  <StoryPhoto story={story} className="order-2 md:order-1" />
-                ) : null}
-                <p
+      <div className="pb-16 pt-14 sm:pb-24">
+        <div className="mx-auto w-full max-w-[var(--page-max)] px-[var(--page-gutter)]">
+          <FadeIn className="mx-auto w-full max-w-4xl text-left">
+            <div className="flex flex-col gap-16 sm:gap-20">
+              {stories.map((story) => (
+                <article
+                  key={story.src}
                   className={cn(
-                    "text-left text-body text-text-muted",
-                    story.side === "left" && "order-1 md:order-2",
+                    "grid items-center gap-6 md:gap-x-6",
+                    story.side === "right"
+                      ? "md:grid-cols-[minmax(0,1fr)_13rem]"
+                      : "md:grid-cols-[13rem_minmax(0,1fr)]",
                   )}
                 >
-                  {story.text}
-                </p>
-                {story.side === "right" ? <StoryPhoto story={story} /> : null}
-              </article>
-            ))}
-          </div>
+                  {story.side === "left" ? (
+                    <StoryPhoto story={story} className="order-2 md:order-1" />
+                  ) : null}
+                  <p
+                    className={cn(
+                      "text-left text-body text-text-muted",
+                      story.side === "left" && "order-1 md:order-2",
+                    )}
+                  >
+                    {story.text}
+                  </p>
+                  {story.side === "right" ? <StoryPhoto story={story} /> : null}
+                </article>
+              ))}
+            </div>
 
-          <div className="mt-14 flex flex-wrap gap-3">
-            <Button href="/contact">Contact</Button>
-            <Button href="/digital" variant="secondary">
-              View work
-            </Button>
-          </div>
-        </FadeIn>
-      )}
-    </SiteCopy>
+            <div className="mt-14 flex flex-wrap gap-3">
+              <Button href="/contact">Contact Me</Button>
+              <Button href="/#work" variant="secondary">
+                View Case Studies
+              </Button>
+            </div>
+          </FadeIn>
+        </div>
+      </div>
+    </>
   );
 }
