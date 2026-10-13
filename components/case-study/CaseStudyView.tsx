@@ -109,8 +109,8 @@ export function CaseStudyView({ study, next }: CaseStudyViewProps) {
           ) : null}
 
           <p className="mt-10 text-sm text-text-muted">
-            <Link href={`/${study.category}`} className="link-draw">
-              ← Back to {study.category} products
+            <Link href="/#work" className="link-draw">
+              ← Back to case studies
             </Link>
           </p>
         </div>

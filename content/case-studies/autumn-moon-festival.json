@@ -95,11 +95,7 @@
       "blocks": [
         {
           "type": "richText",
-          "content": "I coded the survey and interview data in Dovetail, the research repository and AI synthesis tool. I manually tagged the interview data into key themes, then Dovetail's AI agent turned those tagged themes into concise, decision-ready key insights. I turned these insights into pain points and How Might We statements. Two findings shaped the direction. Many people felt disconnected from their culture or unsure how to celebrate in the U.S. Additionally, shallow or generalized content could push users away rather than draw them in.\n\nThat led to the core design challenge: create a culturally respectful, educational experience that highlights both well-known and lesser-known traditions without homogenizing them. I refined the HMW statements into three prompts for the design team:"
-        },
-        {
-          "type": "callout",
-          "content": "How might we represent lesser-known cultural traditions with accuracy and respect?\n\nHow might we build trust through transparent, well-researched educational content?\n\nHow might we differentiate our festival website through depth rather than decoration?"
+          "content": "I coded the survey and interview data in Dovetail, the research repository and AI synthesis tool. I manually tagged the interview data into key themes, then Dovetail's AI agent turned those tagged themes into concise, decision-ready key insights. I turned these insights into pain points and How Might We statements. Two findings shaped the direction. Many people felt disconnected from their culture or unsure how to celebrate in the U.S. Additionally, shallow or generalized content could push users away rather than draw them in.\n\nThat led to the core design challenge: create a culturally respectful, educational experience that highlights both well-known and lesser-known traditions without homogenizing them. I refined the HMW statements into three prompts for the design team: How might we represent lesser-known cultural traditions with accuracy and respect? How might we build trust through transparent, well-researched educational content? How might we differentiate our festival website through depth rather than decoration?"
         }
       ]
     },
