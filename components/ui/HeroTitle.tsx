@@ -11,14 +11,20 @@ type HeroTitleProps = {
  */
 export function HeroTitle({ children }: HeroTitleProps) {
   return (
-    <header className="relative isolate overflow-x-clip pt-16 sm:pt-20">
+    <header className="relative isolate overflow-visible pt-16 sm:pt-20">
       <div className="relative mx-auto w-full max-w-[var(--page-max)] px-[var(--page-gutter)]">
         <div className="relative mx-auto w-fit max-w-full">
-          <h1 className="relative text-hero text-plum">
-            <span className="invisible block whitespace-nowrap" aria-hidden>
+          <h1
+            className="grid text-hero text-plum"
+            style={{ lineHeight: 1.25 }}
+          >
+            <span
+              className="invisible col-start-1 row-start-1 whitespace-nowrap"
+              aria-hidden
+            >
               Shannon Chen&apos;s
             </span>
-            <span className="absolute left-0 top-0 whitespace-nowrap">
+            <span className="col-start-1 row-start-1 whitespace-nowrap pb-[0.06em]">
               {children}
             </span>
           </h1>

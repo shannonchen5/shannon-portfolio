@@ -18,8 +18,9 @@
   },
   "heroVideo": {
     "mp4": "/media/autumn-moon-festival/hero.mp4",
-    "alt": "Screen recording of the Autumn Moon Festival website",
-    "aspectRatio": "16 / 9"
+    "poster": "/media/autumn-moon-festival/hero-poster.jpg",
+    "alt": "Laptop showing the 2025 San Diego Autumn Moon Festival homepage, with lanterns and visitor and vendor buttons",
+    "aspectRatio": "1300 / 800"
   },
   "featured": true,
   "brand": "autumn-moon",
@@ -49,6 +50,13 @@
         {
           "type": "richText",
           "content": "The San Diego Autumn Moon Festival wanted its inaugural event to do more than fill a calendar. The organizers wanted an educational, multicultural experience showing how different communities around the world celebrate the Harvest Moon. As the User Researcher for the San Diego Autumn Moon Festival, my job was to make sure every decision on the website came from real user needs, cultural sensitivity, and accurate storytelling."
+        },
+        {
+          "type": "video",
+          "mp4": "/media/autumn-moon-festival/overview.mp4",
+          "poster": "/media/autumn-moon-festival/overview-poster.jpg",
+          "alt": "Laptop showing red paper lanterns glowing against a dark night sky",
+          "aspectRatio": "1300 / 800"
         }
       ]
     },
@@ -59,6 +67,13 @@
         {
           "type": "richText",
           "content": "The stakes were high because the festival's goal was education and visibility for communities that are often underrepresented. A generic, decorative site would fail on both counts, and worse, shallow cultural content can alienate the people it claims to celebrate."
+        },
+        {
+          "type": "video",
+          "mp4": "/media/autumn-moon-festival/problem.mp4",
+          "poster": "/media/autumn-moon-festival/problem-poster.jpg",
+          "alt": "Laptop showing a map of Asia on the Autumn Moon Festival site, with the prompt to click a highlighted region",
+          "aspectRatio": "1300 / 800"
         }
       ]
     },
@@ -86,6 +101,13 @@
         {
           "type": "richText",
           "content": "I also ran a competitive analysis of existing festival websites, scoring each on information architecture, educational depth, cultural representation, and visual identity. The pattern was consistent: most sites lacked meaningful educational content and leaned on generic cultural imagery."
+        },
+        {
+          "type": "video",
+          "mp4": "/media/autumn-moon-festival/discovery.mp4",
+          "poster": "/media/autumn-moon-festival/discovery-poster.jpg",
+          "alt": "Laptop showing the Autumn Moon Festival survey spreadsheet, with responses about cultural background, familiarity, and how people celebrate",
+          "aspectRatio": "1300 / 800"
         }
       ]
     },
@@ -96,6 +118,12 @@
         {
           "type": "richText",
           "content": "I coded the survey and interview data in Dovetail, the research repository and AI synthesis tool. I manually tagged the interview data into key themes, then Dovetail's AI agent turned those tagged themes into concise, decision-ready key insights. I turned these insights into pain points and How Might We statements. Two findings shaped the direction. Many people felt disconnected from their culture or unsure how to celebrate in the U.S. Additionally, shallow or generalized content could push users away rather than draw them in.\n\nThat led to the core design challenge: create a culturally respectful, educational experience that highlights both well-known and lesser-known traditions without homogenizing them. I refined the HMW statements into three prompts for the design team: How might we represent lesser-known cultural traditions with accuracy and respect? How might we build trust through transparent, well-researched educational content? How might we differentiate our festival website through depth rather than decoration?"
+        },
+        {
+          "type": "image",
+          "src": "/media/autumn-moon-festival/defining.png",
+          "alt": "Tagged interview notes grouped by theme, including traditions, awareness, motivation, and childhood",
+          "aspectRatio": "1970 / 712"
         }
       ]
     },
@@ -110,6 +138,13 @@
         {
           "type": "richText",
           "content": "As the team moved into high-fidelity design and development, I stayed involved in validation. I proof-checked copy for authenticity and cross-referenced cultural details against interview insights, so that content was accurate and easy to digest."
+        },
+        {
+          "type": "video",
+          "mp4": "/media/autumn-moon-festival/decisions.mp4",
+          "poster": "/media/autumn-moon-festival/decisions-poster.jpg",
+          "alt": "Laptop showing the History of San Diego AMF page, with background copy beside a lion dance photo",
+          "aspectRatio": "1300 / 800"
         }
       ]
     },
@@ -122,10 +157,11 @@
           "content": "The final site educates through depth. It showcases seven distinct cultures, each researched individually, and pairs well-known traditions with lesser-known ones without collapsing them into a single story. The structure and tone are built to draw in people who are curious but not yet motivated to learn on their own."
         },
         {
-          "type": "image",
-          "src": "/media/placeholders/media-wide.svg",
-          "alt": "[Add Autumn Moon Festival screens and prototype link here]",
-          "aspectRatio": "16 / 9"
+          "type": "video",
+          "mp4": "/media/autumn-moon-festival/delivery.mp4",
+          "poster": "/media/autumn-moon-festival/delivery-poster.jpg",
+          "alt": "Laptop showing the finished Autumn Moon Festival homepage, with lanterns and visitor and vendor info buttons",
+          "aspectRatio": "1300 / 800"
         }
       ]
     },
@@ -134,21 +170,14 @@
       "title": "Impact",
       "blocks": [
         {
-          "type": "stats",
-          "items": [
-            {
-              "value": "+1.125",
-              "label": "Average familiarity score gain (1–5 scale) after website session"
-            },
-            {
-              "value": "7",
-              "label": "Cultures thoroughly researched and showcased"
-            }
-          ]
-        },
-        {
           "type": "richText",
           "content": "I structured user testing around four pillars: aesthetic and emotional response, trust-centered UX, information architecture, and usability. At the start of each session, we asked participants to rate their familiarity with Autumn Moon festivities from 1 to 5, then asked again at the end. On average, scores rose by 1.125 points.\n\nBehind that result were 130 survey respondents who informed design and content choices, and seven cultures thoroughly researched and showcased.\n\nThe festival's central goal was awareness, and a single session with the site moved the average participant more than a full point on a five-point scale. That is direct evidence the site does its main job: teaching people about traditions they didn't know, with sincerity and respect."
+        },
+        {
+          "type": "image",
+          "src": "/media/autumn-moon-festival/impact.png",
+          "alt": "Night scene of a tiled roof and persimmons, with the text +1.125 familiarity score",
+          "aspectRatio": "16 / 9"
         }
       ]
     },
@@ -159,6 +188,12 @@
         {
           "type": "richText",
           "content": "Looking ahead, I plan on tracking website engagement throughout the coming years of the San Diego Autumn Moon Festival to understand if higher awareness of the event translates into higher event attendance and repeat engagement."
+        },
+        {
+          "type": "image",
+          "src": "/media/autumn-moon-festival/next-steps-fireworks.png",
+          "alt": "Three gold fireworks bursting on a black field",
+          "aspectRatio": "16 / 9"
         }
       ]
     }

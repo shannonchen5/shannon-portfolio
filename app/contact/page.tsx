@@ -38,14 +38,14 @@ export default function ContactPage() {
                     </div>
                     {linkedin ? (
                       <div>
-                        <p className="text-eyebrow text-text-muted">Connect</p>
+                        <p className="text-eyebrow text-text-muted">LinkedIn</p>
                         <div className="mt-4">
                           <Button
                             href={linkedin.href}
                             variant="secondary"
                             external
                           >
-                            LinkedIn
+                            Let&apos;s Connect
                           </Button>
                         </div>
                       </div>

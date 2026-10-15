@@ -3,7 +3,8 @@
 import { useLayoutEffect, useRef, useState } from "react";
 import Image from "next/image";
 import type { Block, StatItem } from "@/content/case-studies/_schema";
-import { BlockRenderer } from "./blocks/BlockRenderer";
+import { Fireworks } from "./Fireworks";
+import { BlockRenderer, CaseStudyCopy, StatsList } from "./blocks/BlockRenderer";
 import { VideoPlayer } from "./blocks/VideoPlayer";
 
 type FlowMediaSectionProps = {
@@ -16,6 +17,7 @@ type ColumnMedia = Extract<Block, { type: "twoColumn" }>["media"];
 type Group = {
   text: string;
   media?: ColumnMedia;
+  stats?: StatItem[];
 };
 
 type FlowItem =
@@ -33,9 +35,10 @@ function textGroups(blocks: Block[]): {
   const items: FlowItem[] = [];
   let stats: StatItem[] | undefined;
 
-  const addGroup = (text: string, media?: ColumnMedia) => {
+  const addGroup = (text: string, media?: ColumnMedia, stats?: StatItem[]) => {
     const group: Group = { text };
     if (media) group.media = media;
+    if (stats?.length) group.stats = stats;
     groups.push(group);
     items.push({ kind: "text", group });
   };
@@ -60,7 +63,7 @@ function textGroups(blocks: Block[]): {
       continue;
     }
     if (block.type === "richText") {
-      addGroup(block.content);
+      addGroup(block.content, undefined, block.stats);
       continue;
     }
     if (block.type === "image") {
@@ -124,49 +127,84 @@ function textGroups(blocks: Block[]): {
   return { stats, groups, items };
 }
 
-function Paragraphs({ content }: { content: string }) {
-  return (
-    <div className="flex flex-col gap-4">
-      {content.split("\n\n").map((para) => (
-        <p key={para.slice(0, 24)} className="text-body text-text-muted">
-          {para}
-        </p>
-      ))}
-    </div>
-  );
-}
-
 function GroupMedia({
   media,
+  frameHeight,
 }: {
   media: NonNullable<Group["media"]>;
+  frameHeight?: number;
 }) {
-  if (media.kind === "image") {
+  if (media.kind === "image" && media.src.endsWith("next-steps-fireworks.png")) {
+    return <Fireworks />;
+  }
+
+  if (media.kind === "image" && media.matchTextHeight && frameHeight) {
     return (
-      <div
-        className="media-round relative w-full"
-        style={{ aspectRatio: media.aspectRatio ?? "4 / 3" }}
-      >
+      <div className="media-round relative w-full" style={{ height: frameHeight }}>
         <Image
           src={media.src}
           alt={media.alt}
           fill
-          className="object-contain"
+          className="object-contain object-left-top"
           sizes="(max-width: 1024px) 100vw, 640px"
           unoptimized={media.src.endsWith(".svg")}
         />
       </div>
     );
   }
+
+  if (media.kind === "image") {
+    return (
+      <div
+        className="media-round relative w-full"
+        style={{
+          aspectRatio: media.aspectRatio ?? "4 / 3",
+          maxWidth: media.maxWidth,
+        }}
+      >
+        <Image
+          src={media.src}
+          alt={media.alt}
+          fill
+          className={
+            media.fit === "cover" ? "object-cover" : "object-contain object-left-top"
+          }
+          style={media.objectPosition ? { objectPosition: media.objectPosition } : undefined}
+          sizes="(max-width: 1024px) 100vw, 640px"
+          unoptimized={media.src.endsWith(".svg")}
+        />
+      </div>
+    );
+  }
+  const impactLaptop = media.mp4.includes("Hero%20+%20Impact");
   return (
-    <VideoPlayer
-      mp4={media.mp4}
-      webm={media.webm}
-      poster={media.poster}
-      alt={media.alt}
-      aspectRatio={media.aspectRatio}
-      fit={media.fit ?? "contain"}
-      objectPosition={media.objectPosition}
+    <div className="relative">
+      <VideoPlayer
+        mp4={media.mp4}
+        webm={media.webm}
+        poster={media.poster}
+        alt={media.alt}
+        aspectRatio={media.aspectRatio}
+        fit={media.fit ?? "contain"}
+        objectPosition={media.objectPosition}
+      />
+      {impactLaptop ? <CheckPrototypeNote /> : null}
+    </div>
+  );
+}
+
+function CheckPrototypeNote() {
+  return (
+    <img
+      src="/media/Helping%20Hands/Final%20Helping%20Hands%20Media/check%20prototype.png"
+      alt="check prototype"
+      width={460}
+      height={158}
+      className="pointer-events-none absolute hidden h-auto w-52 max-w-none lg:block"
+      style={{
+        right: "calc(100% - 100% * 26 / 1300)",
+        top: "calc(93% - 13rem * 40 / 460)",
+      }}
     />
   );
 }
@@ -200,7 +238,7 @@ export function FlowMediaSection({ title, blocks }: FlowMediaSectionProps) {
   const columnRef = useRef<HTMLDivElement>(null);
   const groupRefs = useRef<(HTMLDivElement | null)[]>([]);
   const mediaRefs = useRef<(HTMLDivElement | null)[]>([]);
-  const [tops, setTops] = useState<number[]>([]);
+  const [boxes, setBoxes] = useState<{ top: number; height?: number }[]>([]);
   const [columnHeight, setColumnHeight] = useState<number>();
 
   useLayoutEffect(() => {
@@ -208,34 +246,58 @@ export function FlowMediaSection({ title, blocks }: FlowMediaSectionProps) {
     if (!root) return;
 
     const measure = () => {
-      const nextTops: number[] = [];
+      const nextBoxes: { top: number; height?: number }[] = [];
       let cursor = 0;
-      groups.forEach((_, index) => {
-        const aligned =
-          index === 0
-            ? 0
-            : (groupRefs.current[index]?.offsetTop ?? root.offsetTop) -
-              root.offsetTop;
-        const media = mediaRefs.current[index];
-        if (!media) {
-          nextTops.push(aligned);
+      let placedMedia = false;
+      groups.forEach((group, index) => {
+        const groupEl = groupRefs.current[index];
+        const groupTop = groupEl ? groupEl.offsetTop - root.offsetTop : 0;
+        const groupHeight = groupEl?.offsetHeight ?? 0;
+        const matchText =
+          group.media?.kind === "image" && group.media.matchTextHeight;
+        if (!group.media) {
+          nextBoxes.push({ top: groupTop });
+          return;
+        }
+        // The first image or video lines up with the section header.
+        const aligned = placedMedia ? groupTop : 0;
+        if (matchText && groupHeight > 0) {
+          const top = Math.max(aligned, cursor);
+          const height = index === 0 ? groupTop + groupHeight : groupHeight;
+          nextBoxes.push({ top, height });
+          const media = mediaRefs.current[index];
+          cursor = top + Math.max(height, media?.offsetHeight ?? 0) + 16;
+          placedMedia = true;
           return;
         }
         const top = Math.max(aligned, cursor);
-        nextTops.push(top);
-        cursor = top + media.offsetHeight + 16;
+        nextBoxes.push({ top });
+        const media = mediaRefs.current[index];
+        cursor = top + (media?.offsetHeight ?? 0) + 16;
+        placedMedia = true;
+      });
+      let floor = 0;
+      nextBoxes.forEach((box, index) => {
+        if (!groups[index]?.media) return;
+        if (box.top < floor) box.top = floor;
+        const media = mediaRefs.current[index];
+        floor = box.top + (box.height ?? media?.offsetHeight ?? 0) + 16;
       });
       let height = root.offsetHeight;
-      nextTops.forEach((top, index) => {
+      nextBoxes.forEach((box, index) => {
         const media = mediaRefs.current[index];
-        if (!media) return;
-        height = Math.max(height, top + media.offsetHeight);
+        if (!media && box.height == null) return;
+        height = Math.max(height, box.top + (box.height ?? media?.offsetHeight ?? 0));
       });
-      setTops((prev) =>
-        prev.length === nextTops.length &&
-        prev.every((value, index) => value === nextTops[index])
+      setBoxes((prev) =>
+        prev.length === nextBoxes.length &&
+        prev.every(
+          (value, index) =>
+            value.top === nextBoxes[index]?.top &&
+            value.height === nextBoxes[index]?.height,
+        )
           ? prev
-          : nextTops,
+          : nextBoxes,
       );
       setColumnHeight((prev) => (prev === height ? prev : height));
     };
@@ -244,7 +306,9 @@ export function FlowMediaSection({ title, blocks }: FlowMediaSectionProps) {
     const observer = new ResizeObserver(measure);
     observer.observe(root);
     mediaRefs.current.forEach((el) => {
-      if (el) observer.observe(el);
+      if (!el) return;
+      observer.observe(el);
+      el.querySelectorAll("img,video").forEach((child) => observer.observe(child));
     });
     return () => observer.disconnect();
   }, [groups.length]);
@@ -292,7 +356,12 @@ export function FlowMediaSection({ title, blocks }: FlowMediaSectionProps) {
                   groupRefs.current[groupIndex] = el;
                 }}
               >
-                {item.group.text ? <Paragraphs content={item.group.text} /> : null}
+                {item.group.text ? <CaseStudyCopy content={item.group.text} /> : null}
+                {item.group.stats?.length ? (
+                  <div className="mt-6">
+                    <StatsList items={item.group.stats} columns="column" />
+                  </div>
+                ) : null}
                 {item.group.media ? (
                   <div className="mt-4 lg:hidden">
                     <GroupMedia media={item.group.media} />
@@ -315,9 +384,9 @@ export function FlowMediaSection({ title, blocks }: FlowMediaSectionProps) {
                 mediaRefs.current[index] = el;
               }}
               className="absolute inset-x-0"
-              style={{ top: tops[index] ?? 0 }}
+              style={{ top: boxes[index]?.top ?? 0 }}
             >
-              <GroupMedia media={group.media} />
+              <GroupMedia media={group.media} frameHeight={boxes[index]?.height} />
             </div>
           ) : null,
         )}

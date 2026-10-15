@@ -10,7 +10,8 @@ import { cn } from "@/lib/cn";
 
 type StickyCaseStackProps = {
   studies: CaseStudy[];
-  title: string;
+  /** Sticky section label. Omit it when the page hero already names the section. */
+  title?: string;
 };
 
 function CaseStudiesHeading({ title }: { title: string }) {
@@ -46,7 +47,8 @@ export function StickyCaseStack({ studies, title }: StickyCaseStackProps) {
 
     let frame = 0;
     const measure = () => {
-      const headerBottom = headerRef.current?.getBoundingClientRect().bottom ?? 0;
+      const headerBottom =
+        headerRef.current?.getBoundingClientRect().bottom ?? 64;
       const next = studies.map((_, index) => {
         if (index === 0) return false;
         const top = cardRefs.current[index]?.getBoundingClientRect().top;
@@ -79,27 +81,29 @@ export function StickyCaseStack({ studies, title }: StickyCaseStackProps) {
 
   return (
     <div className="relative">
-      {reduced ? (
-        <div className="flex h-16 items-center border-t border-border bg-bg">
-          <CaseStudiesHeading title={title} />
-        </div>
-      ) : (
-        <>
-          {/* Ends with the last study, so the title holds while that study is seated, then leaves with it. */}
-          <div
-            className="pointer-events-none absolute inset-x-0 top-0 z-40"
-            style={{ bottom: lastCardHeight ?? "100svh" }}
-          >
-            <div
-              ref={headerRef}
-              className="pointer-events-auto sticky top-16 flex h-16 items-center border-t border-border bg-bg"
-            >
-              <CaseStudiesHeading title={title} />
-            </div>
+      {title ? (
+        reduced ? (
+          <div className="flex h-16 items-center border-t border-border bg-bg">
+            <CaseStudiesHeading title={title} />
           </div>
-          <div className="h-16" aria-hidden />
-        </>
-      )}
+        ) : (
+          <>
+            {/* Ends with the last study, so the title holds while that study is seated, then leaves with it. */}
+            <div
+              className="pointer-events-none absolute inset-x-0 top-0 z-40"
+              style={{ bottom: lastCardHeight ?? "100svh" }}
+            >
+              <div
+                ref={headerRef}
+                className="pointer-events-auto sticky top-16 flex h-16 items-center border-t border-border bg-bg"
+              >
+                <CaseStudiesHeading title={title} />
+              </div>
+            </div>
+            <div className="h-16" aria-hidden />
+          </>
+        )
+      ) : null}
       <section aria-label="Featured case studies" className="relative">
       {studies.map((study, index) => {
         const isLast = index === studies.length - 1;
@@ -112,7 +116,8 @@ export function StickyCaseStack({ studies, title }: StickyCaseStackProps) {
             }}
             data-brand={study.brand}
             className={cn(
-              "sticky top-32 flex min-h-[100svh] items-start bg-bg",
+              "sticky flex min-h-[100svh] items-start bg-bg",
+              title ? "top-32" : "top-16",
               index > 0 &&
                 (reduced || !reachedHeader[index]) &&
                 "border-t border-border/60",

@@ -4,19 +4,48 @@ import type { Block, StatItem } from "@/content/case-studies/_schema";
 import { LightboxImage } from "@/components/ui/LightboxImage";
 import { VideoPlayer } from "./VideoPlayer";
 
-function Paragraphs({ content }: { content: string }) {
+export function CaseStudyCopy({ content }: { content: string }) {
   return (
     <div className="flex flex-col gap-4">
-      {content.split("\n\n").map((para) => (
-        <p key={para.slice(0, 24)} className="text-body text-text-muted">
-          {para}
-        </p>
-      ))}
+      {content.split("\n\n").map((para, index) => {
+        const lines = para
+          .split("\n")
+          .map((line) => line.trim())
+          .filter(Boolean);
+        const isList =
+          lines.length > 0 &&
+          lines.every((line) => line.startsWith("- ") || line.startsWith("• "));
+        if (isList) {
+          return (
+            <ul
+              key={`list-${index}`}
+              className="list-disc space-y-2 pl-5 text-body text-text-muted"
+            >
+              {lines.map((line) => (
+                <li key={line}>{line.replace(/^(- |• )/, "")}</li>
+              ))}
+            </ul>
+          );
+        }
+        const isLabel = /^(Step \d+|Round \d+):/.test(para);
+        return (
+          <p
+            key={`p-${index}`}
+            className={
+              isLabel
+                ? "text-body font-bold! text-text"
+                : "text-body text-text-muted"
+            }
+          >
+            {para}
+          </p>
+        );
+      })}
     </div>
   );
 }
 
-function StatsList({
+export function StatsList({
   items,
   columns,
 }: {
@@ -53,7 +82,7 @@ export function BlockRenderer({
     case "richText":
       return (
         <div className="grid gap-8 lg:grid-cols-2 lg:gap-12 xl:gap-16">
-          <Paragraphs content={block.content} />
+          <CaseStudyCopy content={block.content} />
         </div>
       );
 
@@ -118,7 +147,7 @@ export function BlockRenderer({
                     : undefined
               }
             >
-              <Paragraphs content={block.text} />
+              <CaseStudyCopy content={block.text} />
             </div>
           </div>
           {block.media.kind === "image" ? (

@@ -5,6 +5,7 @@ import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { site } from "@/content/site";
 import { cn } from "@/lib/cn";
+import { isNavItemActive } from "@/lib/nav-active";
 import { MobileMenu } from "./MobileMenu";
 
 export function Nav() {
@@ -49,11 +50,7 @@ export function Nav() {
 
         <ul className="hidden items-center gap-8 md:flex">
           {site.nav.map((item) => {
-            const active =
-              item.href === "/#work"
-                ? pathname === "/" || pathname.startsWith("/work")
-                : pathname === item.href ||
-                  pathname.startsWith(`${item.href}/`);
+            const active = isNavItemActive(pathname, item.href);
             return (
               <li key={item.href}>
                 <Link

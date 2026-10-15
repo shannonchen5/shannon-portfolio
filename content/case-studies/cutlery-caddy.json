@@ -1,0 +1,156 @@
+{
+  "slug": "cutlery-caddy",
+  "title": "Cutlery Caddy Redesign: helping students and staff across campus",
+  "category": "physical",
+  "summary": "A dining hall caddy students can identify before they reach in.",
+  "role": "User Researcher + Designer",
+  "duration": "5 weeks",
+  "team": "Team of six designers",
+  "tools": ["Live observations", "Google Sheets", "Procreate", "Figma"],
+  "cover": {
+    "src": "/media/Cutlery%20Caddy/CC%20Hero%20+%20Delivery.png",
+    "alt": "Annotated drawing of the tilted cutlery caddy, with utensil-shaped cutouts, front icons, a visibility slit, and extra fork bins",
+    "aspectRatio": "1887 / 1048"
+  },
+  "featured": false,
+  "brand": "cutlery-caddy",
+  "stats": [
+    {
+      "value": "100%",
+      "label": "Best in the class"
+    },
+    {
+      "value": "2.5",
+      "label": "Attempts to grab the right utensil"
+    },
+    {
+      "value": "37%",
+      "label": "Got it on the first try"
+    },
+    {
+      "value": "18",
+      "label": "Student interviews"
+    }
+  ],
+  "sections": [
+    {
+      "id": "overview",
+      "title": "Overview",
+      "blocks": [
+        {
+          "type": "twoColumn",
+          "align": "start",
+          "text": "UC San Diego’s dining hall cutlery caddies consistently cause user errors. Students hesitate, grab the wrong utensil, pick up several at once, or lean over the bins to figure out what’s inside.",
+          "media": {
+            "kind": "image",
+            "src": "/media/Cutlery%20Caddy/CC%20-%20Overview%20+%20Next%20Steps.png",
+            "alt": "The tilted cutlery caddy, one view filled with forks, knives, and spoons and one view empty.",
+            "aspectRatio": "1675 / 919"
+          }
+        }
+      ]
+    },
+    {
+      "id": "problem",
+      "title": "The Problem",
+      "blocks": [
+        {
+          "type": "twoColumn",
+          "align": "start",
+          "text": "Every dining hall cutlery caddy looks the same: identical metal cylinders, a few labels, and utensils face down with their identical handles sticking up. Students can’t tell what’s in each bin without leaning over, and the labels often don’t help, because workers misplace utensils and the labels don’t always match what’s inside.\n\nWe framed the project around two questions: how might we make it easier for students to grab their intended utensil, and how might we make it easier for dining hall workers to restock the right utensils in the right caddies?",
+          "media": {
+            "kind": "image",
+            "src": "/media/Cutlery%20Caddy/CC%20-%20Problem.png",
+            "alt": "A stainless steel dining hall caddy with six identical round bins. Labels say spoons and forks, but the utensils inside do not match.",
+            "aspectRatio": "1407 / 1038"
+          }
+        }
+      ]
+    },
+    {
+      "id": "discovery",
+      "title": "Discovery",
+      "blocks": [
+        {
+          "type": "twoColumn",
+          "align": "start",
+          "text": "I helped design a standard interview protocol so all six of us collected comparable data. We ran 18 interviews across five dining halls and markets, each team member interviewing three students, using a master-apprentice approach: we watched students grab utensils naturally, then asked them to talk us through it. I independently collected our 35 live observations at Pines Dining Hall, coded with a structured sheet that tracked hesitation, wrong grabs, multiple grabs, and leaning over the bins.\n\nThe data showed that students used three cues to find the right utensil: the backs of the utensils (6 of 18), leaning over to look (5 of 18), and reading labels (5 of 18). Some of those labels were wrong or unhelpful, and 7 of 18 interviewees made, or admitted to frequently making, a mistake. Students needed an average of 2.5 attempts to grab their intended utensil, and only 13 of 35 (37.1%) got it on the first try. Cleanliness wasn’t the cause: students rated it 3.8 out of 5, with no score below 3. And forks dominated demand. 29 of the 44 utensils we saw taken were forks, and 4 of 15 students said the utensil they wanted was missing.\n\nWe concluded that the caddy’s problem wasn’t holding utensils or the cleanliness of it. It was the gulf of execution: students couldn’t tell where their utensil was before they reached in. That led to two types of errors: knowledge-based mistakes from mislabeled or unmarked bins, and description-similarity slips from relying on weak cues like handle thickness.",
+          "media": {
+            "kind": "image",
+            "src": "/media/Cutlery%20Caddy/CC%20-%20Discovery.png",
+            "alt": "Three cues students used: recognizing the backs of utensils, 6 of 18; leaning over to look, 5 of 18; and reading labels, 5 of 18.",
+            "aspectRatio": "1590 / 802"
+          }
+        }
+      ]
+    },
+    {
+      "id": "iterations",
+      "title": "Iterations",
+      "blocks": [
+        {
+          "type": "twoColumn",
+          "align": "start",
+          "text": "For our first iteration, two of our designers made caddies in representational shapes. A triangle for the knife, a semicircle for the fork, and an oval for the spoon, but the empty space around them reduced how many utensils each bin could hold, so we squared the shapes off and kept them distinct.\n\nWe also explored ideas we ultimately dropped. A modular caddy would let students return utensils to a matching dirty caddy and workers pull inserts straight into the dishwasher, but it didn’t solve the problem we were studying and relied on students returning utensils correctly. Adding colored bands or shapes to the utensils themselves would have been costly for the university and wouldn’t encourage workers to sort correctly.",
+          "media": {
+            "kind": "image",
+            "src": "/media/Cutlery%20Caddy/CC%20-%20Iterations.png",
+            "alt": "Sketch sheet of caddy concepts, from shaped bins and colored utensils to the tilted caddy with a front slit.",
+            "aspectRatio": "1621 / 897"
+          }
+        }
+      ]
+    },
+    {
+      "id": "delivery",
+      "title": "Delivery",
+      "blocks": [
+        {
+          "type": "twoColumn",
+          "align": "start",
+          "text": "The final caddy is a pentagonal prism tilted toward the user, with four signifiers working together: utensil-shaped cutouts, icons on the front, a slit that shows utensil heads, and the tilted angle that lets gravity pull utensils down and reveals what each bin holds. The slit is thin enough to act as a physical constraint, so people don’t grab utensils by their heads.\n\nBecause labels alone had already failed at the dining halls, we layered signifiers rather than relying on any one. The distinct cutouts also show workers what’s missing when a bin runs empty. Based on our demand data, half the bins hold forks and the rest are split evenly between knives and spoons.",
+          "media": {
+            "kind": "image",
+            "src": "/media/Cutlery%20Caddy/CC%20Hero%20+%20Delivery.png",
+            "alt": "Final caddy: tilted bins with defined cutouts, a slit that shows utensil heads, front icons, and more forks than knives or spoons.",
+            "aspectRatio": "1887 / 1048"
+          }
+        }
+      ]
+    },
+    {
+      "id": "results",
+      "title": "Impact",
+      "blocks": [
+        {
+          "type": "twoColumn",
+          "align": "start",
+          "text": "In our design space evaluation, the redesign scored 4 out of 5 on both proportionality and space efficiency, and 5 out of 5 on identifiability, with a tradeoff on expense (1). The project earned 100% and was called the best in the class.\n\nEvery design decision traces back to something we measured. The tilt and slit address the students having to lean over, the cutouts and icons address mislabeling, and the fork-heavy layout addresses the demand we observed.",
+          "media": {
+            "kind": "image",
+            "src": "/media/Cutlery%20Caddy/CC%20-%20Impact.png",
+            "alt": "A matrix of cutlery storage designs, from inefficient to efficient and unproportional to proportional, with the tilted caddy marked as the ideal design.",
+            "aspectRatio": "1219 / 1050"
+          }
+        }
+      ]
+    },
+    {
+      "id": "reflection",
+      "title": "What's Next",
+      "blocks": [
+        {
+          "type": "twoColumn",
+          "align": "start",
+          "text": "Our next step is to design the prototype in a CAD software and then get it 3D printed. Then, we plan on contacting UC San Diego’s Housing, Dining, and Hospitality department to present our prototype and test it in a real dining hall on campus.",
+          "media": {
+            "kind": "image",
+            "src": "/media/Cutlery%20Caddy/CC%20-%20Overview%20+%20Next%20Steps.png",
+            "alt": "The tilted cutlery caddy, one view filled with forks, knives, and spoons and one view empty.",
+            "aspectRatio": "1675 / 919"
+          }
+        }
+      ]
+    }
+  ]
+}

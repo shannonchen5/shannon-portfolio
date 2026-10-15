@@ -37,7 +37,7 @@ export function CaseStudyView({ study, next }: CaseStudyViewProps) {
         <div className="grid w-full items-center gap-10 lg:grid-cols-[minmax(0,1.2fr)_minmax(0,1fr)] lg:gap-x-16 xl:gap-x-20">
           <div className="@container min-w-0">
             <h1
-              className="link-highlight link-highlight-lg text-case-hero text-plum"
+              className="link-highlight link-highlight-lg pb-[0.08em] text-case-hero text-plum"
               style={{ fontSize: "clamp(2.5rem, 11cqi, 5.25rem)" }}
             >
               {study.title}
@@ -54,9 +54,12 @@ export function CaseStudyView({ study, next }: CaseStudyViewProps) {
               <HeroMedia study={study} />
             </div>
             {study.liveUrl ? (
-              <Button href={study.liveUrl} external className="mt-6">
-                See the live website
-              </Button>
+              <div className="relative mt-6 w-fit">
+                <Button href={study.liveUrl} external>
+                  {study.liveLabel ?? "See the live website"}
+                </Button>
+                {study.slug === "helping-hands" ? <LoadNote /> : null}
+              </div>
             ) : null}
           </div>
         </div>
@@ -109,7 +112,7 @@ export function CaseStudyView({ study, next }: CaseStudyViewProps) {
           ) : null}
 
           <p className="mt-10 text-sm text-text-muted">
-            <Link href="/#work" className="link-draw">
+            <Link href="/work" className="link-draw">
               ← Back to case studies
             </Link>
           </p>
@@ -140,6 +143,22 @@ function SectionBody({ section }: { section: CaseStudySection }) {
   }
 
   return <FlowMediaSection title={section.title} blocks={section.blocks} />;
+}
+
+function LoadNote() {
+  return (
+    <img
+      src="/media/Helping%20Hands/Final%20Helping%20Hands%20Media/Takes%20a%20minute.png?v=2"
+      alt="takes a minute to load"
+      width={382}
+      height={134}
+      className="pointer-events-none absolute h-auto w-56 max-w-none"
+      style={{
+        top: "calc(-14rem * 18 / 382 + 10px)",
+        right: "calc(100% - 14rem * 45 / 382 + 0.35rem + 10px)",
+      }}
+    />
+  );
 }
 
 function HeroMedia({ study }: { study: CaseStudy }) {

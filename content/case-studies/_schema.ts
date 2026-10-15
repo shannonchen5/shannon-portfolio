@@ -24,7 +24,7 @@ export type HeroVideo = {
 };
 
 export type Block =
-  | { type: "richText"; content: string }
+  | { type: "richText"; content: string; stats?: StatItem[] }
   | { type: "image"; src: string; alt: string; aspectRatio?: string; blurDataURL?: string }
   | { type: "imageGallery"; images: MediaImage[] }
   | {
@@ -55,6 +55,10 @@ export type Block =
             aspectRatio?: string;
             /** Match the height of the text column instead of the image's own aspect box. */
             matchTextHeight?: boolean;
+            /** Caps the frame so a mark can sit smaller than the other media. */
+            maxWidth?: string;
+            fit?: "cover" | "contain";
+            objectPosition?: string;
           }
         | {
             kind: "video";
@@ -89,6 +93,8 @@ export type CaseStudySection = {
 /** Optional per-study brand token set applied on the case study page. */
 export type CaseStudyBrand =
   | "kitchens-for-good"
+  | "helping-hands"
+  | "cutlery-caddy"
   | "current"
   | "autumn-moon";
 
@@ -110,6 +116,8 @@ export type CaseStudy = {
   heroVideo?: HeroVideo;
   /** External site shown as a pill under the hero media. */
   liveUrl?: string;
+  /** Label for `liveUrl`. Defaults to "See the live website". */
+  liveLabel?: string;
   featured: boolean;
   /** When set, remaps site CSS tokens to this project's brand guidelines. */
   brand?: CaseStudyBrand;

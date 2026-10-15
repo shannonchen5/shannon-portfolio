@@ -1,13 +1,10 @@
 import type { Metadata } from "next";
-import { EmptyState } from "@/components/case-study/EmptyState";
-import { WorkCard } from "@/components/case-study/WorkCard";
-import { FadeIn } from "@/components/ui/FadeIn";
-import { PageHeader } from "@/components/ui/PageHeader";
-import { Section } from "@/components/ui/Section";
+import { StickyCaseStack } from "@/components/home/StickyCaseStack";
+import { HeroTitle } from "@/components/ui/HeroTitle";
 import { getCaseStudiesByCategory } from "@/content/case-studies";
 
 export const metadata: Metadata = {
-  title: "Physical Products",
+  title: "Physical Design",
   description: "Physical product design case studies.",
 };
 
@@ -15,26 +12,9 @@ export default function PhysicalPage() {
   const studies = getCaseStudiesByCategory("physical");
 
   return (
-    <Section>
-      <FadeIn>
-        <PageHeader
-          eyebrow="Work"
-          title="Physical Products"
-          description="[Your copy here — intro to physical product work.]"
-        />
-      </FadeIn>
-
-      <div className="mt-10">
-        {studies.length === 0 ? (
-          <EmptyState category="physical" />
-        ) : (
-          <div>
-            {studies.map((study, index) => (
-              <WorkCard key={study.slug} study={study} index={index} />
-            ))}
-          </div>
-        )}
-      </div>
-    </Section>
+    <>
+      <HeroTitle>Physical Design</HeroTitle>
+      <StickyCaseStack studies={studies} />
+    </>
   );
 }

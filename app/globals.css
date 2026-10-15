@@ -58,6 +58,40 @@
   --shadow-warm: 0 4px 24px rgba(21, 59, 23, 0.1);
 }
 
+[data-brand="helping-hands"] {
+  --surface: #f3f8f7;
+  --forest: #166861;
+  --plum: #166861;
+  /* Highlight + accent */
+  --accent: #166861;
+  --accent-hover: #1e7d74;
+  --accent-tint: #d5ebe8;
+  /* ≥4.5:1 on #166861 */
+  --text-on-accent: #fffdfa;
+  --olive: #7eae8a;
+  --lavender: #b7d4cf;
+  --lavender-light: #e7f3f1;
+  --border: #d5e4e1;
+  --peach: #d5ebe8;
+  --shadow-warm: 0 4px 24px rgba(22, 104, 97, 0.12);
+}
+
+[data-brand="cutlery-caddy"] {
+  --surface: #f4fbfc;
+  --forest: #0e6b80;
+  --plum: #0e6b80;
+  --accent: #0e6b80;
+  --accent-hover: #127e96;
+  --accent-tint: #d7eef2;
+  --text-on-accent: #fffdfa;
+  --olive: #5e9a8a;
+  --lavender: #b7dce4;
+  --lavender-light: #e7f5f8;
+  --border: #d3e6ea;
+  --peach: #d7eef2;
+  --shadow-warm: 0 4px 24px rgba(14, 107, 128, 0.12);
+}
+
 [data-brand="current"] {
   --surface: #ffffff;
   --border: #dadce0;
@@ -166,6 +200,28 @@
     border-left-color: var(--forest);
   }
 
+  html[data-brand="helping-hands"] ::selection {
+    background-color: color-mix(in srgb, var(--accent) 28%, white);
+    color: var(--text);
+  }
+
+  [data-brand="helping-hands"] .case-callout {
+    border-left-width: 4px;
+    border-left-color: var(--accent);
+    background-color: var(--accent-tint);
+  }
+
+  html[data-brand="cutlery-caddy"] ::selection {
+    background-color: color-mix(in srgb, var(--accent) 28%, white);
+    color: var(--text);
+  }
+
+  [data-brand="cutlery-caddy"] .case-callout {
+    border-left-width: 4px;
+    border-left-color: var(--accent);
+    background-color: var(--accent-tint);
+  }
+
   html[data-brand="current"] ::selection {
     background-color: var(--accent-tint);
     color: var(--accent);
@@ -233,7 +289,7 @@
     font-size: clamp(2.5rem, 11cqi, 5.25rem);
     font-weight: 700;
     letter-spacing: -0.03em;
-    line-height: 1.05;
+    line-height: 1.2;
     text-wrap: balance;
     overflow-wrap: break-word;
   }
@@ -287,6 +343,11 @@
     background-color: transparent;
     border: 0;
     clip-path: inset(0 round var(--radius-media));
+  }
+
+  .media-square {
+    border-radius: 0;
+    clip-path: none;
   }
 
   .link-highlight {
@@ -372,5 +433,35 @@
     border: 0;
     transform: scaleY(1.01);
     transform-origin: top center;
+  }
+
+  .firework-left,
+  .firework-center,
+  .firework-right {
+    animation-duration: 5.5s;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+  }
+
+  .firework-left {
+    animation-name: firework-left;
+  }
+
+  .firework-center {
+    animation-name: firework-center;
+  }
+
+  .firework-right {
+    animation-name: firework-right;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .firework-left,
+  .firework-center,
+  .firework-right {
+    animation: none;
+    opacity: 1;
+    transform: none;
   }
 }

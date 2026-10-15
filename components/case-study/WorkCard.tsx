@@ -4,16 +4,19 @@ import Link from "next/link";
 import { motion, useReducedMotion } from "motion/react";
 import type { CaseStudy } from "@/content/case-studies/_schema";
 import { PreviewMedia } from "@/components/case-study/PreviewMedia";
+import { Button } from "@/components/ui/Button";
 import { easeOut } from "@/lib/motion";
 
 type WorkCardProps = {
   study: CaseStudy;
   index?: number;
+  /** Pill CTA, no success metric, square media — the home case-study card. */
+  layout?: "default" | "feature";
 };
 
-export function WorkCard({ study, index = 0 }: WorkCardProps) {
+export function WorkCard({ study, index = 0, layout = "default" }: WorkCardProps) {
   const reduced = useReducedMotion();
-  const keyStat = study.stats?.[0];
+  const keyStat = layout === "feature" ? undefined : study.stats?.[0];
 
   return (
     <motion.article
@@ -42,14 +45,18 @@ export function WorkCard({ study, index = 0 }: WorkCardProps) {
             </span>
           </p>
         ) : null}
-        <p className="mt-6">
-          <Link
-            href={`/work/${study.slug}`}
-            className="link-draw text-sm font-semibold text-plum"
-          >
-            View case study
-          </Link>
-        </p>
+        <div className="mt-6">
+          {layout === "feature" ? (
+            <Button href={`/work/${study.slug}`}>Read case study</Button>
+          ) : (
+            <Link
+              href={`/work/${study.slug}`}
+              className="link-draw text-sm font-semibold text-plum"
+            >
+              View case study
+            </Link>
+          )}
+        </div>
       </div>
 
       <Link
@@ -58,7 +65,11 @@ export function WorkCard({ study, index = 0 }: WorkCardProps) {
         tabIndex={-1}
         aria-hidden
       >
-        <PreviewMedia study={study} aspectRatio="16 / 10" />
+        <PreviewMedia
+          study={study}
+          aspectRatio={layout === "feature" ? "4 / 3" : "16 / 10"}
+          square={layout === "feature"}
+        />
       </Link>
     </motion.article>
   );

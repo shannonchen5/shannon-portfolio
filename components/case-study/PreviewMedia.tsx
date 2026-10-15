@@ -10,6 +10,8 @@ type PreviewMediaProps = {
   sizes?: string;
   className?: string;
   priority?: boolean;
+  /** Square corners, matching a card that should not use the rounded media frame. */
+  square?: boolean;
 };
 
 /** Case-study preview: the hero recording when it exists, otherwise the cover. */
@@ -19,6 +21,7 @@ export function PreviewMedia({
   sizes,
   className,
   priority,
+  square,
 }: PreviewMediaProps) {
   const video = study.heroVideo;
 
@@ -30,7 +33,7 @@ export function PreviewMedia({
         poster={video.poster || study.cover.src}
         alt=""
         aspectRatio={video.aspectRatio ?? aspectRatio}
-        className={className}
+        className={square ? `media-square ${className ?? ""}` : className}
       />
     );
   }
@@ -40,7 +43,7 @@ export function PreviewMedia({
       src={study.cover.src}
       alt=""
       aspectRatio={study.cover.aspectRatio ?? aspectRatio}
-      className={className}
+      className={square ? `media-square ${className ?? ""}` : className}
       sizes={sizes}
       priority={priority}
     />

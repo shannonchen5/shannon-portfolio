@@ -107,7 +107,7 @@ export function AboutPageContent() {
 
             <div className="mt-14 flex flex-wrap gap-3">
               <Button href="/contact">Contact Me</Button>
-              <Button href="/#work" variant="secondary">
+              <Button href="/work" variant="secondary">
                 View Case Studies
               </Button>
             </div>

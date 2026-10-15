@@ -1,0 +1,258 @@
+{
+  "slug": "helping-hands",
+  "title": "Helping Hands: a shower drain you can empty without touching the hair",
+  "category": "physical",
+  "summary": "1st place out of 20 teams at Design Frontiers.",
+  "role": "Product Designer",
+  "duration": "May 2026",
+  "team": "With Emma Pan",
+  "tools": ["Google Forms", "Figma", "Cursor"],
+  "cover": {
+    "src": "/media/Helping%20Hands/Final%20Helping%20Hands%20Media/Helping%20Hands%20Overview.png",
+    "alt": "Illustration of Helping Hands: green and teal silicone forks crossed inside a perforated drain cup",
+    "aspectRatio": "1294 / 1252"
+  },
+  "liveUrl": "https://shower-drain-prototype.vercel.app/",
+  "liveLabel": "Try the 3D prototype",
+  "heroVideo": {
+    "mp4": "/media/Helping%20Hands/Final%20Helping%20Hands%20Media/Helping%20Hands%20Hero%20+%20Impact.mp4",
+    "poster": "/media/Helping%20Hands/Final%20Helping%20Hands%20Media/Helping%20Hands%20Hero%20+%20Impact%20poster.jpg",
+    "alt": "Screen recording of the finished Helping Hands 3D prototype",
+    "aspectRatio": "1300 / 800"
+  },
+  "featured": false,
+  "brand": "helping-hands",
+  "stats": [
+    {
+      "value": "1st place",
+      "label": "out of 20 teams"
+    },
+    {
+      "value": "53",
+      "label": "Survey responses"
+    },
+    {
+      "value": "70%+",
+      "label": "Discomfort unclogging"
+    },
+    {
+      "value": "71%",
+      "label": "Wait until the shower floods"
+    }
+  ],
+  "sections": [
+    {
+      "id": "overview",
+      "title": "Overview",
+      "blocks": [
+        {
+          "type": "twoColumn",
+          "align": "start",
+          "text": "My teammate and I took 1st place out of 20 teams at UC San Diego's largest design organization's Designathon, called Design Frontiers. I made Helping Hands, a shower drain insert you can empty without ever touching the hair.\n\nTwo flexible silicone \"hands\" sit in a perforated cup and catch hair as the water runs. To clean, you lift them out together, hold them over the trash, and scrape one against the other.\n\nThis case study walks through how we got there: how we picked the problem, what we learned from 53 people, the ideas that failed, and how Emma's sketches became an interactive 3D prototype that I built in Cursor.",
+          "media": {
+            "kind": "image",
+            "src": "/media/Helping%20Hands/Final%20Helping%20Hands%20Media/Helping%20Hands%20Overview.png",
+            "alt": "Illustration of Helping Hands: green and teal silicone forks crossed inside a perforated drain cup",
+            "aspectRatio": "1294 / 1252",
+            "matchTextHeight": true
+          }
+        }
+      ]
+    },
+    {
+      "id": "problem",
+      "title": "The Problem",
+      "blocks": [
+        {
+          "type": "twoColumn",
+          "align": "start",
+          "text": "Everyone knows hair clogs shower drains, yet people put off cleaning them because that means unscrewing, scraping, and pulling a wet clump out by hand. The longer the hair sits, the bigger the clog gets, and the worse the flood.\n\nWe chose this problem because we lived it. Emma and I started by brainstorming everyday nuisances people simply tolerate. We walked through a full day, from waking up to going to bed, and wrote down every small frustration. The shower drain stood out, thanks to repeated clogs and the awkward negotiation over whose turn it was to clean hair out of the drain in our own apartments.",
+          "media": {
+            "kind": "image",
+            "src": "/media/Helping%20Hands/Final%20Helping%20Hands%20Media/Helping%20Hands%20The%20Problem.jpg",
+            "alt": "A purple-gloved hand pulling a clump of wet hair out of a square shower drain",
+            "aspectRatio": "768 / 511",
+            "matchTextHeight": true
+          }
+        }
+      ]
+    },
+    {
+      "id": "discovery",
+      "title": "Discovery",
+      "blocks": [
+        {
+          "type": "twoColumn",
+          "align": "start",
+          "text": "Step 1: Look at what already exists.\n\nWe ran a competitive analysis of existing products, including TubShroom and other in-drain catchers. TubShroom is very good at catching hair, but the hair wraps tightly around the central stem into a dense, rope-like coil that is almost impossible to slide off in one piece. Most people end up cutting or yanking it off. The gap: no product lets you remove the hair without touching it.",
+          "media": {
+            "kind": "image",
+            "src": "/media/Helping%20Hands/Final%20Helping%20Hands%20Media/Helping%20Hands%20Discovery%20Step%201.jpg",
+            "alt": "A hand holding a blue drain catcher wrapped in hair, above an open shower drain",
+            "aspectRatio": "679 / 452"
+          }
+        },
+        {
+          "type": "richText",
+          "content": "Step 2: Test the gap with real people.\n\nTo check that this wasn't just our own frustration, we surveyed 53 people living in apartments, dorms, and shared housing.",
+          "stats": [
+            {
+              "value": "70%+",
+              "label": "Felt uncomfortable unclogging"
+            },
+            {
+              "value": "20%+",
+              "label": "Never unclog the drain"
+            },
+            {
+              "value": "71%",
+              "label": "Wait until the shower floods"
+            },
+            {
+              "value": "45%",
+              "label": "Stack three or more workarounds"
+            }
+          ]
+        },
+        {
+          "type": "image",
+          "src": "/media/Helping%20Hands/Final%20Helping%20Hands%20Media/Helping%20Hands%20Discovery%20Step%202%2B3.jpg",
+          "alt": "A shower drain in the corner of a tiled stall, covered with loose hair",
+          "aspectRatio": "1000 / 667"
+        },
+        {
+          "type": "richText",
+          "content": "Step 3: Reframe the problem.\n\nThe data changed what we were designing for. The biggest problem wasn't catching hair. It was the disgust of removing it. Disgust leads to avoidance, and avoidance leads to flooding. Our goal shifted from \"build a better catcher\" to \"make the gross part effortless, so people actually clean the drain before it floods.\""
+        }
+      ]
+    },
+    {
+      "id": "iterations",
+      "title": "Iterations",
+      "blocks": [
+        {
+          "type": "twoColumn",
+          "align": "start",
+          "text": "Round 1: Concepts that failed\n\nOur first ideas all tried to solve the removal problem mechanically:\n\n- A spiral funnel to guide hair downward\n- A claw-clip-style mechanism to grab and release hair\n- A trap door to drop hair out of the drain\n\nEach one hit the same wall. Water, soap, and constant moisture destroy anything with metal binders, springs, or buttons. They rust, jam, or fail over time, which makes them unusable in a real bathroom.",
+          "media": {
+            "kind": "image",
+            "src": "/media/Helping%20Hands/Final%20Helping%20Hands%20Media/Helping%20Hands%20Iteration%20Round%201.png",
+            "alt": "Early sketches of drain ideas: a spiral, a spinning catcher, and a trap door",
+            "aspectRatio": "2600 / 1600",
+            "matchTextHeight": true
+          }
+        },
+        {
+          "type": "twoColumn",
+          "align": "start",
+          "text": "Round 2: The breakthrough\n\nInstead of dropping the claw-clip idea, we asked how to keep its function without the parts that fail, because one thing we know, claw clips hold hair. That led us to two flexible silicone forks that lock together to catch hair, then separate so one scrapes the other clean. No metal, no buttons, no touching hair. We took inspiration from everyday motions people already know, like salad tossers and a pair of hands, so the interaction would feel intuitive.",
+          "media": {
+            "kind": "image",
+            "src": "/media/Helping%20Hands/Final%20Helping%20Hands%20Media/Helping%20Hands%20Iteration%20Round%202.png",
+            "alt": "Reference photos of claw clips and hands, the motion that led to the silicone forks",
+            "aspectRatio": "2798 / 1372",
+            "fit": "cover",
+            "objectPosition": "center 71.5%"
+          }
+        },
+        {
+          "type": "twoColumn",
+          "align": "start",
+          "text": "Round 3: Sketching the idea\n\nEmma sketched the concept as a pair of hands, moving from low-fidelity drawings to refined illustrations. Clasped, the forks sit in the drain and let water through. Pulled apart, the prongs comb the hair off. The sketches also settled the details that make it usable: a perforated cup that stays in the drain as an extra barrier for debris, a rim that sits flush with the drain, and circular handles that line up the forks when you drop them back in.",
+          "media": {
+            "kind": "image",
+            "src": "/media/Helping%20Hands/Final%20Helping%20Hands%20Media/Helping%20Hands%20Iteration%20Round%203.png",
+            "alt": "Sketches of the crossed forks, the top view in the drain, the cup, and the scraping motion",
+            "aspectRatio": "2600 / 1462",
+            "fit": "cover",
+            "objectPosition": "center 49.3%"
+          }
+        },
+        {
+          "type": "twoColumn",
+          "align": "start",
+          "text": "Round 4: Turning sketches into an interactive 3D prototype\n\nSketches show what the product looks like, but not how it fits together. I wanted to test that, so I built an interactive 3D model in Cursor using Emma's illustrations as the reference. I spent hours vibecoding the prototype. Consistently coaching and tweaking the model to transform a 2D Procreate drawing into an interactive 3D prototype. Finally, I launched a prototype that my audience could interact with on their own phone.",
+          "media": {
+            "kind": "video",
+            "mp4": "/media/Helping%20Hands/Final%20Helping%20Hands%20Media/Helping%20Hands%20Iteration%20Round%204.mp4",
+            "poster": "/media/Helping%20Hands/Final%20Helping%20Hands%20Media/Helping%20Hands%20Iteration%20Round%204%20poster.jpg",
+            "alt": "Screen recording of building the Helping Hands 3D prototype in Cursor",
+            "aspectRatio": "1300 / 800"
+          }
+        },
+        {
+          "type": "richText",
+          "content": "Round 5: Feedback and refinement\n\nAfter a feedback round with the judges, we reworked how we told the story. Their input pushed us to:\n\n- Illustrate the scraping motion more clearly, showing it as two separate components\n- Show the product in a real shower drain context\n- Bring the 3D prototype closer to the sketches\n- Explain why we landed on this product and where competitors fall short"
+        }
+      ]
+    },
+    {
+      "id": "delivery",
+      "title": "Delivery",
+      "blocks": [
+        {
+          "type": "richText",
+          "content": "The final design has three parts: two silicone forks, a perforated drain cup that stays in place, and a rim that sits flush with the drain. Water flows through the cup while the forks catch hair. When it's time to clean, you lift the hands out in one motion, hover over the trash, and scrape them against each other. Then you drop them back in, and the handles guide them into place. The silicone is flexible, dries fast, and the only moving parts are the two forks."
+        },
+        {
+          "type": "twoColumn",
+          "align": "start",
+          "text": "We presented it with illustrated product views, the interactive 3D prototype, and a side by side comparison with TubShroom.",
+          "media": {
+            "kind": "image",
+            "src": "/media/Helping%20Hands/Final%20Helping%20Hands%20Media/Helping%20Hands%20Delivery.png",
+            "alt": "Annotated side view of the finished drain insert, with the forks crossed in the perforated cup",
+            "aspectRatio": "8565 / 4268",
+            "fit": "cover",
+            "objectPosition": "center 64.7%"
+          }
+        },
+        {
+          "type": "twoColumn",
+          "align": "start",
+          "text": "For the final presentation, we took into account the judges feedback by creating a real-life video demo and creating a brand logo. The judges noted that the clearer storytelling and the real-life prototype really helped them understand the product identity and purpose better, and even pushed my teammate and I to pursue bringing it to real life.",
+          "media": {
+            "kind": "video",
+            "mp4": "/media/Helping%20Hands/Final%20Helping%20Hands%20Media/Helping%20Hands%20Delivery%202.mp4",
+            "poster": "/media/Helping%20Hands/Final%20Helping%20Hands%20Media/Helping%20Hands%20Delivery%202%20poster.jpg",
+            "alt": "A real-life demo: two forks in a clear cup, yarn standing in for hair, and water poured over them",
+            "aspectRatio": "16 / 9"
+          }
+        }
+      ]
+    },
+    {
+      "id": "results",
+      "title": "Impact",
+      "blocks": [
+        {
+          "type": "richText",
+          "content": "Judges placed Helping Hands 1st out of 20 teams. They called out a clear, relatable problem, an original solution in a space with few existing products, and a simple design that could become a real product after more testing. They also noted how we used the tools available to us and how we responded to feedback."
+        },
+        {
+          "type": "video",
+          "mp4": "/media/Helping%20Hands/Final%20Helping%20Hands%20Media/Helping%20Hands%20Hero%20+%20Impact.mp4",
+          "poster": "/media/Helping%20Hands/Final%20Helping%20Hands%20Media/Helping%20Hands%20Hero%20+%20Impact%20poster.jpg",
+          "alt": "Screen recording of the finished Helping Hands 3D prototype",
+          "aspectRatio": "1300 / 800"
+        }
+      ]
+    },
+    {
+      "id": "reflection",
+      "title": "What's Next",
+      "blocks": [
+        {
+          "type": "richText",
+          "content": "We ended the designathon with a working digital prototype. Now, we need to conduct more testing to make it come to life. All 5 industry professional judges motivated us to really pursue bringing this product to life, and offered themselves as test subjects for our early iterations. Currently, I am working with a computer engineering friend to create more CAD prototypes, then we will begin 3D printing and testing."
+        },
+        {
+          "type": "image",
+          "src": "/media/Helping%20Hands/Final%20Helping%20Hands%20Media/Helping%20Hands%20whats%20next.png",
+          "alt": "Closing slide: Choose Helping Hands, because no one should wrestle with their drain ever again",
+          "aspectRatio": "1908 / 1068"
+        }
+      ]
+    }
+  ]
+}
