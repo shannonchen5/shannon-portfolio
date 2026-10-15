@@ -3,7 +3,7 @@ import { site } from "@/content/site";
 
 export function Footer() {
   return (
-    <footer className="border-t border-border bg-surface">
+    <footer className="border-t border-border bg-[#f6f2f8]">
       <div className="mx-auto flex w-full max-w-[var(--page-max)] flex-col gap-8 px-[var(--page-gutter)] py-12 md:flex-row md:items-end md:justify-between">
         <div>
           <p className="text-lg font-semibold tracking-tight text-text">

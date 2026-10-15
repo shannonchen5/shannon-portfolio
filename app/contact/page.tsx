@@ -44,6 +44,7 @@ export default function ContactPage() {
                             href={linkedin.href}
                             variant="secondary"
                             external
+                            showArrow
                           >
                             Let&apos;s Connect
                           </Button>
@@ -57,6 +58,7 @@ export default function ContactPage() {
                           href={site.resume.href}
                           variant="secondary"
                           external
+                          showArrow
                         >
                           Resume
                         </Button>
