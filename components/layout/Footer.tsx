@@ -10,7 +10,7 @@ export function Footer() {
             {site.name}
           </p>
           <p className="mt-2 max-w-sm text-sm text-text-muted">
-            [Your tagline here.]
+            {site.tagline}
           </p>
         </div>
 

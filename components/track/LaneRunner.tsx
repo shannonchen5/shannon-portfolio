@@ -54,10 +54,9 @@ export function LaneRunner({
       const angle = Math.atan2(ahead.y - p.y, ahead.x - p.x);
 
       const pose = poseFromHeading(angle);
-      const nextFrame: 0 | 1 =
-        runningRef.current && t > 0 && t < 1
-          ? ((Math.floor(d / 24) % 2) as 0 | 1)
-          : 0;
+      const gait =
+        runningRef.current && t > 0 && t < 1 ? Math.floor(d / 18) % 4 : 0;
+      const nextFrame = pose.view === "side" ? gait : gait % 2;
       rootRef.current?.setAttribute("transform", `translate(${p.x} ${p.y})`);
       const node = poseRef.current;
       if (!node) return;
@@ -149,14 +148,18 @@ export function LaneRunner({
           transform={`rotate(0) scale(${size / 72})`}
         >
           {(["side", "front", "back"] as const).map((pose) =>
-            ([0, 1] as const).map((step) => (
+            (pose === "side" ? [0, 1, 2, 3] : [0, 1]).map((step) => (
               <g
                 key={`${pose}-${step}`}
                 data-pose={pose}
                 data-frame={step}
                 display={pose === "side" && step === 0 ? "inline" : "none"}
               >
-                <RunnerGlyph color={color} view={pose} frame={step} />
+                <RunnerGlyph
+                  color={color}
+                  view={pose}
+                  frame={step as 0 | 1 | 2 | 3}
+                />
               </g>
             )),
           )}

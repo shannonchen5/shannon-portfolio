@@ -292,7 +292,7 @@ function CheckpointArch({
   );
 }
 
-/** Same stride spacing as the oval: one leg swap about every 15px of travel. */
+/** One step of the four-beat gait about every 15px of travel. */
 const STRIDE_PX = 15;
 
 function RunnerOnTrack({
@@ -303,7 +303,7 @@ function RunnerOnTrack({
   reduced: boolean;
 }) {
   const left = useTransform(x, (v) => `${v * 100}%`);
-  const [frame, setFrame] = useState<0 | 1>(0);
+  const [frame, setFrame] = useState<0 | 1 | 2 | 3>(0);
   const rootRef = useRef<HTMLSpanElement>(null);
   const traveled = useRef(0);
   const lastX = useRef<number | null>(null);
@@ -321,7 +321,7 @@ function RunnerOnTrack({
 
     traveled.current += Math.abs(value - lastX.current) * width;
     lastX.current = value;
-    const next = (Math.floor(traveled.current / STRIDE_PX) % 2) as 0 | 1;
+    const next = (Math.floor(traveled.current / STRIDE_PX) % 4) as 0 | 1 | 2 | 3;
     setFrame((current) => (current === next ? current : next));
 
     if (settleTimer.current !== null) window.clearTimeout(settleTimer.current);

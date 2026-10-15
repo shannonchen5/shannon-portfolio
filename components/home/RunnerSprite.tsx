@@ -2,7 +2,8 @@ export type RunnerView = "side" | "front" | "back";
 
 type RunnerArtProps = {
   color?: string;
-  frame?: 0 | 1;
+  /** Side view uses four gait steps. Front and back use even/odd. */
+  frame?: 0 | 1 | 2 | 3;
   flip?: boolean;
   view?: RunnerView;
 };
@@ -72,31 +73,61 @@ function ink(color: string, width = 6) {
   };
 }
 
-function SideDoodle({ color, frame }: { color: string; frame: 0 | 1 }) {
+function SideLegs({ color, frame }: { color: string; frame: 0 | 1 | 2 | 3 }) {
+  const line = ink(color);
+
+  if (frame === 0) {
+    return (
+      <g>
+        <path d="M-1 -26 C -10 -20 -16 -12 -18 -6" {...line} />
+        <path d="M-18 -6 l-4 1" {...line} />
+        <path d="M1 -26 C 10 -18 16 -10 18 -4" {...line} />
+        <path d="M18 -4 l4 -1" {...line} />
+      </g>
+    );
+  }
+
+  if (frame === 1) {
+    return (
+      <g>
+        <path d="M1 -26 C 4 -16 4 -8 2 -2" {...line} />
+        <path d="M2 -2 l5 0" {...line} />
+        <path d="M-1 -26 C 2 -20 8 -18 6 -11" {...line} />
+        <path d="M6 -11 C 4 -7 0 -5 -2 -4" {...line} />
+      </g>
+    );
+  }
+
+  if (frame === 2) {
+    return (
+      <g>
+        <path d="M1 -26 C -8 -20 -14 -12 -16 -6" {...line} />
+        <path d="M-16 -6 l-4 1" {...line} />
+        <path d="M-1 -26 C 8 -18 14 -10 16 -4" {...line} />
+        <path d="M16 -4 l4 -1" {...line} />
+      </g>
+    );
+  }
+
+  return (
+    <g>
+      <path d="M-1 -26 C 2 -16 2 -8 0 -2" {...line} />
+      <path d="M0 -2 l5 0" {...line} />
+      <path d="M1 -26 C 4 -20 10 -18 8 -11" {...line} />
+      <path d="M8 -11 C 6 -7 2 -5 0 -4" {...line} />
+    </g>
+  );
+}
+
+function SideDoodle({ color, frame }: { color: string; frame: 0 | 1 | 2 | 3 }) {
   const line = ink(color);
   const thin = ink(color, 2.3);
-  const frontPlanted = frame === 0;
 
   return (
     <g>
       <path d="M24 -42 l7 -5 M26 -35 l8 -1 M24 -28 l7 5" {...thin} />
       <path d="M-24 -4 l-7 2 M-22 2 l-8 1" {...thin} />
-
-      {frontPlanted ? (
-        <>
-          <path d="M-1 -26 C -10 -20 -18 -14 -20 -7" {...line} />
-          <path d="M-20 -7 l-4 1" {...line} />
-          <path d="M1 -26 C 8 -18 6 -10 1 -2" {...line} />
-          <path d="M1 -2 l5 0" {...line} />
-        </>
-      ) : (
-        <>
-          <path d="M-1 -26 C -8 -16 -5 -8 -1 -2" {...line} />
-          <path d="M-1 -2 l-5 0" {...line} />
-          <path d="M1 -26 C 10 -18 18 -12 20 -5" {...line} />
-          <path d="M20 -5 l4 -1" {...line} />
-        </>
-      )}
+      <SideLegs color={color} frame={frame} />
 
       <path d="M-7 -28 h14" {...ink(color, 6.5)} />
       <path d="M0 -30 C 3 -38 8 -42 10 -46" {...line} />
@@ -126,9 +157,9 @@ function SideDoodle({ color, frame }: { color: string; frame: 0 | 1 }) {
   );
 }
 
-function FrontDoodle({ color, frame }: { color: string; frame: 0 | 1 }) {
+function FrontDoodle({ color, frame }: { color: string; frame: 0 | 1 | 2 | 3 }) {
   const line = ink(color);
-  const lead = frame === 0;
+  const lead = frame % 2 === 0;
 
   return (
     <g>
@@ -175,9 +206,9 @@ function FrontDoodle({ color, frame }: { color: string; frame: 0 | 1 }) {
   );
 }
 
-function BackDoodle({ color, frame }: { color: string; frame: 0 | 1 }) {
+function BackDoodle({ color, frame }: { color: string; frame: 0 | 1 | 2 | 3 }) {
   const line = ink(color);
-  const lead = frame === 0;
+  const lead = frame % 2 === 0;
 
   return (
     <g>
