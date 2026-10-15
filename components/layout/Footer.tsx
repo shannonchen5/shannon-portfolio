@@ -18,7 +18,12 @@ export function Footer() {
           <div>
             <h2 className="m-0 text-h2 text-text">Thanks for visiting</h2>
             <div className="mt-6">
-              <Button href="/contact">Contact Me</Button>
+              <Button
+                href="/contact"
+                className="bg-[#f2a93b]! text-[#1a1a1a]! hover:bg-[#e09828]! focus-visible:outline-[#f2a93b]!"
+              >
+                Contact Me
+              </Button>
             </div>
           </div>
 

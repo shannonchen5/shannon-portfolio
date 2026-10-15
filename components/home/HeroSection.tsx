@@ -24,7 +24,7 @@ export function HeroSection({
           <h1 className="max-w-full text-plum">
             <span className="relative block overflow-visible whitespace-nowrap">
               <STrackOval />
-              hannon Chen&apos;s
+              annon Chen&apos;s
             </span>
             <span className="relative mt-[0.08em] block whitespace-nowrap">
               Portfolio

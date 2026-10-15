@@ -45,7 +45,7 @@ export function Nav() {
           href="/"
           className="link-draw text-sm font-semibold tracking-tight text-white"
         >
-          {site.name}
+          {pathname === "/" ? site.name : "Home"}
         </Link>
 
         <ul className="hidden items-center gap-8 md:flex">

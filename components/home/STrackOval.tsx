@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useId, useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { useReducedMotion } from "motion/react";
 import { LaneRunner } from "@/components/track/LaneRunner";
 import {
@@ -17,24 +17,20 @@ type STrackOvalProps = {
 };
 
 /**
- * Mustard oval track wrapped around the capital S at a mild tilt.
- * Back half renders behind the letter; front half renders in front.
+ * Mustard oval around the S and h.
+ * The track sits behind the S and in front of the h.
  */
 export function STrackOval({ runners = true }: STrackOvalProps) {
   const reduced = useReducedMotion();
-  const uid = useId().replace(/:/g, "");
   const [inView, setInView] = useState(true);
-  const [showRunners, setShowRunners] = useState(!!reduced);
   const [lap, setLap] = useState(0);
   const rootRef = useRef<HTMLSpanElement>(null);
+  const started = useRef(false);
 
   const lanes = useMemo(
     () => buildAllLanePaths(OVAL_LOOP.segments, 3, LANE_W, LANE_G),
     [],
   );
-
-  const behindClip = `${uid}-behind`;
-  const frontClip = `${uid}-front`;
 
   useEffect(() => {
     const el = rootRef.current;
@@ -48,101 +44,116 @@ export function STrackOval({ runners = true }: STrackOvalProps) {
   }, []);
 
   useEffect(() => {
-    if (reduced) {
-      setShowRunners(true);
-      return;
-    }
-    const t = window.setTimeout(() => setShowRunners(true), 900);
-    return () => window.clearTimeout(t);
-  }, [reduced]);
+    if (reduced !== false || !inView || started.current) return;
+    started.current = true;
+    setLap(1);
+  }, [reduced, inView]);
 
-  const frameStyle: React.CSSProperties = {
+  // Shifted left of the S so the oval clears the “a” and enters the margin.
+  const frameBox: React.CSSProperties = {
     position: "absolute",
     left: "50%",
     top: "50%",
     width: "1.7em",
     height: "1.7em",
-    transform: "translate(calc(-50% + 0.42em), -50%) rotate(-28deg)",
+    transform: "translate(calc(-50% + 0.05em), -50%)",
+  };
+  const tilt: React.CSSProperties = {
+    width: "100%",
+    height: "100%",
+    transform: "rotate(-28deg)",
     transformOrigin: "center center",
   };
+  const lane = lanes[1] ?? lanes[0];
+  // Rest on the top-right of the tilted oval.
+  const rest = 0.26;
 
   return (
     <span ref={rootRef} className="relative inline-block align-baseline">
-      {/* BACK — behind the S */}
-      <span aria-hidden className="pointer-events-none z-0" style={frameStyle}>
-        <svg
-          viewBox={OVAL_LOOP.viewBox}
-          className="h-full w-full overflow-visible"
-        >
-          <defs>
-            <clipPath id={behindClip}>
-              <rect x="0" y="0" width="480" height="148" />
-            </clipPath>
-          </defs>
-          <g clipPath={`url(#${behindClip})`}>
-            <OvalLanes paths={lanes} draw={!reduced} paused={!inView} />
-          </g>
-        </svg>
-      </span>
+      <span className="relative inline-block">
+        <span aria-hidden className="pointer-events-none z-0" style={frameBox}>
+          <span className="block" style={tilt}>
+            <svg viewBox={OVAL_LOOP.viewBox} className="h-full w-full overflow-visible">
+              <OvalLanes paths={lanes} draw={!reduced} paused={!inView} />
+              {runners ? (
+                <LaneRunner
+                  pathD={lane}
+                  label="Runner on the track"
+                  color="#1a1a1a"
+                  speed={2.8}
+                  paused={!inView || !!reduced}
+                  size={78}
+                  lapSignal={lap}
+                  interactive={false}
+                  rest={rest}
+                />
+              ) : null}
+            </svg>
+          </span>
+        </span>
 
-      <span className="relative z-10">S</span>
+        <span className="relative z-10">S</span>
 
-      {/* FRONT — in front of the S */}
-      <span className="z-20" style={frameStyle}>
-        <svg
-          viewBox={OVAL_LOOP.viewBox}
-          className="pointer-events-none h-full w-full overflow-visible"
-        >
-          <defs>
-            <clipPath id={frontClip}>
-              <rect x="0" y="132" width="480" height="148" />
-            </clipPath>
-          </defs>
-          <g clipPath={`url(#${frontClip})`}>
-            <OvalLanes paths={lanes} draw={!reduced} paused={!inView} />
-          </g>
-          {runners && showRunners ? (
-            <path
-              d={lanes[1] ?? lanes[0]}
-              fill="none"
-              stroke="transparent"
-              strokeWidth={46}
-              className="cursor-pointer"
-              style={{
-                pointerEvents: reduced ? "none" : "stroke",
-                outline: "none",
-              }}
-              role="button"
-              tabIndex={reduced ? -1 : 0}
-              aria-label="Run a lap around the track"
-              onMouseDown={(event) => event.preventDefault()}
-              onClick={() => {
-                if (reduced) return;
-                setLap((n) => n + 1);
-              }}
-              onKeyDown={(event) => {
-                if (reduced) return;
-                if (event.key === "Enter" || event.key === " ") {
-                  event.preventDefault();
-                  setLap((n) => n + 1);
-                }
-              }}
-            />
+        <span className="z-20" style={frameBox}>
+          <span
+            aria-hidden
+            className="pointer-events-none absolute inset-0"
+            style={{ clipPath: "inset(0 0 0 65%)" }}
+          >
+            <span className="block h-full w-full" style={tilt}>
+              <svg viewBox={OVAL_LOOP.viewBox} className="h-full w-full overflow-visible">
+                <OvalLanes paths={lanes} draw={!reduced} paused={!inView} />
+                {runners ? (
+                  <LaneRunner
+                    pathD={lane}
+                    label="Runner on the track"
+                    color="#1a1a1a"
+                    speed={2.8}
+                    paused={!inView || !!reduced}
+                    size={78}
+                    lapSignal={lap}
+                    interactive={false}
+                    rest={rest}
+                  />
+                ) : null}
+              </svg>
+            </span>
+          </span>
+          {runners ? (
+            <span className="absolute inset-0" style={tilt}>
+              <svg viewBox={OVAL_LOOP.viewBox} className="h-full w-full overflow-visible">
+                <path
+                  d={lane}
+                  fill="none"
+                  stroke="transparent"
+                  strokeWidth={46}
+                  className="cursor-pointer"
+                  style={{
+                    pointerEvents: reduced ? "none" : "stroke",
+                    outline: "none",
+                  }}
+                  role="button"
+                  tabIndex={reduced ? -1 : 0}
+                  aria-label="Run a lap around the track"
+                  onMouseDown={(event) => event.preventDefault()}
+                  onClick={() => {
+                    if (reduced) return;
+                    setLap((n) => n + 1);
+                  }}
+                  onKeyDown={(event) => {
+                    if (reduced) return;
+                    if (event.key === "Enter" || event.key === " ") {
+                      event.preventDefault();
+                      setLap((n) => n + 1);
+                    }
+                  }}
+                />
+              </svg>
+            </span>
           ) : null}
-          {runners && showRunners ? (
-            <LaneRunner
-              pathD={lanes[1] ?? lanes[0]}
-              label="Runner on the track"
-              color="#1a1a1a"
-              speed={2.8}
-              paused={!inView || !!reduced}
-              size={78}
-              lapSignal={lap}
-              interactive={false}
-            />
-          ) : null}
-        </svg>
+        </span>
       </span>
+      <span className="relative z-10">h</span>
     </span>
   );
 }

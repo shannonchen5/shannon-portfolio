@@ -20,6 +20,8 @@ type LaneRunnerProps = {
   lapSignal?: number;
   /** When false, the lane path is not its own click target. */
   interactive?: boolean;
+  /** Where she rests, as a fraction of the lap. 0 is the path start. */
+  rest?: number;
 };
 
 export function LaneRunner({
@@ -31,15 +33,23 @@ export function LaneRunner({
   size = 20,
   lapSignal = 0,
   interactive = true,
+  rest = 0,
 }: LaneRunnerProps) {
   const pathRef = useRef<SVGPathElement>(null);
   const rootRef = useRef<SVGGElement>(null);
   const poseRef = useRef<SVGGElement>(null);
   const reduced = useReducedMotion();
-  const [running, setRunning] = useState(false);
   const [celebrating, setCelebrating] = useState(false);
   const lapStart = useRef<number | null>(null);
   const runningRef = useRef(false);
+  const pausedRef = useRef(paused);
+  const reducedRef = useRef(reduced);
+  const restRef = useRef(rest);
+  const speedRef = useRef(speed);
+  pausedRef.current = paused;
+  reducedRef.current = reduced;
+  restRef.current = rest;
+  speedRef.current = speed;
   const uid = useId();
 
   const place = useCallback(
@@ -54,8 +64,7 @@ export function LaneRunner({
       const angle = Math.atan2(ahead.y - p.y, ahead.x - p.x);
 
       const pose = poseFromHeading(angle);
-      const gait =
-        runningRef.current && t > 0 && t < 1 ? Math.floor(d / 18) % 4 : 0;
+      const gait = runningRef.current ? Math.floor(d / 18) % 4 : 0;
       const nextFrame = pose.view === "side" ? gait : gait % 2;
       rootRef.current?.setAttribute("transform", `translate(${p.x} ${p.y})`);
       const node = poseRef.current;
@@ -74,24 +83,22 @@ export function LaneRunner({
   );
 
   useEffect(() => {
-    const id = requestAnimationFrame(() => place(0));
+    const id = requestAnimationFrame(() => place(rest));
     return () => cancelAnimationFrame(id);
-  }, [pathD, place]);
+  }, [pathD, place, rest]);
 
   useAnimationFrame((time) => {
-    if (paused || reduced) return;
-
-    if (!running) return;
+    if (pausedRef.current || reducedRef.current) return;
+    if (!runningRef.current) return;
 
     if (lapStart.current === null) lapStart.current = time;
-    const t = Math.min(1, (time - lapStart.current) / 1000 / speed);
-    place(t);
+    const t = Math.min(1, (time - lapStart.current) / 1000 / speedRef.current);
+    place((restRef.current + t) % 1);
 
     if (t >= 1) {
       runningRef.current = false;
-      setRunning(false);
       lapStart.current = null;
-      place(0);
+      place(restRef.current);
       setCelebrating(true);
       window.setTimeout(() => setCelebrating(false), 650);
     }
@@ -102,7 +109,6 @@ export function LaneRunner({
     setCelebrating(false);
     lapStart.current = null;
     runningRef.current = true;
-    setRunning(true);
   };
 
   const startRef = useRef(start);
