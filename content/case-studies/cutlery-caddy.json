@@ -8,7 +8,7 @@
   "team": "Team of six designers",
   "tools": ["Live observations", "Google Sheets", "Procreate", "Figma"],
   "cover": {
-    "src": "/media/Cutlery%20Caddy/CC%20Hero%20+%20Delivery.png",
+    "src": "/media/Cutlery%20Caddy/CC%20Hero%20%2B%20Delivery.png",
     "alt": "Annotated drawing of the tilted cutlery caddy, with utensil-shaped cutouts, front icons, a visibility slit, and extra fork bins",
     "aspectRatio": "1887 / 1048"
   },
@@ -43,7 +43,7 @@
           "text": "UC San Diego’s dining hall cutlery caddies consistently cause user errors. Students hesitate, grab the wrong utensil, pick up several at once, or lean over the bins to figure out what’s inside.",
           "media": {
             "kind": "image",
-            "src": "/media/Cutlery%20Caddy/CC%20-%20Overview%20+%20Next%20Steps.png",
+            "src": "/media/Cutlery%20Caddy/CC%20-%20Overview%20%2B%20Next%20Steps.png",
             "alt": "The tilted cutlery caddy, one view filled with forks, knives, and spoons and one view empty.",
             "aspectRatio": "1675 / 919"
           }
@@ -111,7 +111,7 @@
           "text": "The final caddy is a pentagonal prism tilted toward the user, with four signifiers working together: utensil-shaped cutouts, icons on the front, a slit that shows utensil heads, and the tilted angle that lets gravity pull utensils down and reveals what each bin holds. The slit is thin enough to act as a physical constraint, so people don’t grab utensils by their heads.\n\nBecause labels alone had already failed at the dining halls, we layered signifiers rather than relying on any one. The distinct cutouts also show workers what’s missing when a bin runs empty. Based on our demand data, half the bins hold forks and the rest are split evenly between knives and spoons.",
           "media": {
             "kind": "image",
-            "src": "/media/Cutlery%20Caddy/CC%20Hero%20+%20Delivery.png",
+            "src": "/media/Cutlery%20Caddy/CC%20Hero%20%2B%20Delivery.png",
             "alt": "Final caddy: tilted bins with defined cutouts, a slit that shows utensil heads, front icons, and more forks than knives or spoons.",
             "aspectRatio": "1887 / 1048"
           }
@@ -145,7 +145,7 @@
           "text": "Our next step is to design the prototype in a CAD software and then get it 3D printed. Then, we plan on contacting UC San Diego’s Housing, Dining, and Hospitality department to present our prototype and test it in a real dining hall on campus.",
           "media": {
             "kind": "image",
-            "src": "/media/Cutlery%20Caddy/CC%20-%20Overview%20+%20Next%20Steps.png",
+            "src": "/media/Cutlery%20Caddy/CC%20-%20Overview%20%2B%20Next%20Steps.png",
             "alt": "The tilted cutlery caddy, one view filled with forks, knives, and spoons and one view empty.",
             "aspectRatio": "1675 / 919"
           }

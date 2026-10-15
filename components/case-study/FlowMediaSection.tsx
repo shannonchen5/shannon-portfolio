@@ -176,7 +176,7 @@ function GroupMedia({
       </div>
     );
   }
-  const impactLaptop = media.mp4.includes("Hero%20+%20Impact");
+  const impactLaptop = media.mp4.includes("Hero%20%2B%20Impact");
   return (
     <div className="relative min-w-0 max-w-full">
       {impactLaptop ? <CheckPrototypeNote /> : null}

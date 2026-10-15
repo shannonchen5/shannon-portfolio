@@ -15,8 +15,8 @@
   "liveUrl": "https://shower-drain-prototype.vercel.app/",
   "liveLabel": "Try the 3D prototype",
   "heroVideo": {
-    "mp4": "/media/Helping%20Hands/Final%20Helping%20Hands%20Media/Helping%20Hands%20Hero%20+%20Impact.mp4",
-    "poster": "/media/Helping%20Hands/Final%20Helping%20Hands%20Media/Helping%20Hands%20Hero%20+%20Impact%20poster.jpg",
+    "mp4": "/media/Helping%20Hands/Final%20Helping%20Hands%20Media/Helping%20Hands%20Hero%20%2B%20Impact.mp4",
+    "poster": "/media/Helping%20Hands/Final%20Helping%20Hands%20Media/Helping%20Hands%20Hero%20%2B%20Impact%20poster.jpg",
     "alt": "Screen recording of the finished Helping Hands 3D prototype",
     "aspectRatio": "1300 / 800"
   },
@@ -231,8 +231,8 @@
         },
         {
           "type": "video",
-          "mp4": "/media/Helping%20Hands/Final%20Helping%20Hands%20Media/Helping%20Hands%20Hero%20+%20Impact.mp4",
-          "poster": "/media/Helping%20Hands/Final%20Helping%20Hands%20Media/Helping%20Hands%20Hero%20+%20Impact%20poster.jpg",
+          "mp4": "/media/Helping%20Hands/Final%20Helping%20Hands%20Media/Helping%20Hands%20Hero%20%2B%20Impact.mp4",
+          "poster": "/media/Helping%20Hands/Final%20Helping%20Hands%20Media/Helping%20Hands%20Hero%20%2B%20Impact%20poster.jpg",
           "alt": "Screen recording of the finished Helping Hands 3D prototype",
           "aspectRatio": "1300 / 800"
         }
