@@ -89,18 +89,20 @@ export function AboutPageContent() {
                       : "md:grid-cols-[13rem_minmax(0,1fr)]",
                   )}
                 >
-                  {story.side === "left" ? (
-                    <StoryPhoto story={story} className="order-2 md:order-1" />
-                  ) : null}
+                  <StoryPhoto
+                    story={story}
+                    className={
+                      story.side === "right" ? "order-1 md:order-2" : undefined
+                    }
+                  />
                   <p
                     className={cn(
                       "min-w-0 text-left text-body text-text-muted",
-                      story.side === "left" && "order-1 md:order-2",
+                      story.side === "right" && "order-2 md:order-1",
                     )}
                   >
                     {story.text}
                   </p>
-                  {story.side === "right" ? <StoryPhoto story={story} /> : null}
                 </article>
               ))}
             </div>
