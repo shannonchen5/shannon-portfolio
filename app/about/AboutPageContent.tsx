@@ -4,6 +4,7 @@ import Image from "next/image";
 import { Button } from "@/components/ui/Button";
 import { FadeIn } from "@/components/ui/FadeIn";
 import { HeroTitle } from "@/components/ui/HeroTitle";
+import { site } from "@/content/site";
 import { cn } from "@/lib/cn";
 
 const stories = [
@@ -66,6 +67,29 @@ function StoryPhoto({
           />
         </div>
       </div>
+      {story.src.endsWith("Photography.jpg") ? (
+        <div className="relative mt-4 flex justify-center">
+          <a
+            href={site.photography.href}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="relative z-10 w-fit text-center text-sm font-semibold text-text underline decoration-current underline-offset-4 transition-colors hover:text-plum"
+          >
+            {site.photography.label}
+            <img
+              src="/media/about/check%20out%20my.png?v=2"
+              alt="check out my"
+              width={250}
+              height={134}
+              className="pointer-events-none absolute h-auto w-40 max-w-none"
+              style={{
+                left: "calc(-10rem * 231 / 250 - 0.9rem)",
+                top: "calc(50% - 10rem * 50 / 250)",
+              }}
+            />
+          </a>
+        </div>
+      ) : null}
     </div>
   );
 }

@@ -196,14 +196,14 @@ function GroupMedia({
 function CheckPrototypeNote() {
   return (
     <img
-      src="/media/Helping%20Hands/Final%20Helping%20Hands%20Media/check%20prototype.png"
-      alt="check prototype"
+      src="/media/Helping%20Hands/Final%20Helping%20Hands%20Media/go%20check.png"
+      alt="go check"
       width={460}
       height={158}
       className="pointer-events-none mb-3 h-auto w-[min(13rem,80%)] max-w-full lg:absolute lg:mb-0 lg:w-52 lg:max-w-none"
       style={{
-        right: "calc(100% - 100% * 26 / 1300)",
-        top: "calc(93% - 13rem * 40 / 460)",
+        right: "calc(100% - 100% * 26 / 1300 + 1.5rem - 13rem * 152 / 460)",
+        top: "calc(93% - 13rem * 39 / 460)",
       }}
     />
   );

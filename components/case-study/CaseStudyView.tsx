@@ -148,14 +148,14 @@ function SectionBody({ section }: { section: CaseStudySection }) {
 function LoadNote() {
   return (
     <img
-      src="/media/Helping%20Hands/Final%20Helping%20Hands%20Media/Takes%20a%20minute.png?v=2"
+      src="/media/helping-hands/takes%20a%20minute%20to%20load.png?v=2"
       alt="takes a minute to load"
-      width={382}
+      width={330}
       height={134}
-      className="pointer-events-none mb-3 h-auto w-[min(14rem,100%)] max-w-full sm:absolute sm:mb-0 sm:w-56 sm:max-w-none"
+      className="pointer-events-none mb-3 h-auto w-[min(12rem,100%)] max-w-full sm:absolute sm:mb-0 sm:w-48 sm:max-w-none"
       style={{
-        top: "calc(-14rem * 18 / 382 + 10px)",
-        right: "calc(100% - 14rem * 45 / 382 + 0.35rem + 10px)",
+        top: "0",
+        right: "calc(100% - 12rem * 10 / 330 + 0.35rem)",
       }}
     />
   );
