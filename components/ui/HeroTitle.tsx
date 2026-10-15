@@ -12,7 +12,7 @@ type HeroTitleProps = {
 export function HeroTitle({ children }: HeroTitleProps) {
   return (
     <header className="relative isolate overflow-visible pt-16 sm:pt-20">
-      <div className="relative mx-auto w-full max-w-[var(--page-max)] px-[var(--page-gutter)]">
+      <div className="@container relative mx-auto w-full max-w-[var(--page-max)] px-[var(--page-gutter)]">
         <div className="relative mx-auto w-fit max-w-full">
           <h1
             className="grid text-hero text-plum"

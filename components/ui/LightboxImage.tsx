@@ -52,7 +52,7 @@ export function LightboxImage({
             src={src}
             alt={alt}
             fill
-            className="object-cover transition-transform duration-300 ease-out group-hover:scale-[1.03]"
+            className="object-contain transition-transform duration-300 ease-out group-hover:scale-[1.02]"
             sizes={sizes}
             unoptimized={src.endsWith(".svg")}
           />

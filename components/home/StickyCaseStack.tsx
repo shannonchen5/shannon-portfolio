@@ -116,12 +116,14 @@ export function StickyCaseStack({ studies, title }: StickyCaseStackProps) {
             }}
             data-brand={study.brand}
             className={cn(
-              "sticky flex min-h-[100svh] items-start bg-bg",
-              title ? "top-32" : "top-16",
+              "flex items-start bg-bg",
+              reduced
+                ? "relative top-auto"
+                : "relative md:sticky md:min-h-[100svh]",
+              !reduced && (title ? "md:top-32" : "md:top-16"),
               index > 0 &&
                 (reduced || !reachedHeader[index]) &&
                 "border-t border-border/60",
-              reduced && "relative top-auto",
             )}
             style={
               reduced

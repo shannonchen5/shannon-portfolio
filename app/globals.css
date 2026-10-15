@@ -271,10 +271,17 @@
 
   .text-hero {
     /* Sized so "Shannon Chen's" stays inside the page gutter; the S-track may still spill left. */
-    font-size: clamp(2rem, 9vw, 8.5rem);
+    font-size: clamp(1.65rem, 9vw, 8.5rem);
     font-weight: 700;
     letter-spacing: -0.035em;
     line-height: 0.95;
+  }
+
+  /* When a page container is present, scale from that column instead of the viewport. */
+  @container (min-width: 1px) {
+    .text-hero {
+      font-size: clamp(1.65rem, 10.25cqi, 8.5rem);
+    }
   }
 
   .text-h1 {
@@ -286,7 +293,7 @@
 
   /* Scales with the title column so a long word cannot run into the hero video. */
   .text-case-hero {
-    font-size: clamp(2.5rem, 11cqi, 5.25rem);
+    font-size: clamp(1.85rem, 11cqi, 5.25rem);
     font-weight: 700;
     letter-spacing: -0.03em;
     line-height: 1.2;

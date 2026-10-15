@@ -20,6 +20,7 @@ export function VideoPlayer({
   poster,
   alt,
   aspectRatio = "16 / 9",
+  fit = "cover",
   objectPosition,
   className,
 }: VideoPlayerProps) {
@@ -63,21 +64,22 @@ export function VideoPlayer({
   return (
     <div
       className={cn(
-        "media-round relative w-full border-0 bg-transparent shadow-none",
+        "media-round relative w-full max-w-full border-0 bg-transparent shadow-none",
         className,
       )}
       style={{
         aspectRatio,
         backgroundImage: poster ? `url("${encodeURI(poster)}")` : undefined,
         backgroundRepeat: "no-repeat",
-        backgroundPosition: objectPosition ?? "center top",
-        backgroundSize: "cover",
+        backgroundPosition: objectPosition ?? "center center",
+        backgroundSize: fit === "cover" ? "cover" : "contain",
       }}
     >
       <video
         ref={ref}
         className={cn(
-          "absolute inset-0 h-full w-full border-0 bg-transparent object-cover object-top outline-none",
+          "absolute inset-0 h-full w-full border-0 bg-transparent object-center outline-none",
+          fit === "cover" ? "object-cover object-top" : "object-contain",
           shown ? "opacity-100" : "opacity-0",
         )}
         style={objectPosition ? { objectPosition } : undefined}

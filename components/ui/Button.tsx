@@ -31,14 +31,14 @@ export function Button(props: ButtonProps) {
     showArrow = variant === "primary",
   } = props;
   const classes = cn(
-    "inline-flex items-center justify-center gap-3 rounded-full px-6 py-3 text-sm font-semibold transition-[transform,background-color,border-color,color] duration-[120ms] ease-out hover:translate-x-1 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-3 focus-visible:outline-accent motion-reduce:transform-none",
+    "inline-flex max-w-full items-center justify-center gap-3 rounded-full px-5 py-3 text-sm font-semibold transition-[transform,background-color,border-color,color] duration-[120ms] ease-out hover:translate-x-1 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-3 focus-visible:outline-accent motion-reduce:transform-none sm:px-6",
     variants[variant],
     className,
   );
 
   const content = (
     <>
-      <span>{children}</span>
+      <span className="min-w-0 text-balance">{children}</span>
       {showArrow ? (
         <span aria-hidden className="inline-flex items-center self-center text-base leading-none">
           →

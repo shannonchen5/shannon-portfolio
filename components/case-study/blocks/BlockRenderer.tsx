@@ -61,9 +61,9 @@ export function StatsList({
       }
     >
       {items.map((item) => (
-        <div key={`${item.label}-${item.value}`}>
+        <div key={`${item.label}-${item.value}`} className="min-w-0">
           <dt className="text-eyebrow text-text-muted">{item.label}</dt>
-          <dd className="mt-2 text-h2 text-plum">{item.value}</dd>
+          <dd className="mt-2 break-words text-h2 text-plum">{item.value}</dd>
         </div>
       ))}
     </dl>
@@ -81,7 +81,7 @@ export function BlockRenderer({
   switch (block.type) {
     case "richText":
       return (
-        <div className="grid gap-8 lg:grid-cols-2 lg:gap-12 xl:gap-16">
+        <div className="grid min-w-0 gap-8 lg:grid-cols-2 lg:gap-12 xl:gap-16">
           <CaseStudyCopy content={block.content} />
         </div>
       );
@@ -98,7 +98,7 @@ export function BlockRenderer({
 
     case "imageGallery":
       return (
-        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="grid min-w-0 gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {block.images.map((image) => (
             <LightboxImage
               key={`${image.src}-${image.alt}`}
@@ -119,17 +119,18 @@ export function BlockRenderer({
           poster={block.poster}
           alt={block.alt}
           aspectRatio={block.aspectRatio}
+          fit="contain"
         />
       );
 
     case "twoColumn":
       return (
         <div
-          className={`grid gap-8 lg:grid-cols-2 lg:gap-12 xl:gap-16 ${
+          className={`grid min-w-0 gap-8 lg:grid-cols-2 lg:gap-12 xl:gap-16 ${
             block.align === "start" ? "items-start" : "items-center"
           }`}
         >
-          <div>
+          <div className="min-w-0">
             {heading}
             {block.stats?.length ? (
               <div className={heading ? "mt-10" : undefined}>
@@ -152,27 +153,27 @@ export function BlockRenderer({
           </div>
           {block.media.kind === "image" ? (
             block.media.matchTextHeight ? (
-              <div className="w-full lg:h-0 lg:min-h-full">
+              <div className="w-full min-w-0 lg:h-0 lg:min-h-full">
                 <Image
                   src={block.media.src}
                   alt={block.media.alt}
                   width={Number((block.media.aspectRatio ?? "4 / 3").split("/")[0]) || 4}
                   height={Number((block.media.aspectRatio ?? "4 / 3").split("/")[1]) || 3}
-                  className="media-round h-auto w-full object-contain object-left-top lg:h-full lg:w-auto lg:max-w-full"
+                  className="media-round h-auto w-full max-w-full object-contain object-left-top lg:h-full lg:w-auto lg:max-w-full"
                   sizes="(max-width: 1024px) 100vw, 640px"
                   unoptimized={block.media.src.endsWith(".svg")}
                 />
               </div>
             ) : (
               <div
-                className="media-round relative w-full"
+                className="media-round relative w-full min-w-0 max-w-full"
                 style={{ aspectRatio: block.media.aspectRatio ?? "4 / 3" }}
               >
                 <Image
                   src={block.media.src}
                   alt={block.media.alt}
                   fill
-                  className="object-contain"
+                  className="object-contain object-center"
                   sizes="(max-width: 1024px) 100vw, 640px"
                   unoptimized={block.media.src.endsWith(".svg")}
                 />
@@ -216,7 +217,7 @@ export function BlockRenderer({
 
     case "comparison":
       return (
-        <div className="grid gap-4 sm:grid-cols-2">
+        <div className="grid min-w-0 gap-4 sm:grid-cols-2">
           {[block.before, block.after].map((side) => (
             <figure key={side.alt} className="space-y-3">
               <div
@@ -227,7 +228,7 @@ export function BlockRenderer({
                   src={side.src}
                   alt={side.alt}
                   fill
-                  className="object-cover"
+                  className="object-contain"
                   sizes="(max-width: 768px) 100vw, 480px"
                   unoptimized={side.src.endsWith(".svg")}
                 />

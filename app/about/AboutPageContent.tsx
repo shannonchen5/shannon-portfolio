@@ -83,7 +83,7 @@ export function AboutPageContent() {
                 <article
                   key={story.src}
                   className={cn(
-                    "grid items-center gap-6 md:gap-x-6",
+                    "grid min-w-0 items-center gap-6 md:gap-x-8",
                     story.side === "right"
                       ? "md:grid-cols-[minmax(0,1fr)_13rem]"
                       : "md:grid-cols-[13rem_minmax(0,1fr)]",
@@ -94,7 +94,7 @@ export function AboutPageContent() {
                   ) : null}
                   <p
                     className={cn(
-                      "text-left text-body text-text-muted",
+                      "min-w-0 text-left text-body text-text-muted",
                       story.side === "left" && "order-1 md:order-2",
                     )}
                   >

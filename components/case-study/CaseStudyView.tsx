@@ -33,16 +33,16 @@ export function CaseStudyView({ study, next }: CaseStudyViewProps) {
         />
       ) : null}
       <CaseStudyBrand brand={study.brand} />
-      <header className="sticky top-16 z-0 mx-auto flex w-full max-w-[var(--page-max)] flex-col justify-start px-[var(--page-gutter)] pb-8 pt-6 sm:pt-8 min-h-[calc(100dvh-4rem)] lg:pb-10 lg:pt-8">
-        <div className="grid w-full items-center gap-10 lg:grid-cols-[minmax(0,1.2fr)_minmax(0,1fr)] lg:gap-x-16 xl:gap-x-20">
+      <header className="relative z-0 mx-auto flex w-full max-w-[var(--page-max)] flex-col justify-start px-[var(--page-gutter)] pb-8 pt-6 sm:pt-8 lg:sticky lg:top-16 lg:min-h-[calc(100dvh-4rem)] lg:pb-10 lg:pt-8">
+        <div className="grid w-full min-w-0 items-center gap-10 lg:grid-cols-[minmax(0,1.2fr)_minmax(0,1fr)] lg:gap-x-16 xl:gap-x-20">
           <div className="@container min-w-0">
             <h1
               className="link-highlight link-highlight-lg pb-[0.08em] text-case-hero text-plum"
-              style={{ fontSize: "clamp(2.5rem, 11cqi, 5.25rem)" }}
+              style={{ fontSize: "clamp(1.85rem, 11cqi, 5.25rem)" }}
             >
               {study.title}
             </h1>
-            <dl className="mt-10 grid grid-cols-2 gap-x-8 gap-y-8 sm:mt-12 sm:gap-x-16 sm:gap-y-10">
+            <dl className="mt-10 grid grid-cols-1 gap-x-8 gap-y-8 min-[420px]:grid-cols-2 sm:mt-12 sm:gap-x-16 sm:gap-y-10">
               <Meta label="Role" value={study.role} />
               <Meta label="Timeline" value={study.duration} />
               <Meta label="Team" value={study.team} />
@@ -54,11 +54,11 @@ export function CaseStudyView({ study, next }: CaseStudyViewProps) {
               <HeroMedia study={study} />
             </div>
             {study.liveUrl ? (
-              <div className="relative mt-6 w-fit">
-                <Button href={study.liveUrl} external>
+              <div className="relative mt-6 flex w-full max-w-full flex-col items-center sm:w-fit sm:items-start">
+                {study.slug === "helping-hands" ? <LoadNote /> : null}
+                <Button href={study.liveUrl} external className="max-w-full">
                   {study.liveLabel ?? "See the live website"}
                 </Button>
-                {study.slug === "helping-hands" ? <LoadNote /> : null}
               </div>
             ) : null}
           </div>
@@ -152,7 +152,7 @@ function LoadNote() {
       alt="takes a minute to load"
       width={382}
       height={134}
-      className="pointer-events-none absolute h-auto w-56 max-w-none"
+      className="pointer-events-none mb-3 h-auto w-[min(14rem,100%)] max-w-full sm:absolute sm:mb-0 sm:w-56 sm:max-w-none"
       style={{
         top: "calc(-14rem * 18 / 382 + 10px)",
         right: "calc(100% - 14rem * 45 / 382 + 0.35rem + 10px)",
@@ -180,7 +180,7 @@ function HeroMedia({ study }: { study: CaseStudy }) {
 
   return (
     <div
-      className="media-frame relative min-w-0 w-full"
+      className="media-frame relative min-w-0 w-full max-w-full"
       style={{ aspectRatio: study.cover.aspectRatio ?? "16 / 10" }}
     >
       <Image
@@ -188,7 +188,7 @@ function HeroMedia({ study }: { study: CaseStudy }) {
         alt={study.cover.alt}
         fill
         priority
-        className="object-cover"
+        className="object-contain"
         sizes="(max-width: 1024px) 100vw, 50vw"
         unoptimized={study.cover.src.endsWith(".svg")}
       />
@@ -211,9 +211,9 @@ function resolveHeroVideo(video: HeroVideo | undefined): HeroVideo | undefined {
 
 function Meta({ label, value }: { label: string; value: string }) {
   return (
-    <div>
+    <div className="min-w-0">
       <dt className="text-eyebrow text-text-muted">{label}</dt>
-      <dd className="mt-2 text-base font-medium leading-snug text-text">
+      <dd className="mt-2 text-base font-medium leading-snug break-words text-text">
         {value}
       </dd>
     </div>

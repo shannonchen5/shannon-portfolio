@@ -140,7 +140,7 @@ function GroupMedia({
 
   if (media.kind === "image" && media.matchTextHeight && frameHeight) {
     return (
-      <div className="media-round relative w-full" style={{ height: frameHeight }}>
+      <div className="media-round relative w-full max-w-full" style={{ height: frameHeight }}>
         <Image
           src={media.src}
           alt={media.alt}
@@ -156,10 +156,10 @@ function GroupMedia({
   if (media.kind === "image") {
     return (
       <div
-        className="media-round relative w-full"
+        className="media-round relative w-full min-w-0 max-w-full"
         style={{
           aspectRatio: media.aspectRatio ?? "4 / 3",
-          maxWidth: media.maxWidth,
+          maxWidth: media.maxWidth ? `min(100%, ${media.maxWidth})` : undefined,
         }}
       >
         <Image
@@ -178,7 +178,8 @@ function GroupMedia({
   }
   const impactLaptop = media.mp4.includes("Hero%20+%20Impact");
   return (
-    <div className="relative">
+    <div className="relative min-w-0 max-w-full">
+      {impactLaptop ? <CheckPrototypeNote /> : null}
       <VideoPlayer
         mp4={media.mp4}
         webm={media.webm}
@@ -188,7 +189,6 @@ function GroupMedia({
         fit={media.fit ?? "contain"}
         objectPosition={media.objectPosition}
       />
-      {impactLaptop ? <CheckPrototypeNote /> : null}
     </div>
   );
 }
@@ -200,7 +200,7 @@ function CheckPrototypeNote() {
       alt="check prototype"
       width={460}
       height={158}
-      className="pointer-events-none absolute hidden h-auto w-52 max-w-none lg:block"
+      className="pointer-events-none mb-3 h-auto w-[min(13rem,80%)] max-w-full lg:absolute lg:mb-0 lg:w-52 lg:max-w-none"
       style={{
         right: "calc(100% - 100% * 26 / 1300)",
         top: "calc(93% - 13rem * 40 / 460)",
@@ -314,17 +314,17 @@ export function FlowMediaSection({ title, blocks }: FlowMediaSectionProps) {
   }, [groups.length]);
 
   return (
-    <div className="grid items-start gap-8 lg:grid-cols-2 lg:gap-12 xl:gap-16">
-      <div ref={columnRef}>
+    <div className="grid min-w-0 items-start gap-8 lg:grid-cols-2 lg:gap-12 xl:gap-16">
+      <div ref={columnRef} className="min-w-0">
         <h2 className="scroll-mt-[12rem] text-h2 text-plum md:scroll-mt-[11rem]">
           {title}
         </h2>
         {stats?.length ? (
-          <dl className="mt-10 grid grid-cols-2 gap-x-8 gap-y-6">
+          <dl className="mt-10 grid grid-cols-2 gap-x-6 gap-y-6 sm:gap-x-8">
             {stats.map((item) => (
-              <div key={`${item.label}-${item.value}`}>
+              <div key={`${item.label}-${item.value}`} className="min-w-0">
                 <dt className="text-eyebrow text-text-muted">{item.label}</dt>
-                <dd className="mt-2 text-h2 text-plum">{item.value}</dd>
+                <dd className="mt-2 break-words text-h2 text-plum">{item.value}</dd>
               </div>
             ))}
           </dl>
@@ -363,7 +363,7 @@ export function FlowMediaSection({ title, blocks }: FlowMediaSectionProps) {
                   </div>
                 ) : null}
                 {item.group.media ? (
-                  <div className="mt-4 lg:hidden">
+                  <div className="mt-4 min-w-0 max-w-full lg:hidden">
                     <GroupMedia media={item.group.media} />
                   </div>
                 ) : null}
@@ -373,7 +373,7 @@ export function FlowMediaSection({ title, blocks }: FlowMediaSectionProps) {
         </div>
       </div>
       <div
-        className="relative hidden lg:block"
+        className="relative hidden min-w-0 lg:block"
         style={columnHeight ? { height: columnHeight } : undefined}
       >
         {groups.map((group, index) =>

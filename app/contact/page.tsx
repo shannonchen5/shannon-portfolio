@@ -20,7 +20,7 @@ export default function ContactPage() {
       <div className="pb-16 pt-14 sm:pb-24">
         <div className="mx-auto w-full max-w-[var(--page-max)] px-[var(--page-gutter)]">
           <FadeIn>
-            <div className="grid items-start gap-14 lg:grid-cols-2 lg:gap-x-20 xl:gap-x-28">
+            <div className="grid min-w-0 items-start gap-14 lg:grid-cols-2 lg:gap-x-20 xl:gap-x-28">
               <div>
                 <p className="max-w-2xl text-body text-text-muted">
                   Have a question or want to work together? I’d love to hear from
