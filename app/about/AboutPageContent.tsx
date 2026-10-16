@@ -85,7 +85,7 @@ function StoryPhoto({
         </div>
       </div>
       {story.src.endsWith("Photography.jpg") ? (
-        <div className="relative mt-4 flex justify-center">
+        <div className="relative mt-0 flex justify-center">
           <a
             href={site.photography.href}
             target="_blank"
@@ -97,7 +97,7 @@ function StoryPhoto({
               alt="check out my"
               width={250}
               height={134}
-              className="pointer-events-none h-auto w-[min(10rem,calc(100vw-14.25rem))] max-w-none shrink md:absolute md:top-[calc(50%-10rem*50/250)] md:left-[calc(-10rem*231/250-0.9rem)] md:w-40 md:shrink-0"
+              className="pointer-events-none h-auto w-[min(10rem,calc(100vw-14.25rem))] max-w-none shrink translate-y-[8px] md:absolute md:top-[calc(50%-10rem*50/250)] md:left-[calc(-10rem*229/250-2px)] md:w-40 md:shrink-0"
             />
             {site.photography.label}
           </a>
