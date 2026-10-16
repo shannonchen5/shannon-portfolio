@@ -14,13 +14,15 @@ const LANE_G = 7;
 
 type STrackOvalProps = {
   runners?: boolean;
+  /** Letters stay on for the hero. The about headshot uses the oval alone. */
+  letters?: boolean;
 };
 
 /**
  * Mustard oval around the S and h.
  * The track paints in front of the h and behind the S.
  */
-export function STrackOval({ runners = true }: STrackOvalProps) {
+export function STrackOval({ runners = true, letters = true }: STrackOvalProps) {
   const reduced = useReducedMotion();
   const [inView, setInView] = useState(true);
   const [lap, setLap] = useState(0);
@@ -54,7 +56,7 @@ export function STrackOval({ runners = true }: STrackOvalProps) {
 
   useEffect(() => {
     const root = rootRef.current;
-    if (!root) return;
+    if (!root || !letters) return;
 
     const measure = () => {
       const frame = frameRef.current;
@@ -90,19 +92,24 @@ export function STrackOval({ runners = true }: STrackOvalProps) {
       observer.disconnect();
       window.removeEventListener("resize", measure);
     };
-  }, [lanes]);
+  }, [lanes, letters]);
 
   // Same placement as before: centered on the S and shifted right.
   // fit scales around that center so the oval does not run off the left edge.
-  const frameBox: React.CSSProperties = {
-    position: "absolute",
-    left: "50%",
-    top: "50%",
-    width: "1.7em",
-    height: "1.7em",
-    transformOrigin: "center center",
-    transform: `translate(calc(-50% + 0.16em), calc(-50% - 0.08em)) scale(${fit})`,
-  };
+  const frameBox: React.CSSProperties = letters
+    ? {
+        position: "absolute",
+        left: "50%",
+        top: "50%",
+        width: "1.7em",
+        height: "1.7em",
+        transformOrigin: "center center",
+        transform: `translate(calc(-50% + 0.16em), calc(-50% - 0.08em)) scale(${fit})`,
+      }
+    : {
+        position: "absolute",
+        inset: 0,
+      };
   const tilt: React.CSSProperties = {
     width: "100%",
     height: "100%",
@@ -113,8 +120,15 @@ export function STrackOval({ runners = true }: STrackOvalProps) {
   const rest = 0.26;
 
   return (
-    <span ref={rootRef} className="relative isolate inline-block align-baseline">
-      <span className="relative inline-block">
+    <span
+      ref={rootRef}
+      className={
+        letters
+          ? "relative isolate inline-block align-baseline"
+          : "relative block h-full w-full"
+      }
+    >
+      <span className={letters ? "relative inline-block" : "relative block h-full w-full"}>
         <span
           ref={frameRef}
           aria-hidden
@@ -141,7 +155,7 @@ export function STrackOval({ runners = true }: STrackOvalProps) {
           </span>
         </span>
 
-        <span className="relative z-20">S</span>
+        {letters ? <span className="relative z-20">S</span> : null}
 
         {runners ? (
           <span className="z-30" style={frameBox}>
@@ -178,7 +192,7 @@ export function STrackOval({ runners = true }: STrackOvalProps) {
           </span>
         ) : null}
       </span>
-      <span className="relative z-0">h</span>
+      {letters ? <span className="relative z-0">h</span> : null}
     </span>
   );
 }

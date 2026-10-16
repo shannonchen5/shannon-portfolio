@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import { STrackOval } from "@/components/home/STrackOval";
 import { Button } from "@/components/ui/Button";
 import { FadeIn } from "@/components/ui/FadeIn";
 import { HeroTitle } from "@/components/ui/HeroTitle";
@@ -53,7 +54,7 @@ function StoryPhoto({
       )}
     >
       <div
-        className="rounded-[var(--radius-media)] shadow-[var(--shadow-warm)]"
+        className="relative rounded-[var(--radius-media)] shadow-[var(--shadow-warm)]"
         style={{ transform: `rotate(${story.angle}deg)` }}
       >
         <div className="media-round relative w-full">
@@ -66,6 +67,21 @@ function StoryPhoto({
             sizes="(max-width: 768px) 70vw, 208px"
           />
         </div>
+        {story.src.endsWith("Headshot.jpg") ? (
+          <div
+            className="absolute z-20"
+            style={{
+              width: "10.5rem",
+              height: "10.5rem",
+              top: "-7.74rem",
+              right: "-5.14rem",
+              transform: "rotate(72deg)",
+              transformOrigin: "32% 62%",
+            }}
+          >
+            <STrackOval letters={false} />
+          </div>
+        ) : null}
       </div>
       {story.src.endsWith("Photography.jpg") ? (
         <div className="relative mt-4 flex justify-center">
