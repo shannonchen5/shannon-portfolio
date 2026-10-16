@@ -16,9 +16,12 @@ export function MobileMenu() {
   const menuId = useId();
 
   useEffect(() => {
-    document.body.style.overflow = open ? "hidden" : "";
+    // Lock the document element, not the body. Overflow on the body breaks
+    // the sticky nav, which leaves a gap of page content above the menu.
+    const root = document.documentElement;
+    root.style.overflow = open ? "hidden" : "";
     return () => {
-      document.body.style.overflow = "";
+      root.style.overflow = "";
     };
   }, [open]);
 

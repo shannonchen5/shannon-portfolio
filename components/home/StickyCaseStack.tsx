@@ -176,7 +176,7 @@ export function StickyCaseStack({ studies, title }: StickyCaseStackProps) {
         );
       })}
       {/* Keeps the last study seated under the header, then the whole stack can leave. */}
-      {reduced ? null : <div aria-hidden className="h-[36vh]" />}
+      {reduced ? null : <div aria-hidden className="hidden h-[36vh] md:block" />}
     </section>
     </div>
   );
