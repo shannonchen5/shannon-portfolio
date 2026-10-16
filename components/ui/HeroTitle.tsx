@@ -22,7 +22,7 @@ export function HeroTitle({ children }: HeroTitleProps) {
               className="invisible col-start-1 row-start-1 whitespace-nowrap"
               aria-hidden
             >
-              Shannon Chen&apos;s
+              Shannon Chen
             </span>
             <span className="col-start-1 row-start-1 whitespace-nowrap pb-[0.06em]">
               {children}

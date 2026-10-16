@@ -270,7 +270,7 @@
   }
 
   .text-hero {
-    /* Sized so "Shannon Chen's" stays inside the page gutter; the S-track may still spill left. */
+    /* Sized so "Shannon Chen" stays inside the page gutter; the S-track may still spill left. */
     font-size: clamp(1.65rem, 9vw, 8.5rem);
     font-weight: 700;
     letter-spacing: -0.035em;
@@ -281,6 +281,14 @@
   @container (min-width: 1px) {
     .text-hero {
       font-size: clamp(1.65rem, 10.25cqi, 8.5rem);
+    }
+  }
+
+  /* Stacked hero: "Shannon Chen" fills the content width inside the page gutter. */
+  @container (max-width: 39.99rem) {
+    .hero-name {
+      font-size: 15.15cqi;
+      letter-spacing: -0.035em;
     }
   }
 

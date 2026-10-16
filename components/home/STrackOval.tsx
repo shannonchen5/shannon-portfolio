@@ -18,13 +18,16 @@ type STrackOvalProps = {
 
 /**
  * Mustard oval around the S and h.
- * The track sits behind the S and in front of the h.
+ * The track paints in front of the h and behind the S.
  */
 export function STrackOval({ runners = true }: STrackOvalProps) {
   const reduced = useReducedMotion();
   const [inView, setInView] = useState(true);
   const [lap, setLap] = useState(0);
+  const [fit, setFit] = useState(1);
   const rootRef = useRef<HTMLSpanElement>(null);
+  const frameRef = useRef<HTMLSpanElement>(null);
+  const fitRef = useRef(1);
   const started = useRef(false);
 
   const lanes = useMemo(
@@ -49,14 +52,56 @@ export function STrackOval({ runners = true }: STrackOvalProps) {
     setLap(1);
   }, [reduced, inView]);
 
-  // Shifted left of the S so the oval clears the “a” and enters the margin.
+  useEffect(() => {
+    const root = rootRef.current;
+    if (!root) return;
+
+    const measure = () => {
+      const frame = frameRef.current;
+      if (!frame) return;
+      const pad = 2;
+      let minL = Infinity;
+      root.querySelectorAll("path").forEach((node) => {
+        const stroke = getComputedStyle(node).stroke;
+        if (!stroke || stroke === "none" || stroke === "transparent") return;
+        const box = node.getBoundingClientRect();
+        if (!box.width && !box.height) return;
+        minL = Math.min(minL, box.left);
+      });
+      if (!Number.isFinite(minL)) return;
+
+      const bounds = frame.getBoundingClientRect();
+      const center = bounds.left + bounds.width / 2;
+      const current = fitRef.current;
+      const naturalLeft = center + (minL - center) / current;
+      const next =
+        naturalLeft >= pad ? 1 : (pad - center) / (naturalLeft - center);
+      if (!Number.isFinite(next) || next <= 0) return;
+      if (Math.abs(next - current) < 0.01) return;
+      fitRef.current = next;
+      setFit(next);
+    };
+
+    measure();
+    const observer = new ResizeObserver(measure);
+    observer.observe(root);
+    window.addEventListener("resize", measure);
+    return () => {
+      observer.disconnect();
+      window.removeEventListener("resize", measure);
+    };
+  }, [lanes]);
+
+  // Same placement as before: centered on the S and shifted right.
+  // fit scales around that center so the oval does not run off the left edge.
   const frameBox: React.CSSProperties = {
     position: "absolute",
     left: "50%",
     top: "50%",
     width: "1.7em",
     height: "1.7em",
-    transform: "translate(calc(-50% + 0.05em), -50%)",
+    transformOrigin: "center center",
+    transform: `translate(calc(-50% + 0.28em), -50%) scale(${fit})`,
   };
   const tilt: React.CSSProperties = {
     width: "100%",
@@ -65,13 +110,17 @@ export function STrackOval({ runners = true }: STrackOvalProps) {
     transformOrigin: "center center",
   };
   const lane = lanes[1] ?? lanes[0];
-  // Rest on the top-right of the tilted oval.
   const rest = 0.26;
 
   return (
-    <span ref={rootRef} className="relative inline-block align-baseline">
+    <span ref={rootRef} className="relative isolate inline-block align-baseline">
       <span className="relative inline-block">
-        <span aria-hidden className="pointer-events-none z-0" style={frameBox}>
+        <span
+          ref={frameRef}
+          aria-hidden
+          className="pointer-events-none z-10"
+          style={frameBox}
+        >
           <span className="block" style={tilt}>
             <svg viewBox={OVAL_LOOP.viewBox} className="h-full w-full overflow-visible">
               <OvalLanes paths={lanes} draw={!reduced} paused={!inView} />
@@ -92,34 +141,10 @@ export function STrackOval({ runners = true }: STrackOvalProps) {
           </span>
         </span>
 
-        <span className="relative z-10">S</span>
+        <span className="relative z-20">S</span>
 
-        <span className="z-20" style={frameBox}>
-          <span
-            aria-hidden
-            className="pointer-events-none absolute inset-0"
-            style={{ clipPath: "inset(0 0 0 65%)" }}
-          >
-            <span className="block h-full w-full" style={tilt}>
-              <svg viewBox={OVAL_LOOP.viewBox} className="h-full w-full overflow-visible">
-                <OvalLanes paths={lanes} draw={!reduced} paused={!inView} />
-                {runners ? (
-                  <LaneRunner
-                    pathD={lane}
-                    label="Runner on the track"
-                    color="#1a1a1a"
-                    speed={2.8}
-                    paused={!inView || !!reduced}
-                    size={78}
-                    lapSignal={lap}
-                    interactive={false}
-                    rest={rest}
-                  />
-                ) : null}
-              </svg>
-            </span>
-          </span>
-          {runners ? (
+        {runners ? (
+          <span className="z-30" style={frameBox}>
             <span className="absolute inset-0" style={tilt}>
               <svg viewBox={OVAL_LOOP.viewBox} className="h-full w-full overflow-visible">
                 <path
@@ -150,10 +175,10 @@ export function STrackOval({ runners = true }: STrackOvalProps) {
                 />
               </svg>
             </span>
-          ) : null}
-        </span>
+          </span>
+        ) : null}
       </span>
-      <span className="relative z-10">h</span>
+      <span className="relative z-0">h</span>
     </span>
   );
 }
