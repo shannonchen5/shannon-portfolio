@@ -46,42 +46,43 @@ function StoryPhoto({
   className?: string;
 }) {
   return (
-    <div
-      className={cn(
-        className,
-        "w-[min(13rem,70%)] md:w-full",
-        story.side === "right" ? "ml-auto" : "mr-auto",
-      )}
-    >
+    <div className={cn(className, "w-full min-w-0")}>
       <div
-        className="relative rounded-[var(--radius-media)] shadow-[var(--shadow-warm)]"
-        style={{ transform: `rotate(${story.angle}deg)` }}
+        className={cn(
+          "mx-auto w-[min(13rem,70%)] md:w-full",
+          story.side === "right" ? "md:mr-0 md:ml-auto" : "md:ml-0 md:mr-auto",
+        )}
       >
-        <div className="media-round relative w-full">
-          <Image
-            src={story.src}
-            alt={story.alt}
-            width={story.width}
-            height={story.height}
-            className="h-auto w-full"
-            sizes="(max-width: 768px) 70vw, 208px"
-          />
-        </div>
-        {story.src.endsWith("Headshot.jpg") ? (
-          <div
-            className="absolute z-20"
-            style={{
-              width: "10.5rem",
-              height: "10.5rem",
-              top: "-7.74rem",
-              right: "-5.14rem",
-              transform: "rotate(72deg)",
-              transformOrigin: "32% 62%",
-            }}
-          >
-            <STrackOval letters={false} />
+        <div
+          className="relative rounded-[var(--radius-media)] shadow-[var(--shadow-warm)]"
+          style={{ transform: `rotate(${story.angle}deg)` }}
+        >
+          <div className="media-round relative w-full">
+            <Image
+              src={story.src}
+              alt={story.alt}
+              width={story.width}
+              height={story.height}
+              className="h-auto w-full"
+              sizes="(max-width: 768px) 70vw, 208px"
+            />
           </div>
-        ) : null}
+          {story.src.endsWith("Headshot.jpg") ? (
+            <div
+              className="absolute z-20"
+              style={{
+                width: "10.5rem",
+                height: "10.5rem",
+                top: "-7.74rem",
+                right: "-5.14rem",
+                transform: "rotate(72deg)",
+                transformOrigin: "32% 62%",
+              }}
+            >
+              <STrackOval letters={false} />
+            </div>
+          ) : null}
+        </div>
       </div>
       {story.src.endsWith("Photography.jpg") ? (
         <div className="relative mt-4 flex justify-center">
@@ -89,20 +90,16 @@ function StoryPhoto({
             href={site.photography.href}
             target="_blank"
             rel="noopener noreferrer"
-            className="relative z-10 w-fit text-center text-sm font-semibold text-text underline decoration-current underline-offset-4 transition-colors hover:text-plum"
+            className="relative z-10 inline-flex max-w-full items-center text-center text-sm font-semibold whitespace-nowrap text-text underline decoration-current underline-offset-4 transition-colors hover:text-plum"
           >
-            {site.photography.label}
             <img
               src="/media/about/check%20out%20my.png?v=2"
               alt="check out my"
               width={250}
               height={134}
-              className="pointer-events-none absolute h-auto w-40 max-w-none"
-              style={{
-                left: "calc(-10rem * 231 / 250 - 0.9rem)",
-                top: "calc(50% - 10rem * 50 / 250)",
-              }}
+              className="pointer-events-none h-auto w-[min(10rem,calc(100vw-14.25rem))] max-w-none shrink md:absolute md:top-[calc(50%-10rem*50/250)] md:left-[calc(-10rem*231/250-0.9rem)] md:w-40 md:shrink-0"
             />
+            {site.photography.label}
           </a>
         </div>
       ) : null}
@@ -123,7 +120,7 @@ export function AboutPageContent() {
                 <article
                   key={story.src}
                   className={cn(
-                    "grid min-w-0 items-center gap-6 md:gap-x-8",
+                    "grid min-w-0 items-center max-md:gap-16 sm:max-md:gap-20 md:gap-x-8",
                     story.side === "right"
                       ? "md:grid-cols-[minmax(0,1fr)_13rem]"
                       : "md:grid-cols-[13rem_minmax(0,1fr)]",
