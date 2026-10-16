@@ -22,7 +22,20 @@ export function HeroSection({
           <h1 className="hero-name max-w-full text-plum">
             <span className="relative block overflow-visible whitespace-nowrap">
               <STrackOval />
-              annon Chen
+              <span className="relative">
+                an
+                <img
+                  src="/media/Home/tap.png?v=2"
+                  alt=""
+                  width={368}
+                  height={139}
+                  aria-hidden
+                  draggable={false}
+                  className="pointer-events-none absolute left-[-0.16em] z-10 h-auto w-[1.35em] max-w-none"
+                  style={{ bottom: "calc(1.02em + 8px)" }}
+                />
+              </span>
+              non Chen
             </span>
           </h1>
 
