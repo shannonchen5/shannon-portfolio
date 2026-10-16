@@ -101,7 +101,7 @@ export function STrackOval({ runners = true }: STrackOvalProps) {
     width: "1.7em",
     height: "1.7em",
     transformOrigin: "center center",
-    transform: `translate(calc(-50% + 0.28em), -50%) scale(${fit})`,
+    transform: `translate(calc(-50% + 0.16em), calc(-50% - 0.08em)) scale(${fit})`,
   };
   const tilt: React.CSSProperties = {
     width: "100%",
