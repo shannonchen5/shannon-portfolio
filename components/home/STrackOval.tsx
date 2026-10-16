@@ -7,6 +7,7 @@ import {
   OVAL_LOOP,
   TRACK_COLORS,
   buildAllLanePaths,
+  type TrackDefinition,
 } from "@/lib/track-geometry";
 
 const LANE_W = 7;
@@ -14,15 +15,27 @@ const LANE_G = 7;
 
 type STrackOvalProps = {
   runners?: boolean;
-  /** Letters stay on for the hero. The about headshot uses the oval alone. */
+  /** Letters stay on for the hero. The about photos use the track alone. */
   letters?: boolean;
+  /** Closed loop. Defaults to the hero oval. */
+  track?: TrackDefinition;
+  /** Where the runner rests, as a fraction of the lap. */
+  rest?: number;
+  /** Standing pose. Used only while she is still. */
+  restPose?: { lean: number; view?: "side" | "front" | "back" };
 };
 
 /**
  * Mustard oval around the S and h.
  * The track paints in front of the h and behind the S.
  */
-export function STrackOval({ runners = true, letters = true }: STrackOvalProps) {
+export function STrackOval({
+  runners = true,
+  letters = true,
+  track = OVAL_LOOP,
+  rest = 0.26,
+  restPose,
+}: STrackOvalProps) {
   const reduced = useReducedMotion();
   const [inView, setInView] = useState(true);
   const [lap, setLap] = useState(0);
@@ -33,8 +46,11 @@ export function STrackOval({ runners = true, letters = true }: STrackOvalProps) 
   const started = useRef(false);
 
   const lanes = useMemo(
-    () => buildAllLanePaths(OVAL_LOOP.segments, 3, LANE_W, LANE_G),
-    [],
+    () =>
+      track.lanePaths
+        ? [...track.lanePaths]
+        : buildAllLanePaths(track.segments, 3, LANE_W, LANE_G),
+    [track],
   );
 
   useEffect(() => {
@@ -117,7 +133,6 @@ export function STrackOval({ runners = true, letters = true }: STrackOvalProps) 
     transformOrigin: "center center",
   };
   const lane = lanes[1] ?? lanes[0];
-  const rest = 0.26;
 
   return (
     <span
@@ -136,7 +151,7 @@ export function STrackOval({ runners = true, letters = true }: STrackOvalProps) 
           style={frameBox}
         >
           <span className="block" style={tilt}>
-            <svg viewBox={OVAL_LOOP.viewBox} className="h-full w-full overflow-visible">
+            <svg viewBox={track.viewBox} className="h-full w-full overflow-visible">
               <OvalLanes paths={lanes} draw={!reduced} paused={!inView} />
               {runners ? (
                 <LaneRunner
@@ -149,6 +164,7 @@ export function STrackOval({ runners = true, letters = true }: STrackOvalProps) 
                   lapSignal={lap}
                   interactive={false}
                   rest={rest}
+                  restPose={restPose}
                 />
               ) : null}
             </svg>
@@ -160,7 +176,7 @@ export function STrackOval({ runners = true, letters = true }: STrackOvalProps) 
         {runners ? (
           <span className="z-30" style={frameBox}>
             <span className="absolute inset-0" style={tilt}>
-              <svg viewBox={OVAL_LOOP.viewBox} className="h-full w-full overflow-visible">
+              <svg viewBox={track.viewBox} className="h-full w-full overflow-visible">
                 <path
                   d={lane}
                   fill="none"

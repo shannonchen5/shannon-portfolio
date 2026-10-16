@@ -21,6 +21,11 @@ export type TrackDefinition = {
   /** Default stroke color for this design */
   color: string;
   closed?: boolean;
+  /**
+   * Prebuilt lane paths. Used when the centerline is a smooth squiggle and
+   * the lanes are a constant-distance offset, so they stay parallel.
+   */
+  lanePaths?: readonly string[];
 };
 
 function dist(a: Point, b: Point) {
@@ -255,9 +260,72 @@ export const FOOTER_SWEEP: TrackDefinition = {
   ],
 };
 
+function squiggleCenterline(count = 280): Point[] {
+  const points: Point[] = [];
+  for (let i = 0; i < count; i += 1) {
+    const theta = (i / count) * Math.PI * 2;
+    // Four lobes, plus a slower swell, so the loop changes direction more often.
+    const wave =
+      1 +
+      0.17 * Math.sin(4 * theta + 0.35) +
+      0.055 * Math.sin(2 * theta + 1.1);
+    points.push({
+      x: 240 + 146 * wave * Math.cos(theta),
+      y: 140 + 84 * wave * Math.sin(theta),
+    });
+  }
+  return points;
+}
+
+/** Offset a closed polyline by a constant distance so lanes stay parallel. */
+function offsetClosedPath(points: Point[], offset: number): string {
+  const count = points.length;
+  const fmt = (value: number) => Math.round(value * 100) / 100;
+  const shifted = points.map((point, index) => {
+    const prev = points[(index - 1 + count) % count];
+    const next = points[(index + 1) % count];
+    const dx = next.x - prev.x;
+    const dy = next.y - prev.y;
+    const length = Math.hypot(dx, dy) || 1;
+    return {
+      x: point.x + (-dy / length) * offset,
+      y: point.y + (dx / length) * offset,
+    };
+  });
+  return `M ${fmt(shifted[0].x)} ${fmt(shifted[0].y)} ${shifted
+    .slice(1)
+    .map((point) => `L ${fmt(point.x)} ${fmt(point.y)}`)
+    .join(" ")} Z`;
+}
+
+const SQUIGGLE_POINTS = squiggleCenterline();
+
+/**
+ * Closed squiggle in the oval's viewBox. Lanes are a fixed offset of one
+ * centerline, so the gap between them never changes.
+ */
+export const SQUIGGLE_LOOP: TrackDefinition = {
+  id: "squiggle-loop",
+  name: "Squiggle Loop",
+  color: TRACK_COLORS.mustard,
+  closed: true,
+  viewBox: "0 0 480 280",
+  segments: [
+    { type: "move", to: SQUIGGLE_POINTS[0] },
+    ...SQUIGGLE_POINTS.slice(1).map(
+      (to): TrackSegment => ({ type: "line", to }),
+    ),
+    { type: "line", to: SQUIGGLE_POINTS[0] },
+  ],
+  lanePaths: laneOffsets(3, 7, 7).map((offset) =>
+    offsetClosedPath(SQUIGGLE_POINTS, offset),
+  ),
+};
+
 /** All authored track designs (for export / gallery). */
 export const TRACK_DESIGNS = [
   OVAL_LOOP,
+  SQUIGGLE_LOOP,
   TRACK_VERTICAL,
   TRACK_HORIZONTAL,
   CORNER_SWEEP,

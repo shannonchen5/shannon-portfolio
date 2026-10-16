@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import { STrackOval } from "@/components/home/STrackOval";
+import { SQUIGGLE_LOOP } from "@/lib/track-geometry";
 import { Button } from "@/components/ui/Button";
 import { FadeIn } from "@/components/ui/FadeIn";
 import { HeroTitle } from "@/components/ui/HeroTitle";
@@ -80,6 +81,27 @@ function StoryPhoto({
               }}
             >
               <STrackOval letters={false} />
+            </div>
+          ) : null}
+          {story.src.endsWith("Run.jpg") ? (
+            <div
+              className="absolute z-20"
+              style={{
+                width: "10.5rem",
+                height: "10.5rem",
+                top: "-7.74rem",
+                left: "-5.14rem",
+                transform: "rotate(-72deg)",
+                transformOrigin: "68% 62%",
+              }}
+            >
+              <STrackOval
+                letters={false}
+                track={SQUIGGLE_LOOP}
+                rest={0.034}
+                // Photo -2.5, wrapper -72, and the track's own -28. This stands her up.
+                restPose={{ lean: 102.5 }}
+              />
             </div>
           ) : null}
         </div>

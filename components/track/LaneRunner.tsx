@@ -22,6 +22,8 @@ type LaneRunnerProps = {
   interactive?: boolean;
   /** Where she rests, as a fraction of the lap. 0 is the path start. */
   rest?: number;
+  /** Standing pose. Used only while she is still; a lap follows the path. */
+  restPose?: { lean: number; view?: "side" | "front" | "back" };
 };
 
 export function LaneRunner({
@@ -34,6 +36,7 @@ export function LaneRunner({
   lapSignal = 0,
   interactive = true,
   rest = 0,
+  restPose,
 }: LaneRunnerProps) {
   const pathRef = useRef<SVGPathElement>(null);
   const rootRef = useRef<SVGGElement>(null);
@@ -45,10 +48,12 @@ export function LaneRunner({
   const pausedRef = useRef(paused);
   const reducedRef = useRef(reduced);
   const restRef = useRef(rest);
+  const restPoseRef = useRef(restPose);
   const speedRef = useRef(speed);
   pausedRef.current = paused;
   reducedRef.current = reduced;
   restRef.current = rest;
+  restPoseRef.current = restPose;
   speedRef.current = speed;
   const uid = useId();
 
@@ -63,7 +68,11 @@ export function LaneRunner({
       const ahead = path.getPointAtLength((d + 8) % length);
       const angle = Math.atan2(ahead.y - p.y, ahead.x - p.x);
 
-      const pose = poseFromHeading(angle);
+      const still = restPoseRef.current;
+      const pose =
+        !runningRef.current && still
+          ? { view: still.view ?? "side", lean: still.lean }
+          : poseFromHeading(angle);
       const gait = runningRef.current ? Math.floor(d / 18) % 4 : 0;
       const nextFrame = pose.view === "side" ? gait : gait % 2;
       rootRef.current?.setAttribute("transform", `translate(${p.x} ${p.y})`);
