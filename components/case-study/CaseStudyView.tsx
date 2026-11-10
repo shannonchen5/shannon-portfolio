@@ -6,6 +6,7 @@ import type { CaseStudy, CaseStudySection, HeroVideo } from "@/content/case-stud
 import { BlockRenderer } from "./blocks/BlockRenderer";
 import { VideoPlayer } from "./blocks/VideoPlayer";
 import { CaseStudyBrand } from "./CaseStudyBrand";
+import { CaseStudyHero } from "./CaseStudyHero";
 import { FlowMediaSection } from "./FlowMediaSection";
 import { ProgressTimeline } from "./ProgressTimeline";
 import { Button } from "@/components/ui/Button";
@@ -33,7 +34,7 @@ export function CaseStudyView({ study, next }: CaseStudyViewProps) {
         />
       ) : null}
       <CaseStudyBrand brand={study.brand} />
-      <header className="relative z-0 mx-auto flex w-full max-w-[var(--page-max)] flex-col justify-start px-[var(--page-gutter)] pb-8 pt-6 sm:pt-8 lg:sticky lg:top-16 lg:min-h-[calc(100dvh-4rem)] lg:pb-10 lg:pt-8">
+      <CaseStudyHero>
         <div className="grid w-full min-w-0 items-center gap-10 lg:grid-cols-[minmax(0,1.2fr)_minmax(0,1fr)] lg:gap-x-16 xl:gap-x-20">
           <div className="@container min-w-0">
             <h1
@@ -63,7 +64,7 @@ export function CaseStudyView({ study, next }: CaseStudyViewProps) {
             ) : null}
           </div>
         </div>
-      </header>
+      </CaseStudyHero>
 
       {/* Opaque sheet scrolls up over the stuck hero; the timeline pins under the nav. */}
       <div className="relative z-10 bg-bg">

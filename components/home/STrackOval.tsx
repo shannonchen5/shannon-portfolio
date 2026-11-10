@@ -37,7 +37,7 @@ export function STrackOval({
   restPose,
 }: STrackOvalProps) {
   const reduced = useReducedMotion();
-  const [inView, setInView] = useState(true);
+  const [inView, setInView] = useState(false);
   const [lap, setLap] = useState(0);
   const [fit, setFit] = useState(1);
   const rootRef = useRef<HTMLSpanElement>(null);
@@ -174,9 +174,9 @@ export function STrackOval({
         {letters ? <span className="relative z-20">S</span> : null}
 
         {runners ? (
-          <span className="z-30" style={frameBox}>
-            <span className="absolute inset-0" style={tilt}>
-              <svg viewBox={track.viewBox} className="h-full w-full overflow-visible">
+          <span className="pointer-events-none z-30" style={frameBox}>
+            <span className="pointer-events-none absolute inset-0" style={tilt}>
+              <svg viewBox={track.viewBox} className="pointer-events-none h-full w-full overflow-visible">
                 <path
                   d={lane}
                   fill="none"

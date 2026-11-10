@@ -298,6 +298,70 @@ function offsetClosedPath(points: Point[], offset: number): string {
     .join(" ")} Z`;
 }
 
+/**
+ * Wavy closed loop with a single sharp point. Shifted so the hole's center
+ * sits at the viewBox center, which is what gets pinned to a photo corner.
+ */
+function cornerSquiggle(): Point[] {
+  const count = 220;
+  const spikeAt = -0.85;
+  const half = 0.55;
+  const points: Point[] = [];
+  for (let index = 0; index < count; index += 1) {
+    const theta = (index / count) * Math.PI * 2;
+    let delta = theta - spikeAt;
+    while (delta > Math.PI) delta -= Math.PI * 2;
+    while (delta < -Math.PI) delta += Math.PI * 2;
+    let radius =
+      1 +
+      0.22 * Math.sin(2 * theta + 0.4) +
+      0.1 * Math.sin(3 * theta + 1.2);
+    const u = Math.abs(delta) / half;
+    if (u < 1) radius += 0.42 * (1 - u) ** 2;
+    points.push({
+      x: radius * Math.cos(theta),
+      y: radius * Math.sin(theta) * 0.8,
+    });
+  }
+
+  let area = 0;
+  let cx = 0;
+  let cy = 0;
+  for (let index = 0; index < points.length; index += 1) {
+    const current = points[index];
+    const next = points[(index + 1) % points.length];
+    const cross = current.x * next.y - next.x * current.y;
+    area += cross;
+    cx += (current.x + next.x) * cross;
+    cy += (current.y + next.y) * cross;
+  }
+  area /= 2;
+  cx /= 6 * area;
+  cy /= 6 * area;
+  for (const point of points) {
+    point.x -= cx;
+    point.y -= cy;
+  }
+
+  let minX = Infinity;
+  let minY = Infinity;
+  let maxX = -Infinity;
+  let maxY = -Infinity;
+  for (const point of points) {
+    minX = Math.min(minX, point.x);
+    minY = Math.min(minY, point.y);
+    maxX = Math.max(maxX, point.x);
+    maxY = Math.max(maxY, point.y);
+  }
+  const scale = Math.min(400 / (maxX - minX), 210 / (maxY - minY));
+  return points.map((point) => ({
+    x: 240 + point.x * scale,
+    y: 140 + point.y * scale,
+  }));
+}
+
+const CORNER_SQUIGGLE_POINTS = cornerSquiggle();
+
 const SQUIGGLE_POINTS = squiggleCenterline();
 
 /**
@@ -322,10 +386,29 @@ export const SQUIGGLE_LOOP: TrackDefinition = {
   ),
 };
 
+export const CORNER_SQUIGGLE: TrackDefinition = {
+  id: "corner-squiggle",
+  name: "Corner Squiggle",
+  color: TRACK_COLORS.mustard,
+  closed: true,
+  viewBox: "0 0 480 280",
+  segments: [
+    { type: "move", to: CORNER_SQUIGGLE_POINTS[0] },
+    ...CORNER_SQUIGGLE_POINTS.slice(1).map(
+      (to): TrackSegment => ({ type: "line", to }),
+    ),
+    { type: "line", to: CORNER_SQUIGGLE_POINTS[0] },
+  ],
+  lanePaths: laneOffsets(3, 7, 7).map((offset) =>
+    offsetClosedPath(CORNER_SQUIGGLE_POINTS, offset),
+  ),
+};
+
 /** All authored track designs (for export / gallery). */
 export const TRACK_DESIGNS = [
   OVAL_LOOP,
   SQUIGGLE_LOOP,
+  CORNER_SQUIGGLE,
   TRACK_VERTICAL,
   TRACK_HORIZONTAL,
   CORNER_SWEEP,

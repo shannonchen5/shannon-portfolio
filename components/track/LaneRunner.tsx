@@ -155,13 +155,27 @@ export function LaneRunner({
         }
       />
 
-      <g ref={rootRef} className="pointer-events-none">
+      <g ref={rootRef}>
         <g
           ref={poseRef}
           aria-hidden
           data-view="side"
           transform={`rotate(0) scale(${size / 72})`}
         >
+          <rect
+            x={-40}
+            y={-72}
+            width={80}
+            height={78}
+            fill="transparent"
+            pointerEvents={reduced ? "none" : "all"}
+            className={reduced ? undefined : "cursor-pointer"}
+            onClick={(event) => {
+              event.preventDefault();
+              event.stopPropagation();
+              start();
+            }}
+          />
           {(["side", "front", "back"] as const).map((pose) =>
             (pose === "side" ? [0, 1, 2, 3] : [0, 1]).map((step) => (
               <g

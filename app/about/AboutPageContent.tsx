@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { STrackOval } from "@/components/home/STrackOval";
-import { SQUIGGLE_LOOP } from "@/lib/track-geometry";
+import { CORNER_SQUIGGLE, SQUIGGLE_LOOP } from "@/lib/track-geometry";
 import { Button } from "@/components/ui/Button";
 import { FadeIn } from "@/components/ui/FadeIn";
 import { HeroTitle } from "@/components/ui/HeroTitle";
@@ -50,7 +50,7 @@ function StoryPhoto({
     <div className={cn(className, "w-full min-w-0")}>
       <div
         className={cn(
-          "mx-auto w-[min(13rem,70%)] md:w-full",
+          "mx-auto w-[min(13rem,70%)] pt-12 md:w-full",
           story.side === "right" ? "md:mr-0 md:ml-auto" : "md:ml-0 md:mr-auto",
         )}
       >
@@ -70,12 +70,10 @@ function StoryPhoto({
           </div>
           {story.src.endsWith("Headshot.jpg") ? (
             <div
-              className="absolute z-20"
+              className="absolute z-20 top-[-7.74rem] right-[-5.14rem]"
               style={{
                 width: "10.5rem",
                 height: "10.5rem",
-                top: "-7.74rem",
-                right: "-5.14rem",
                 transform: "rotate(72deg)",
                 transformOrigin: "32% 62%",
               }}
@@ -85,12 +83,10 @@ function StoryPhoto({
           ) : null}
           {story.src.endsWith("Run.jpg") ? (
             <div
-              className="absolute z-20"
+              className="absolute z-20 top-[-7.74rem] left-[-5.14rem]"
               style={{
                 width: "10.5rem",
                 height: "10.5rem",
-                top: "-7.74rem",
-                left: "-5.14rem",
                 transform: "rotate(-72deg)",
                 transformOrigin: "68% 62%",
               }}
@@ -104,10 +100,25 @@ function StoryPhoto({
               />
             </div>
           ) : null}
+          {story.src.endsWith("Photography.jpg") ? (
+            <div
+              className="absolute z-20 top-[-5.25rem] right-[-5.25rem] h-[10.5rem] w-[10.5rem]"
+              style={{ transform: "rotate(31deg)", transformOrigin: "center" }}
+            >
+              {/* Hole center is the box center, so the box is centered on the corner. */}
+              <STrackOval
+                letters={false}
+                track={CORNER_SQUIGGLE}
+                rest={0.659}
+                // Photo +2, wrapper +31, and the track's own -28. This stands her up.
+                restPose={{ lean: -5 }}
+              />
+            </div>
+          ) : null}
         </div>
       </div>
       {story.src.endsWith("Photography.jpg") ? (
-        <div className="relative mt-0 flex justify-center">
+        <div className="relative mt-6 flex justify-center">
           <a
             href={site.photography.href}
             target="_blank"
@@ -119,7 +130,7 @@ function StoryPhoto({
               alt="check out my"
               width={250}
               height={134}
-              className="pointer-events-none h-auto w-[min(10rem,calc(100vw-14.25rem))] max-w-none shrink translate-y-[8px] md:absolute md:top-[calc(50%-10rem*50/250)] md:left-[calc(-10rem*229/250-2px)] md:w-40 md:shrink-0"
+              className="pointer-events-none h-auto w-[min(10rem,calc(100vw-14.25rem))] max-w-none shrink translate-y-[4px] md:absolute md:top-[calc(50%-10rem*50/250-4px)] md:left-[calc(-10rem*229/250-0.85rem)] md:w-40 md:shrink-0"
             />
             {site.photography.label}
           </a>
